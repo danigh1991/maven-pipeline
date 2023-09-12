@@ -1,0 +1,146 @@
+﻿<section class="content-header">
+    <h1>
+        {{'userProfile.title' | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{'userProfile.title' | translate}}</li>
+    </ol>
+    <style>
+        .input-group-addon {
+            min-width: 95px;
+        }
+    </style>
+</section>
+
+<section class="content col-xs-12" ng-form="myForm">
+
+    <div style="padding-bottom:20px;text-align: center;">
+        <div style="display: inline-block;position: relative">
+            <div style="position:absolute;top:0;left:0;z-index:1000">
+                <button type="button" class="btn btn-warning btn-xs act-on-pic" ng-click="changeUserImage()">
+                    <span class="glyphicon glyphicon-edit"></span>{{'common.edit' | translate}}
+                </button>
+            </div>
+            <img class="disimage" ng-src="{{userPic}}" style="max-width: 150px;border-radius: 50%"/>
+        </div>
+    </div>
+
+    <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12" ng-if="configs.affiliateState == '1'">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control ltr-input" id="affiliateCode" name="affiliateCode" required autofocus placeholder=" "
+                   data-ng-model="result.affiliateCode" ng-disabled="true"/>
+            <label for="username">{{'userProfile.yourAffiliateCode' | translate}}</label>
+        </div>
+    </div>
+
+    <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control ltr-input" id="username" name="username" required autofocus placeholder=" "
+                   data-ng-model="result.username" ng-disabled="true"/>
+            <label for="username">{{'common.userName' | translate}} *</label>
+        </div>
+        <span message-type ng-show="myForm.username.$error.required && showError" translate="validate.requiredMessage" translate-values="{element: '{{'common.userName' | translate}}'}"></span>
+    </div>
+
+    <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control" id="firstName" name="firstName" required autofocus placeholder=" "
+                   data-ng-model="result.firstName"/>
+            <label for="firstName">{{'common.name' | translate}} *</label>
+        </div>
+        <span message-type ng-show="myForm.firstName.$error.required && showError" translate="validate.requiredMessage" translate-values="{element: '{{'common.name' | translate}}'}"></span>
+    </div>
+
+    <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control" id="lastName" name="lastName" required autofocus placeholder=" "
+                   data-ng-model="result.lastName"/>
+            <label for="lastName">{{'common.family' | translate}} *</label>
+        </div>
+        <span message-type
+              ng-show="myForm.lastName.$error.required && showError" translate="validate.requiredMessage" translate-values="{element: '{{'common.family' | translate}}'}"></span>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <!--<input type="text" class="form-control ltr-input" my-pattern="^[0][9][0-9][0-9]{8,8}$"--><!--pattern Should read from setting or country-->
+            <input type="text" class="form-control ltr-input"
+                   placeholder="09125555555" name="mobileNumber" id="mobileNumber" required numbers-only autofocus
+                   data-ng-model="result.mobileNumber"/>
+            <label for="mobileNumber">{{'common.mobile' | translate}} *</label>
+        </div>
+        <span message-type ng-show="myForm.mobileNumber.$error.required && showError" translate="validate.requiredMessage" translate-values="{element: '{{'common.mobile' | translate}}'}"></span>
+        <span message-type ng-show="!myForm.mobileNumber.$error.required && !myForm.mobileNumber.$valid && showError" translate="validate.validMessage" translate-values="{element: '{{'common.mobile' | translate}}'}"></span>
+    </div>
+
+
+    <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="email" id="email" class="form-control ltr-input" placeholder="{{'common.email' | translate}}" name="email" autofocus
+                   data-ng-model="result.email"/>
+            <label for="email">{{'common.email' | translate}}</label>
+        </div>
+        <span message-type ng-show="!myForm.email.$error.required && myForm.email.$error.email " translate="validate.validMessage" translate-values="{element: '{{'common.email' | translate}}'}"></span>
+    </div>
+
+    <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control" placeholder=" {{'common.createDate' | translate}}" name="birthDate" id="birthDate" autofocus
+                   data-ng-model="result.createDate"
+                   ng-disabled="true"/>
+            <label for="birthDate">{{'common.createDate' | translate}}</label>
+        </div>
+    </div>
+
+    <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <select class="form-control col-xs-12" ng-model="result.gender" name="usergender" id="usergender"
+                    ng-options="item.id as item.name | translate for item in gendersList"></select>
+            <label for="usergender">{{'common.gender' | translate}}</label>
+        </div>
+    </div>
+    <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12" ng-if="configs.affiliateState == '1'">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control ltr-input" id="affiliateReagent" name="affiliateReagent" autofocus placeholder=" "
+                   data-ng-model="result.affiliateReagent" ng-disabled="diableAffiliateReagent"/>
+            <label for="affiliateReagent">{{'userProfile.affiliateCode' | translate}}</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    
+    <div class="col-xs-12">
+        <label>
+            <input type="checkbox" name="sendNotify" id="sendNotify" autofocus data-ng-model="result.sendNotify"/>
+            {{'userProfile.receiveNotification' | translate}}
+        </label>
+    </div>
+    <div class="col-xs-12">
+        <label>
+            <input type="checkbox" name="sendSms" id="sendSms" autofocus data-ng-model="result.sendSms"/>
+            {{'userProfile.receiveSMS' | translate}}
+        </label>
+    </div>
+    <div class="col-xs-12">
+        <label>
+            <input type="checkbox" name="sendEmail" id="sendEmail" autofocus data-ng-model="result.sendEmail"/>
+            {{'userProfile.receiveEmail' | translate}}
+        </label>
+    </div>
+
+
+    <div class="dvnewbutton">
+        <button class="btn btn-primary" style="font-weight:100;" id="changeAddress" ng-click="changeUserAddress()" ng-if="projectType!=='wallet'">
+             {{'userProfile.myAddresses' | translate}}
+        </button>
+        <button class="btn btn-primary" style="font-weight:100;" id="registerUser" ng-click="updateUserInfo()" button-type="ok">
+        </button>
+        <button class="btn btn-primary" backbutton></button>
+    </div>
+
+
+</section>
+
+

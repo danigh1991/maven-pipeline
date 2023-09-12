@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+        http://java.sun.com/xml/ns/persistence/orm_2_0.xsd ">
+
+    <entity  class="com.core.datamodel.model.dbmodel.Domain">
+        <named-native-query name="Domain.getActiveDomainWrappersByUrl" result-set-mapping="domainWrapperMapping">
+            <query>SELECT d.dmn_id AS  id, d.dmn_domain_url as  domainUrl,t.thm_id  siteThemeId,
+                           t.thm_name AS siteThemeName,l.lng_id as languageId,l.lng_short_name AS languageShortName,
+                           l.lng_left_to_right AS languageLtrDirection,c.cnt_id as countryId,c.cnt_name as countryName,
+                           d.dmn_order as domainOrder
+                    FROM sc_domain d
+                    INNER JOIN sc_site_theme t ON (d.dmn_thm_id=t.thm_id)
+                    INNER JOIN sc_language l ON (d.dmn_lng_id=l.lng_id)
+                    inner JOIN sc_country c ON (d.dmn_default_cnt_Id=c.cnt_id)
+                    WHERE d.dmn_domain_url=:domainUrl and d.dmn_active>0 AND l.lng_active>0 AND t.thm_active>0 AND c.cnt_isactive>0
+                    ORDER BY d.dmn_order</query>
+        </named-native-query>
+
+        <named-native-query name="Domain.getTop1ActiveDomainWrapperByUrl" result-set-mapping="domainWrapperMapping">
+            <query>SELECT d.dmn_id AS  id, d.dmn_domain_url as  domainUrl,t.thm_id  siteThemeId,
+                t.thm_name AS siteThemeName,l.lng_id as languageId,l.lng_short_name AS languageShortName,
+                l.lng_left_to_right AS languageLtrDirection,c.cnt_id as countryId,c.cnt_name as countryName,
+                d.dmn_order as domainOrder
+                FROM sc_domain d
+                INNER JOIN sc_site_theme t ON (d.dmn_thm_id=t.thm_id)
+                INNER JOIN sc_language l ON (d.dmn_lng_id=l.lng_id)
+                inner JOIN sc_country c ON (d.dmn_default_cnt_Id=c.cnt_id)
+                WHERE d.dmn_domain_url=:domainUrl and d.dmn_active>0 AND l.lng_active>0 AND t.thm_active>0 AND c.cnt_isactive>0 AND rownum=1
+                ORDER BY d.dmn_order</query>
+        </named-native-query>
+        <named-native-query name="Domain.getTop1ActiveDomainWrapper" result-set-mapping="domainWrapperMapping">
+            <query>SELECT d.dmn_id AS  id, d.dmn_domain_url as  domainUrl,t.thm_id  siteThemeId,
+                           t.thm_name AS siteThemeName,l.lng_id as languageId,l.lng_short_name AS languageShortName,
+                           l.lng_left_to_right AS languageLtrDirection,c.cnt_id as countryId,c.cnt_name as countryName,
+                           d.dmn_order as domainOrder
+                    FROM sc_domain d
+                    INNER JOIN sc_site_theme t ON (d.dmn_thm_id=t.thm_id)
+                    INNER JOIN sc_language l ON (d.dmn_lng_id=l.lng_id)
+                    inner JOIN sc_country c ON (d.dmn_default_cnt_Id=c.cnt_id)
+                    WHERE d.dmn_active>0 AND l.lng_active>0 AND t.thm_active>0 AND c.cnt_isactive>0 and rownum=1
+                    ORDER BY d.dmn_order</query>
+        </named-native-query>
+        <named-native-query name="Domain.getActiveDomainWrapperById" result-set-mapping="domainWrapperMapping">
+            <query>SELECT d.dmn_id AS  id, d.dmn_domain_url as  domainUrl,t.thm_id  siteThemeId,
+                           t.thm_name AS siteThemeName,l.lng_id as languageId,l.lng_short_name AS languageShortName,
+                           l.lng_left_to_right AS languageLtrDirection,c.cnt_id as countryId,c.cnt_name as countryName,
+                           d.dmn_order as domainOrder
+                    FROM sc_domain d
+                    INNER JOIN sc_site_theme t ON (d.dmn_thm_id=t.thm_id)
+                    INNER JOIN sc_language l ON (d.dmn_lng_id=l.lng_id)
+                    inner JOIN sc_country c ON (d.dmn_default_cnt_Id=c.cnt_id)
+                    WHERE d.dmn_id=:domainId AND d.dmn_active>0 AND l.lng_active>0 AND t.thm_active>0 AND c.cnt_isactive>0
+                    ORDER BY d.dmn_order </query>
+        </named-native-query>
+    </entity>
+
+    <entity  class="com.core.datamodel.model.dbmodel.Activity">
+        <named-native-query name="Activity.findPanelMenuByRoleIds" result-set-mapping="panelMenuWrapperMapping">
+            <query>select distinct p.act_id as id, p.act_title as title,p.act_icon as icon, p.act_desc as description ,p.act_url as url, p.act_modal as modal , p.act_blank as blank
+                                ,p.act_pass_parameter as passParameter , p.act_panel_type as paneltype, p.act_order as actOrder  from sc_activity p INNER JOIN sc_role_activity ra on (p.act_id=ra.rla_act_id)
+                   where p.act_active>0 and p.act_panel_menu>0 and p.act_panel_type =:panelType AND p.act_parent_id is null and  ra.rla_rol_id  in :roleIds order by p.act_order</query>
+        </named-native-query>
+        <named-native-query name="Activity.findChildPanelMenuByRoleIds" result-set-mapping="panelMenuWrapperMapping">
+            <query>select distinct p.act_id as id, p.act_title as title,p.act_icon as icon, p.act_desc as description ,p.act_url as url, p.act_modal as modal , p.act_blank as blank
+                                ,p.act_pass_parameter as passParameter , p.act_panel_type as paneltype, p.act_order as actOrder  from sc_activity p INNER JOIN sc_role_activity ra on (p.act_id=ra.rla_act_id)
+                   where p.act_active>0 and p.act_panel_menu>0 and p.act_panel_type =:panelType AND p.act_parent_id =:parentId and  ra.rla_rol_id  in :roleIds order by p.act_order</query>
+        </named-native-query>
+    </entity>
+
+
+    <entity  class="com.core.datamodel.model.dbmodel.Permission">
+        <named-native-query name="Permission.findPermissionByRole" result-class="com.core.datamodel.model.dbmodel.Permission">
+            <query>SELECT distinct p.* FROM sc_permission p
+                     INNER JOIN sc_activity_permission ap ON (p.prm_id=ap.acp_prm_id)
+                     INNER JOIN sc_activity a ON (a.act_id=ap.acp_act_id)
+                     INNER JOIN sc_role_activity ra ON (ra.rla_act_id=ap.acp_act_id)
+                    WHERE a.act_active>0 AND  ra.rla_rol_id IN :roleIds</query>
+        </named-native-query>
+    </entity>
+
+
+    <entity  class="com.core.datamodel.model.dbmodel.MessageBox">
+        <named-native-query name="MessageBox.findWrapperByReceiverId" result-set-mapping="messageBoxWrapperMapping">
+            <query>select k.id, k.senderUserId, u.usr_username as senderUserName, k.targetUserId,k.type as notifyTargetType,k.title,'' as description,k.seendate,k.createDate,k.createBy,k.modifyDate,k.modifyBy,k.additional from
+                 (select 1 as type, m.msg_id as id, m.msg_sender_id as senderUserId, m.msg_receiver_id as targetUserId, m.msg_subject as title, m.msg_seen_date as seenDate,m.msg_create_date as createDate,
+                   m.msg_create_by as createBy ,m.msg_modify_date as modifyDate,m.msg_modify_by as modifyBy, '' as additional
+                     from sc_message_box m where m.msg_receiver_id=:receiverId
+                     union
+                     select 2 as type, d.drd_id as id, r.dpr_usr_id as senderUserId, d.drd_usr_id as targetUserId, r.dpr_title as title, d.drd_seen_date as seenDate,d.drd_create_date as createDate,
+                       d.drd_create_by as createBy ,d.drd_modify_date as modifyDate,d.drd_modify_by as modifyBy,
+                       'expireDate[-]global.expireDate[-]date[-]show[=]'||r.dpr_expire_date || '[,]isExpired[-]common.expired[-]boolean[-]notShow[=]' || case when r.dpr_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP) then '0' else '1' end ||'[,]amount[-]global.amount[-]money[-]show[=]'||d.drd_amount||'[,]accountId[-]accountId[-]long[-]notShow[=]'||r.dpr_acc_id||'[,]doneDate[-]global.doneDate[-]datetime[-]show[=]'||nvl(d.drd_done_date,'')  as additional
+                     from sc_deposit_request r
+                     inner join sc_deposit_request_detail d on (r.dpr_id=d.drd_dpr_id)
+                       where r.dpr_active>0 and d.drd_usr_id=:receiverId
+                     union
+                     select 3 as type, dr.csd_id as id, cr.csr_usr_id as senderUserId, dr.csd_usr_id as targetUserId, cr.csr_title as title, dr.csd_seen_date as seenDate,dr.csd_create_date as createDate,
+                       dr.csd_create_by as createBy ,dr.csd_modify_date as modifyDate,dr.csd_modify_by as modifyBy,
+                        'expireDate[-]global.expireDate[-]date[-]show[=]'||cr.csr_expire_date || '[,]isExpired[-]common.expired[-]boolean[-]notShow[=]' || case when cr.csr_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP) then '0' else '1' end ||'[,]amount[-]global.amount[-]money[-]show[=]'||dr.csd_amount||'[,]accountId[-]accountId[-]long[-]notShow[=]'||cr.csr_acc_id||'[,]doneDate[-]global.doneDate[-]datetime[-]show[=]'||nvl(dr.csd_done_date,'')  as additional
+                     from sc_cost_share_request cr
+                     inner join sc_cost_share_request_detail dr on (cr.csr_id=dr.csd_csr_id)
+                     inner join sc_user u on (cr.csr_usr_id=u.usr_id)
+                        where cr.csr_active>0 and dr.csd_usr_id=:receiverId   ) k
+                  inner join sc_user u on (k.senderUserId=u.usr_id)
+                order by k.createdate desc</query>
+        </named-native-query>
+
+        <named-native-query name="MessageBox.findNoSeenWrapperByReceiverId" result-set-mapping="messageBoxWrapperMapping">
+            <query>select k.id, k.senderUserId, u.usr_username as senderUserName, k.targetUserId,k.type as notifyTargetType,k.title,'' as description,k.seendate,k.createDate,k.createBy,k.modifyDate,k.modifyBy,k.additional from
+                 (select 1 as type, m.msg_id as id, m.msg_sender_id as senderUserId, m.msg_receiver_id as targetUserId, m.msg_subject as title, m.msg_seen_date as seenDate,m.msg_create_date as createDate,
+                       m.msg_create_by as createBy ,m.msg_modify_date as modifyDate,m.msg_modify_by as modifyBy, '' as additional
+                     from sc_message_box m where m.msg_receiver_id=:receiverId and m.msg_seen_date is null
+                     union
+                     select 2 as type, d.drd_id as id, r.dpr_usr_id as senderUserId, d.drd_usr_id as targetUserId, r.dpr_title as title, d.drd_seen_date as seenDate,d.drd_create_date as createDate,
+                           d.drd_create_by as createBy ,d.drd_modify_date as modifyDate,d.drd_modify_by as modifyBy,
+                           'expireDate[-]global.expireDate[-]date[-]show[=]'||r.dpr_expire_date || '[,]isExpired[-]common.expired[-]boolean[-]notShow[=]' || case when r.dpr_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP) then '0' else '1' end ||'[,]amount[-]global.amount[-]money[-]show[=]'||d.drd_amount||'[,]accountId[-]accountId[-]long[-]notShow[=]'||r.dpr_acc_id||'[,]doneDate[-]global.doneDate[-]datetime[-]show[=]'||nvl(d.drd_done_date,'')  as additional
+                         from sc_deposit_request r
+                         inner join sc_deposit_request_detail d on (r.dpr_id=d.drd_dpr_id)
+                         where r.dpr_active>0 and d.drd_seen_date is null and d.drd_usr_id=:receiverId
+                     union
+                     select 3 as type, dr.csd_id as id, cr.csr_usr_id as senderUserId, dr.csd_usr_id as targetUserId, cr.csr_title as title, dr.csd_seen_date as seenDate,dr.csd_create_date as createDate,
+                           dr.csd_create_by as createBy ,dr.csd_modify_date as modifyDate,dr.csd_modify_by as modifyBy,
+                           'expireDate[-]global.expireDate[-]date[-]show[=]'||cr.csr_expire_date || '[,]isExpired[-]common.expired[-]boolean[-]notShow[=]' || case when cr.csr_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP) then '0' else '1' end ||'[,]amount[-]global.amount[-]money[-]show[=]'||dr.csd_amount||'[,]accountId[-]accountId[-]long[-]notShow[=]'||cr.csr_acc_id||'[,]doneDate[-]global.doneDate[-]datetime[-]show[=]'||nvl(dr.csd_done_date,'')  as additional
+                         from sc_cost_share_request cr
+                         inner join sc_cost_share_request_detail dr on (cr.csr_id=dr.csd_csr_id)
+                         where cr.csr_active>0 and dr.csd_seen_date is null and dr.csd_usr_id=:receiverId ) k
+                  inner join sc_user u on (k.senderUserId=u.usr_id)
+                order by k.createdate desc</query>
+        </named-native-query>
+    </entity>
+
+
+
+
+</entity-mappings>
+
+

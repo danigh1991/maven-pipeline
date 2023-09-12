@@ -1,0 +1,253 @@
+﻿<section class="content-header">
+    <h1>
+        ویرایش اطلاعات کاربری
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">ویرایش اطلاعات کاربری</li>
+    </ol>
+    <style>
+        .input-group-addon {
+            min-width: 95px;
+        }
+    </style>
+</section>
+
+<section class="content col-xs-12">
+
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <i class="fa fa-th" style="color: #00c0ef;"></i>
+            <h3 class="box-title">اطلاعات حساب</h3>
+            <div class="box-tools pull-left">
+            </div>
+        </div>
+        <div class="box-footer no-border row">
+            <account-summery params="params"></account-summery>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="col-md-5 col-sm-8 col-xs-12 panel panel-default pd-15 pdt-10" ng-form="myForm" style="float: none;margin: 0 auto;">
+
+        <div class="row col-md-12 margin-bottom-lg" style="text-align: center">
+            <div style="position:absolute;top:9px;right: calc(50% - 100px);z-index:1000">
+                <button type="button" class="btn btn-warning btn-xs act-on-pic" ng-click="selectImage()"
+                        data-target="#changepicmodal" data-toggle="modal">
+                    <span class="glyphicon glyphicon-edit"></span>{{'common.edit' | translate}}
+                </button>
+            </div>
+            <img class="img-circle" ng-src="{{userPic}}" width="100"/>
+
+        </div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control ltr-input" placeholder=" " name="username" id="username"
+                       required
+                       autofocus
+                       data-ng-model="result.username" ng-disabled="true"/>
+                <label for="name"> {{'common.userName' | translate}} *</label>
+            </div>
+        </div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" placeholder=" " name="name" id="name" required
+                       autofocus
+                       data-ng-model="result.firstName"/>
+                <label for="name"> {{'common.name' | translate}} *</label>
+            </div>
+            <span message-type ng-show="myForm.name.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.name' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" placeholder=" " name="family" id="family" required autofocus
+                       data-ng-model="result.lastName"/>
+                <label for="family"> {{'common.family' | translate}} *</label>
+            </div>
+            <span message-type ng-show="myForm.family.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.family' | translate}}'}"></span>
+        </div>
+
+        <div class="input-group margin-bottom-md col-xs-12">
+            <label>
+                <input type="radio" name="usergender" ng-value="1" ng-model="result.gender"/>
+                {{'common.male' | translate}}
+            </label>
+            <label>
+                <input type="radio" name="usergender" ng-value="2" ng-model="result.gender"/>
+                {{'common.female' | translate}}
+            </label>
+        </div>
+        <!--<div class="input-group margin-bottom-sm">
+            <span class="input-group-addon">مرکز استان</span>
+            <select class="form-control col-md-12" ng-model="result.city.id" name="selectedCity" ng-options="item.id as item.name for item in cities" required></select>
+        </div>
+        <span message-type ng-show="myForm.selectedCity.$error.required && showError" translate="validate.requiredMessage" translate-values="{element: '{{'common.city' | translate}}'}"></span>-->
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control ltr-input" name="mobileNumber" id="mobileNumber" required autofocus
+                       data-ng-model="result.mobileNumber"/>
+                <label for="mobileNumber">موبایل *</label>
+                <!--my-pattern="^[0][9][0-9][0-9]{8,8}$" placeholder="09125555555"-->
+            </div>
+            <span message-type ng-show="myForm.mobileNumber.$error.required && showError"> موبایل وارد نشــده است!</span>
+            <span message-type ng-show="!myForm.mobileNumber.$valid && showError"> موبایل درست وارد شود!</span>
+        </div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="email" id="email" class="form-control ltr-input" placeholder=" " name="email"
+                       required autofocus data-ng-model="result.email"/>
+                <label for="email">{{'common.email' | translate}} *</label>
+            </div>
+            <span message-type ng-show="myForm.email.$error.required  && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.email' | translate}}'}"></span>
+            <span message-type ng-show="!myForm.email.$error.required && myForm.email.$error.email " translate="validate.validMessage"
+                  translate-values="{element: '{{'common.email' | translate}}'}"></span>
+        </div>
+
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <textarea cols="40" rows="3" class="form-control" style="height:100px" placeholder=" " name="address" id="address" autofocus
+                          data-ng-model="result.address"></textarea>
+                <label for="address">آدرس</label>
+            </div>
+        </div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <select class="form-control col-md-12" ng-model="result.loginType" name="selectedLoginTypeId" id="selectedLoginTypeId"
+                        ng-options="item.id as item.name for item in loginTypeList"></select>
+                <label for="selectedLoginTypeId">نوع ورود</label>
+            </div>
+        </div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <adm-dtp ng-model='result.expireDate' placeholder="' '" options="admDateOnlyOptions"
+                         full-data="expireDate_detail"
+                         ng-name="'expireDate'" ng-id="'expireDate'"></adm-dtp>
+                <label for="expireDate">انقضای عضویت</label>
+            </div>
+        </div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" placeholder=" {{'common.createDate' | translate}}" name="birthDate"
+                       id="birthDate"
+                       autofocus data-ng-model="result.createDate"
+                       ng-disabled="true"/>
+                <label for="birthDate">{{'common.createDate' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="margin-bottom-md col-xs-12"><!--ng-if="configs.affiliateState == '1'">-->
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" name="affiliateReagent" id="affiliateReagent" autofocus
+                       data-ng-model="result.affiliateReagent"
+                       ng-disabled="true"/>
+                <label for="affiliateReagent">{{'userProfile.affiliateCode' | translate}}</label>
+            </div>
+        </div>
+
+        <!--<div class="input-group margin-bottom-sm">
+            <label>
+                <input type="checkbox" name="sendNotify" id="sendNotify" autofocus data-ng-model="result.sendNotify"/>
+                {{'userProfile.receiveNotification' | translate}}
+            </label>
+        </div>-->
+        <fieldset class="scheduler-border  margin-bottom-md col-xs-12">
+            <legend class="scheduler-border">آی پی های مجاز</legend>
+            <p class="margin-bottom-md txt-xs bullettinfo xs bg-success text-danger">
+                در صورتیکه کاربر به آی پی محدود شود، لاگین فقط از طریق آی پی های مشخص شده امکان پذیر است.
+            </p>
+            <div class="row">
+                <div class="margin-bottom-md col-xs-10">
+                    <div class="input-group has-float-label">
+                        <input type="text" class="form-control ltr-input" placeholder=" " id="limitIp"
+                               name="limitIp" autofocus data-ng-model="limitIp"/>
+                        <label for="limitIp">آی پی *</label>
+                    </div>
+                    <span message-type ng-show="!limitIp && showLimitIpError" translate="validate.requiredMessage" translate-values="{element: 'آی پی'}"></span>
+                    <span message-type ng-show="!validateIp && showLimitIpError" translate="validate.validMessage" translate-values="{element: 'آی پی'}"></span>
+                </div>
+
+                <div class="margin-bottom-lg col-xs-2">
+                    <button class="btn btn-primary fa fa-plus" title="اضافه"
+                            id="addLimitIp"
+                            ng-click="addLimitIp()">
+                    </button>
+                </div>
+            </div>
+            <div class="row margin-bottom-md">
+                <span class="bzttag" ng-repeat="lmtIp in result.limitIpList track by $index">
+                    <span>{{lmtIp}}</span>
+                    <span ng-click="removeLimitIp(lmtIp)" class="fa fa-remove"></span>
+                </span>
+            </div>
+
+        </fieldset>
+
+        <div class="input-group margin-bottom-sm">
+            <label>
+                <input type="checkbox" name="enabled" id="enabled" autofocus data-ng-model="result.enabled"/>
+                {{'common.active' | translate}}
+            </label>
+        </div>
+
+        <div class="input-group margin-bottom-sm">
+            <label>
+                <input type="checkbox" name="sendSms" id="sendSms" autofocus data-ng-model="result.sendSms"/>
+                {{'userProfile.receiveSMS' | translate}}
+            </label>
+        </div>
+        <div class="input-group margin-bottom-sm">
+            <label>
+                <input type="checkbox" name="sendEmail" id="sendEmail" autofocus data-ng-model="result.sendEmail"/>
+                {{'userProfile.receiveEmail' | translate}}
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md row">
+            <div class="panel panel-default rolepanel">
+                <div class="panel-heading">
+                    نقش
+                </div>
+                <div class="panel-body" style="height: 200px;overflow-y: auto;">
+                    <ul style="padding-right:10px;">
+                        <li ng-repeat="role in allRoles" class="col-md-5">
+                            <label class="lblcheckbox">
+                                <input type="checkbox" class="chkcheckbox" checklist-model="userRoles.selected"
+                                       checklist-value="role.id">
+                                {{role.roleName}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-xs-12 dvnewbutton">
+                <button class="btn btn-primary" ng-confirm-click="resetUserPassword()" ng-confirm-message="برای انجام عملیات اطمینان دارید." button-text="بازنشانی رمز عبور"></button>
+                <button class="btn" ng-class="result.accountNonLocked ? 'btn-danger' : 'btn-primary'"
+                        ng-confirm-click="result.accountNonLocked ? lockUser() : unlockUser()"
+                        ng-confirm-message="برای انجام عملیات اطمینان دارید."
+                >
+                    {{(result.accountNonLocked ? 'مسدود شود' : 'رفع مسدودی')}}
+                </button>
+                <button class="btn btn-primary" ng-click="editFull()" button-type="ok"></button>
+                <button class="btn btn-primary" backbutton></button>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+

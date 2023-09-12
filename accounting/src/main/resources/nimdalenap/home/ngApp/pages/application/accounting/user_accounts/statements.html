@@ -1,0 +1,27 @@
+﻿<section class="content-header">
+    <h1>
+        {{'accounting.statement' | translate}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{'accounting.statement' | translate}}</li>
+    </ol>
+</section>
+<section class="content row">
+    <div class="col-xs-12">
+
+        <div class="clearfix"></div>
+        <account-summery params="params" events="events"></account-summery>
+
+        <div class="clearfix"></div>
+
+        <div class="col-xs-12" ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents"
+             dt-cols="dtCols" dt-data="dtData"></div>
+
+        <div class="clearfix"></div>
+
+        <div class="dvnewbutton col-xs-12">
+            <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+        </div>
+    </div>
+</section>

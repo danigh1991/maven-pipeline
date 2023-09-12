@@ -1,0 +1,107 @@
+/*
+.google-sh1-loader(@skin-main-color, @skin-on-main-color: #fff) {
+  @skin-main-color-dark: darken(@skin-main-color, 10%);
+  @skin-main-color-light: lighten(@skin-main-color, 10%);
+
+  // Colors variables
+  @primary: #4285F4; // blue
+  @success: #34A853; // green
+  @danger: #EA4335; // red
+  @warning: #FBBC05; // yellow
+
+  // Container and shapes dimentions
+  @containerDimentions: 30;
+  @shapeDimentions: 10px;
+  //shape translate amount
+  @amount: 5px;
+
+  .gloadersh1 {
+    position: relative;
+    width: '@{containerDimentions}px';
+    height: '@{containerDimentions}px';
+    border-radius: unit(@containerDimentions/2, px);
+    animation: gsh1-rotation 1s infinite;
+    z-index: 20;
+
+    .shape {
+      position: absolute;
+      width: @shapeDimentions;
+      height: @shapeDimentions;
+      border-radius: @shapeDimentions/2;
+
+      &.shape-1 {
+        left: 0;
+        background-color: @primary;
+      }
+
+      &.shape-2 {
+        right: 0;
+        background-color: @success;
+      }
+
+      &.shape-3 {
+        bottom: 0;
+        background-color: @warning;
+      }
+
+      &.shape-4 {
+        bottom: 0;
+        right: 0;
+        background-color: @danger;
+      }
+    }
+
+    each(range(1, 4, 1), {
+      .shape-@{index} {
+        animation: shape @value 0.5s infinite alternate;
+      }
+    });
+  }
+
+  @keyframes gsh1-rotation {
+    from {
+      transform: rotate(0deg)
+    }
+    to {
+      transform: rotate(360deg)
+    }
+  }
+
+  .shapeTranslate(@tx, @ty) {
+    transform: translate(@tx, @ty)
+  }
+  @keyframes shape1 {
+    from {
+      .shapeTranslate(0, 0)
+    }
+    to {
+      .shapeTranslate(@amount, @amount)
+    }
+  }
+  @keyframes shape2 {
+    from {
+      .shapeTranslate(0, 0)
+    }
+    to {
+      .shapeTranslate(-@amount, @amount)
+    }
+  }
+  @keyframes shape3 {
+    from {
+      .shapeTranslate(0, 0)
+    }
+    to {
+      .shapeTranslate(@amount, -@amount)
+    }
+  }
+  @keyframes shape4 {
+    from {
+      .shapeTranslate(0, 0)
+    }
+    to {
+      .shapeTranslate(-@amount, -@amount)
+    }
+  }
+
+}*/
+/*# sourceMappingURL=all-components.css.map */

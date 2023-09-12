@@ -1,0 +1,196 @@
+﻿<section class="content-header">
+    <h1>
+        {{editMode ? ('common.editElement' | translate: {'element': ('common.merchant' | translate)})
+            : ('common.newElement' | translate: {'element': ('common.merchant' | translate)})}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/accounting/useraccountcreditlist">{{'accounting.userAccountCredits' | translate}}</a></li>
+        <li class="active">{{editMode ? ('common.edit' | translate) : ('common.new' | translate)}}</li>
+    </ol>
+</section>
+<section class="content row" ng-form="myForm">
+
+    <div class="margin-bottom-md col-md-6 col-xs-12" ng-model="selectedUserId" ng-drop-box options="dbxUserOptions"
+         additional-data="{}" events="dbxUserEvents" cols="dbxUserCols">
+            <span message-type ng-show="myForm[dbxUserOptions.id].$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.user' | translate}}'}"></span>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control" id="merchantName" name="merchantName" placeholder=" " required autofocus
+                   data-ng-model="result.name"/>
+            <label for="merchantName">{{'common.name' | translate}} *</label>
+        </div>
+        <span message-type ng-show="myForm.merchantName.$error.required && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'common.name' | translate}}'}"></span>
+    </div>
+
+    <div class="margin-bottom-md col-md-4 col-xs-12">
+        <div class="input-group has-float-label">
+            <select class="form-control col-md-12" required ng-model="result.merchantCategoryId" name="selectedMerchantCategoryId"
+                    id="selectedMerchantCategoryId"
+                    ng-options="item.id as item.name | translate for item in allMerchantCategories"></select>
+            <label for="selectedMerchantCategoryId">{{'common.type' | translate}}</label>
+        </div>
+        <span message-type ng-show="myForm.selectedMerchantCategoryId.$error.required && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'common.type' | translate}}'}"></span>
+    </div>
+
+    <div class="margin-bottom-md col-md-4 col-xs-12">
+        <div class="input-group has-float-label">
+            <select class="form-control col-md-12" required ng-model="result.otherMerchantViewPolicy" name="otherMerchantViewPolicy"
+                    id="otherMerchantViewPolicy"
+                    ng-options="item.id as item.caption | translate for item in allMerchantViewPolicies"></select>
+            <label for="otherMerchantViewPolicy">{{'accounting.otherMerchantViewPolicy' | translate}}</label>
+        </div>
+        <span message-type ng-show="myForm.otherMerchantViewPolicy.$error.required && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'accounting.otherMerchantViewPolicy' | translate}}'}"></span>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control ltr-input"
+                   my-pattern="^[0][9][0-9][0-9]{8,8}$" placeholder=" " id="mobileNumber" name="mobileNumber" numbers-only
+                   required autofocus data-ng-model="result.mobileNumber"/>
+            <label for="mobileNumber">{{'common.mobile' | translate}} *</label>
+        </div>
+        <span message-type ng-show="myForm.mobileNumber.$error.required && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'common.mobile' | translate}}'}"></span>
+        <span message-type ng-show="!myForm.mobileNumber.$valid && !myForm.mobileNumber.$error.required && showError"
+              translate="validate.validMessage" translate-values="{element: '{{'common.mobile' | translate}}'}"></span>
+    </div>
+
+    <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control ltr-input" name="phoneNumber" id="phoneNumber" required
+                   placeholder=" " numbers-only autofocus data-ng-model="result.phoneNumber"/>
+            <label for="phoneNumber">{{'common.phone' | translate}} *</label>
+        </div>
+        <span message-type ng-show="myForm.phoneNumber.$error.required && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'common.phone' | translate}}'}"></span>
+        <span message-type ng-show="!myForm.phoneNumber.$valid && !myForm.phoneNumber.$error.required && showError"
+              translate="validate.validMessage" translate-values="{element: '{{'common.phone' | translate}}'}"></span>
+    </div>
+
+    <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="email" class="form-control ltr-input" name="email" id="email" placeholder=" " autofocus required
+                   data-ng-model="result.email" my-pattern="^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$"/>
+            <label for="email">{{'common.email' | translate}} *</label>
+        </div>
+        <span message-type ng-show="myForm.email.$error.required && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'common.email' | translate}}'}"></span>
+        <span message-type ng-show="!myForm.email.$valid && !myForm.email.$error.required && showError" translate="validate.validMessage"
+              translate-values="{element: '{{'common.email' | translate}}'}"></span>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12">
+        <div>
+            <div custom-select="g.name for g in cities | filter: $searchTerm"
+                 custom-select-options="cityOptions"
+                 ng-model="selectedCity"></div>
+        </div>
+        <span message-type ng-show="!selectedCity && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'common.city' | translate}}'}"></span>
+    </div>
+
+    <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12">
+        <div>
+            <div custom-select="g.name for g in cityRegions | filter: $searchTerm"
+                 custom-select-options="regionOptions"
+                 ng-model="selectedRegion"></div>
+        </div>
+        <span message-type ng-show="!selectedRegion && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'common.region' | translate}}'}"></span>
+    </div>
+
+    <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control ltr-input" id="postalCode" name="postalCode" required autofocus
+                   placeholder=" "
+                   data-ng-model="result.postalCode" my-pattern="{{selectedCity.postalCodePattern}}"/>
+            <!--numbers-only my-pattern="^\d{10}$"/>-->
+            <label for="postalCode">{{'common.postalCode' | translate}} *</label>
+        </div>
+        <span message-type ng-show="myForm.postalCode.$error.required && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'common.postalCode' | translate}}'}"></span>
+        <span message-type ng-show="!myForm.postalCode.$valid && !myForm.postalCode.$error.required && showError"
+              translate="validate.validMessage"
+              translate-values="{element: '{{'common.postalCode' | translate}}'}"></span>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-12 margin-bottom-lg" style="direction: ltr">
+        <leaflet lf-center="center" markers="markers" height="300px" width="100%"></leaflet>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="margin-bottom-md col-xs-12">
+        <div class="input-group has-float-label">
+            <textarea class="form-control" id="address" name="address" required autofocus placeholder=" "
+                      data-ng-model="result.address"></textarea>
+            <label for="address">{{'common.address' | translate}} *</label>
+        </div>
+        <span message-type ng-show="myForm.address.$error.required && showError" translate="validate.requiredMessage"
+              translate-values="{element: '{{'common.address' | translate}}'}"></span>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="margin-bottom-md col-xs-12">
+        <div class="input-group has-float-label">
+            <textarea class="form-control" id="description" name="description" autofocus placeholder=" "
+                      data-ng-model="result.description"></textarea>
+            <label for="address">{{'common.description' | translate}}</label>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="margin-bottom-md col-xs-12">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border mgb-5">{{'wallet.allowedPaymentGateways' | translate}}</legend>
+
+            <div class="margin-bottom-md col-md-4 col-xs-12">
+                <label><input type="checkbox" name="activeWallet" ng-checked="result.wallet"
+                              ng-model="result.wallet"/>{{'accounting.wallet' | translate}}</label>
+                &nbsp;&nbsp;&nbsp;
+                <label class="pull-left"><input type="checkbox" name="activeCard" ng-checked="result.card"
+                                                ng-model="result.card"/>{{'accounting.bankCard' | translate}}</label>
+            </div>
+
+            <div class="margin-bottom-md col-md-8 col-xs-12" ng-show="result.card">
+                <div class="input-group has-float-label">
+                    <input type="text" class="form-control txtlefttoright" name="cardNumber" id="cardNumber"
+                           ui-mask="{{financeConfig.cartNumberMask}}"
+                           autofocus data-ng-model="result.cardNumber"/>
+                    <label for="cardNumber">{{'accounting.cardNumber' | translate}} *</label>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12 dvnewbutton">
+
+        <button class="btn" ng-if="editMode" ng-click="changeMerchantState()"
+                ng-class="result.active ? 'btn-danger' : 'btn-primary'">
+            {{result.active ? ('common.inactive' | translate) : ('common.active' | translate)}}
+        </button>
+        <button class="btn btn-primary" ng-click="ok()" button-type="ok">
+        </button>
+        <button class="btn btn-primary" backbutton button-type="back"></button>
+    </div>
+
+</section>

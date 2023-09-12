@@ -1,0 +1,56 @@
+.my-components(@skin-main-color, @skin-on-main-color: #fff) {
+  @skin-main-color-dark: darken(@skin-main-color, 10%);
+  @skin-main-color-light: lighten(@skin-main-color, 10%);
+
+  /*#region content component*/
+  .sidebar::-webkit-scrollbar-thumb {
+    background-color: @skin-main-color;
+  }
+
+  .panel-default > .panel-heading {
+    background: @skin-main-color;
+    color: #fff !important;
+    border-color: @skin-main-color-dark;
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  .box.box-success {
+    border-top-color: @skin-main-color;
+  }
+
+  .ttab-head.grn > li.tactive {
+    border-top: 4px solid @skin-main-color;
+  }
+
+  .nav .caret {
+    border-top-color: #fff !important;
+    border-bottom-color: #fff !important;
+  }
+
+  .btn-primary {
+    background-color: @skin-main-color !important;
+    border-color: @skin-main-color-dark !important;
+  }
+
+  /*#region table*/
+  .bg-black {
+    background-color: @skin-main-color !important;
+    color: #fff !important;
+    border-color: #fff;
+    padding: .55rem;
+  }
+
+  .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus,
+  .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: @skin-main-color;
+    border-color: @skin-main-color-dark; //darken(#222, 2%);
+    color: #fff;
+  }
+  /*#endregion*/
+  /*#endregion*/
+
+  .my-buttons(@skin-main-color, @skin-on-main-color);
+  .ring-loader(@skin-main-color, @skin-on-main-color);
+  //.google-sh1-loader(@skin-main-color, @skin-on-main-color);
+}

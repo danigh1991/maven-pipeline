@@ -1,0 +1,10 @@
+<div class="input-group has-float-label">
+    <input type="text" class="form-control ltr-input" id="userName" placeholder=" " name="userName"
+           ng-model-options="{updateOn: 'blur'}" ng-change="changeInput()" ng-required="options.required"
+           required autofocus data-ng-model="options.userName" ng-disabled="options.disabled" enter-event="enterEvent()"/>
+           <!--ng-save-state="useraccountsearch" after-restore-seaved-state="afterRestoreSavedState()" />-->
+    <label for="userName">
+        {{(options.caption | translate) + (options.userObj && (options.userObj.firstName || options.userObj.lastName) ? ('(' + (options.userObj.firstName || '') + ' ' + (options.userObj.lastName || '') + ')') : '')}}</label>
+</div>
+<span message-type ng-if="options.form" ng-show="options.form.userName.$error.required && options.showError" translate="validate.requiredMessage"
+      translate-values="{element: '{{'common.userName' | translate}}'}"></span>

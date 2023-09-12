@@ -1,0 +1,126 @@
+@media (max-width: 474px) {
+  .hidden-xxs {
+    display: none !important;
+  }
+}
+body {
+  min-width: 300px;
+}
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+}
+.fileinput-button input[type='file'] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+/*.file {
+    &.ng-move, &.ng-enter, &.ng-leave {
+        -webkit-transition: all linear 5.5s;
+        -moz-transition: all linear 5.5s;
+        -o-transition: all linear 5.5s;
+        transition: all linear 5.5s;
+    }
+
+    &.ng-leave-active, &.ng-move, &.ng-enter {
+        opacity: 0;
+    }
+
+    &.ng-leave, &.ng-move.ng-move-active, &.ng-enter.ng-enter {
+        opacity: 1;
+    }
+}*/
+@-webkit-keyframes moveFromRight {
+  from {
+    -webkit-transform: translateX(10%);
+    transform: translateX(10%);
+  }
+}
+@keyframes moveFromRight {
+  from {
+    -webkit-transform: translateX(10%);
+    transform: translateX(10%);
+  }
+}
+/*.pageContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: black;*/
+.page {
+  -webkit-transition: all linear 0.5s;
+  -moz-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}
+.page.ng-enter.ng-enter-active {
+  -webkit-animation: moveFromRight 0.6s ease both;
+  -moz-animation: moveFromRight 0.6s ease both;
+  -o-animation: moveFromRight 0.6s ease both;
+  animation: moveFromRight 0.6s ease both;
+}
+.page.ng-leave {
+  display: none;
+  /*&.ng-leave-active {
+                -webkit-animation: scaleDown .2s ease both;
+                -moz-animation: scaleDown .2s ease both;
+                -o-animation: scaleDown .2s ease both;
+                animation: scaleDown .2s ease both;
+            }*/
+}
+/*}*/
+.loader {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(100, 100, 100, 0.5);
+  z-index: 1200;
+}
+.loader .spinner {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  margin: -30px 0 0 -30px;
+  background-color: #29d;
+  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+  animation: rotateplane 1.2s infinite ease-in-out;
+}
+@-webkit-keyframes rotateplane {
+  0% {
+    -webkit-transform: perspective(120px);
+    transform: perspective(120px);
+  }
+  50% {
+    -webkit-transform: perspective(120px) rotateY(180deg);
+    transform: perspective(120px) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+    transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+  }
+}
+@keyframes rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+/*# sourceMappingURL=site.css.map */

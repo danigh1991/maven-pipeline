@@ -1,0 +1,9 @@
+a {
+    color: #039be5 !important;
+    border-bottom: dashed 1px;
+    cursor: pointer;
+}
+a.alinktu {
+    border: 1px dashed red;
+    background-color: yellow;
+}

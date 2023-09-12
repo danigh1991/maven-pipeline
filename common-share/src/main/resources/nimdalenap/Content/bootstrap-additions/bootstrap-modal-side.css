@@ -1,0 +1,95 @@
+/*******************************
+* MODAL AS LEFT/RIGHT SIDEBAR
+* Add "left" or "right" in modal parent div, after class="modal".
+* Get free snippets on bootpen.com
+*******************************/
+.modal {
+  overflow-y: auto;
+  /*Left*/
+  /*Right*/
+  /*bottom*/
+}
+.modal.left .modal-dialog,
+.modal.right .modal-dialog,
+.modal.bottom .modal-dialog {
+  position: fixed;
+  margin: auto;
+  padding: 0;
+  height: 100%;
+  -webkit-transform: translate3d(0%, 0, 0);
+  -ms-transform: translate3d(0%, 0, 0);
+  -o-transform: translate3d(0%, 0, 0);
+  transform: translate3d(0%, 0, 0);
+}
+.modal.bottom .modal-dialog {
+  width: 100% !important;
+  height: auto;
+  max-height: 70%;
+  display: block;
+}
+.modal.left .modal-content,
+.modal.right .modal-content {
+  height: 100%;
+  overflow-y: auto;
+}
+.modal.right .modal-content {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.modal.left .modal-content {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.modal.bottom .modal-content {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.modal.left .modal-body,
+.modal.right .modal-body {
+  padding: 15px 15px 80px;
+}
+.modal.left.fade .modal-dialog {
+  left: -100%;
+  -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+  transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+.modal.left.fade.in .modal-dialog {
+  left: 0;
+}
+.modal.left.fade.in .modal-dialog .modal-content .content-header {
+  padding-right: 45px !important;
+}
+.modal.left.fade.in .modal-dialog .modal-content .content-header > button.close {
+  left: unset;
+  right: 20px;
+}
+.modal.right.fade .modal-dialog {
+  right: -100%;
+  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+  transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+.modal.right.fade.in .modal-dialog {
+  right: 0;
+}
+.modal.bottom.fade .modal-dialog {
+  bottom: -100%;
+  -webkit-transition: opacity 0.3s linear, bottom 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, bottom 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, bottom 0.3s ease-out;
+  transition: opacity 0.3s linear, bottom 0.3s ease-out;
+}
+.modal.bottom.fade.in .modal-dialog {
+  bottom: 0;
+}
+.modal.left .modal-dialog .modal-content,
+.modal.right .modal-dialog .modal-content,
+.modal.bottom .modal-dialog .modal-content,
+.modal .modal-dialog.modal-full-size .modal-content {
+  overflow-y: hidden;
+  padding-bottom: 15px;
+}
+/*# sourceMappingURL=bootstrap-modal-side.css.map */

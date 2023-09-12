@@ -1,0 +1,118 @@
+﻿<style>
+     .input-group-addon {
+        min-width: 100px;
+    }
+
+    .small-addon {
+        min-width: 70px !important;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        margin-right: 5px;
+    }
+
+    .txtlefttoright {
+        text-align: left;
+        direction: ltr;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        {{pageTitle}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/monitoring/contactuslist">لیست تماس با ما</a></li>
+        <li class="active">پیام</li>
+    </ol>
+</section>
+<section class="content col-xs-12" ng-form="myForm">
+
+    <div class="row">
+        <div class="col-md-5">
+
+            <div class="col-md-12">
+                <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                    <span class="input-group-addon">{{'common.name' | translate}}</span>
+                    <input type="text" class="form-control" name="name" ng-disabled="true" data-ng-model="result.name" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                    <span class="input-group-addon">تاریخ</span>
+                    <input type="text" class="form-control" name="commentDate" ng-disabled="true" data-ng-model="result.commentDate" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                    <span class="input-group-addon">بخش</span>
+                    <input type="text" class="form-control" name="contactTargetCaption" ng-disabled="true" data-ng-model="result.contactTargetCaption" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                    <span class="input-group-addon">{{'common.mobile' | translate}}</span>
+                    <input type="text" class="form-control" name="email" ng-disabled="true" data-ng-model="result.email" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                    <span class="input-group-addon">موبایل</span>
+                    <input type="text" class="form-control" name="mobileNumber" ng-disabled="true" data-ng-model="result.mobileNumber" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                    <span class="input-group-addon">پیام</span>
+                    <textarea cols="40" rows="10" class="form-control" style="height:200px" ng-disabled="true" placeholder="پیام" name="comment" data-ng-model="result.comment" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                    <span class="input-group-addon">تاریخچه</span>
+                    <textarea cols="40" rows="10" class="form-control" style="height:200px" ng-disabled="true" placeholder="تاریخچه" name="result_reply" data-ng-model="result.reply" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                    <span class="input-group-addon">تاریخ پاسخ</span>
+                    <input type="text" class="form-control" name="replyDate" ng-disabled="true" data-ng-model="result.replyDate" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                    <span class="input-group-addon">{{'common.text' | translate}}</span>
+                    <textarea cols="40" rows="10" class="form-control" required style="height:200px" placeholder="پاسخ" name="reply" data-ng-model="reply" />
+                </div>
+                <span message-type ng-show="myForm.reply.$error.required && showError"> پاسخ وارد نشــده است!</span>
+            </div>
+
+            <div class="input-group margin-bottom-sm">
+                <label><input type="checkbox" name="sendEmail" ng-checked="true" ng-disabled="true"/>{{'common.sendEmail' | translate}}</label>
+            </div>
+
+            <div class="input-group margin-bottom-sm">
+                <label><input type="checkbox" name="sendSms" ng-checked="false" ng-model="sendSms" />ارسال پیامک</label>
+            </div>
+
+            <div class="dvnewbutton">
+                <button class="btn btn-primary" id="replyMessage" ng-click="replyMessage()">ثبت پاسخ</button>
+                <button class="btn btn-primary" backbutton>بازگشت</button>
+            </div>
+
+        </div>
+    </div>
+
+</section>

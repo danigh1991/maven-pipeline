@@ -1,0 +1,141 @@
+.mbdltr {
+  #footer{
+    margin-right: unset;
+    margin-left: 230px;
+  }
+  &.sidebar-collapse .main-header > .navbar{
+    margin-right: unset;
+    margin-left: 0px;
+  }
+  .box-header > .box-tools {
+    left: unset;
+    right: 10px;
+  }
+  .small-box .icon {
+    left: unset;
+    right: 10px;
+  }
+
+  .input-group-addon{
+    border-radius: 4px 0 0 4px !important;
+  }
+  .has-float-label .input-group-addon:last-child{
+    border-left: 0 !important;
+    border-right: 1px solid #ccc !important;
+    border-radius: 5px !important;
+  }
+  .form-control:not(.csnewVal){
+    //border-radius: 0 4px 4px 0 !important;
+  }
+  .has-float-label .form-control{
+    //border-radius: 0 !important;
+  }
+  .form-control:-moz-placeholder {
+    direction: ltr;
+    text-align: left;
+  }
+  .form-control::-moz-placeholder {
+    direction: ltr;
+    text-align: left;
+  }
+  .form-control:-ms-input-placeholder {
+    direction: ltr;
+    text-align: left;
+  }
+  .form-control::-webkit-input-placeholder {
+    direction: ltr;
+    text-align: left;
+  }
+
+  .dvnewbutton{
+    text-align: right;
+  }
+
+  .pagination > li {
+    float: left;
+  }
+
+  .breadcrumb i.fa.fa-dashboard {
+    margin-left: unset;
+    margin-right: 5px;
+  }
+
+  legend.scheduler-border{
+    text-align: left !important;
+  }
+
+  /*#region Tree*/
+  .box-accordion .down{
+    right: auto;
+    left: -3.5px;
+  }
+  .ulbzt {
+    padding-right: unset;
+    padding-left: 5px;
+  }
+  .lblbzt label.has-child {
+    margin-right: unset;
+    margin-left: 20px;
+  }
+  .ulbzt li ul {
+    padding-left: 27px !important;
+    border-right: unset;
+    border-left: 1px dotted;
+    padding: 10px 0 0 0;
+    margin: -9px 10px 5px 6px;
+  }
+  /*#endregion Tree*/
+
+  .attrbox{
+    padding: 5px 50px 5px 5px;
+  }
+  .attrdel{
+    left: unset;
+    right: 20px;
+  }
+  .attredit{
+    left: unset;
+    right: 40px;
+  }
+
+  //#region Modal
+  .modal-content .content-header{
+    > h1{
+      text-align: left;
+    }
+    > button.close{
+      left: unset;
+      right: 20px;
+    }
+  }
+  //#endregion
+
+  //#region table
+  ng-data-table, div[ng-data-table]{
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+  }
+  //#endregion
+
+  //#region dropbox
+  .dropboxwrp{
+    .btn-group{
+      left: unset;
+      right: 0;
+    }
+  }
+  //#endregion
+
+  @media (min-width: 768px) {
+    &.sidebar-collapse #footer {
+      margin-left: 0;
+    }
+  }
+  @media (max-width: 768px) {
+    #footer {
+      margin-left: 0 !important;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<div class="fs-counter input-group {{addclass}}" ng-class="{'input-group-sm' : size === 'sm'}" ng-style="width">
+    <span class="input-group-btn" ng-click="minus()">
+        <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-minus"></span>
+        </button>
+    </span>
+
+    <div class="input-group has-float-label" ng-class="{'input-group-sm' : size === 'sm'}">
+        <input type="text"
+               id="{{id}}"
+               class="form-control text-center"
+               ng-model="value"
+               ng-blur="blurred()"
+               ng-change="changed()"
+               ng-readonly="readonly"
+        />
+        <label for="{{id}}">{{label | translate}}</label>
+    </div>
+
+    <span class="input-group-btn" ng-click="plus()">
+        <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </span>
+</div>

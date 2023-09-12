@@ -1,0 +1,274 @@
+<style>
+    /*#region Full Price Table*/
+    div.prc {
+        width: 100%;
+        max-width: 1000px;
+        margin: 10px auto;
+        /*height: 1000px;*/
+        position: relative;
+        direction: rtl;
+    }
+
+    .prc ul {
+        display: flex;
+        top: 0px;
+        z-index: 10;
+        padding-bottom: 14px;
+    }
+
+    .prc li {
+        list-style: none;
+        flex: 1;
+    }
+
+    .prc li:last-child {
+        border-left: 1px solid #DDD;
+    }
+
+    .prc button {
+        width: 100%;
+        border: 1px solid #DDD;
+        border-left: 0;
+        border-top: 0;
+        padding: 10px;
+        background: #FFF;
+        font-size: 14px;
+        font-weight: bold;
+        height: 60px;
+        color: #999
+    }
+
+    .prc li.active button {
+        background: #E9E9E9;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+        color: #000;
+    }
+
+    .prc table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
+        border: 0;
+    }
+
+    .prc th {
+        background: #F5F5F5;
+        display: none;
+    }
+
+    .prc td, .prc th {
+        height: 53px
+    }
+
+    .prc .pkgtitr {
+        text-align: center;
+        font-weight: 700;
+        font-size: 18px;
+        /*background: #00a65a;
+        color: #fff;*/
+    }
+
+    .prc .srvitem {
+        background: #3399ff;
+        color: #fff;
+        text-align: right;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .prc td, th {
+        border: 1px solid #DDD;
+        padding: 16px 10px 10px;
+        empty-cells: show;
+    }
+
+    .prc td, .prc th {
+        text-align: right;
+    }
+
+    .prc td + td, .prc th + th {
+        text-align: center;
+        display: none;
+    }
+
+    .prc td.default {
+        display: table-cell;
+    }
+
+    .prc .bg-gray {
+        background-color: #b1b1b1;
+    }
+
+    .prc .bg-silver {
+        background-color: #dcdad1;
+    }
+
+    .prc .bg-gold {
+        background-color: #efd51d;
+    }
+
+    .prc .sep {
+        background: #F5F5F5;
+        font-weight: bold;
+    }
+
+    .prc .txt-l {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .prc .txt-top {
+        position: relative;
+        float: left;
+        top: -7px;
+        left: -7px;
+    }
+
+    .prc .tick {
+        font-size: 18px;
+        color: #2CA01C;
+    }
+
+    .prc .hideprc {
+        border: 0;
+        background: none;
+    }
+
+    .prc .contatinho {
+        padding: 10px 20px;
+        font-size: 12px;
+        display: inline-block;
+        color: #FFF;
+        text-decoration: none;
+        border-radius: 3px;
+        text-transform: uppercase;
+        margin: 5px 0 10px 0;
+    }
+
+    .prc .thinbox {
+        max-width: 700px;
+    }
+
+    .prc .prcfooter {
+        display: none;
+    }
+
+    @media (min-width: 640px) {
+        .prc ul {
+            display: none;
+        }
+
+        .prc .prcfooter {
+            display: table-row;
+        }
+
+        .prc td, .prc th {
+            display: table-cell !important;
+        }
+
+        .prc td, .prc th {
+            width: 330px;
+
+        }
+
+        .prc td + td, .prc th + th {
+            width: auto;
+        }
+
+        .prc .txt-top {
+            position: relative;
+            float: left;
+            top: -7px;
+            left: 10px;
+        }
+
+    }
+
+    /*#endregion*/
+</style>
+<div ng-if="options.visible">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <i class="fa fa-th" style="color: #00c0ef;"></i>
+            <h3 class="box-title">{{'accounting.bankAccountInformation' | translate}}</h3>
+            <div class="box-tools pull-left">
+            </div>
+        </div>
+        <div class="box-footer no-border row">
+
+            <account-summery params="params"></account-summery>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="prc" ng-class="{'thinbox' : options.showPriceDetail}">
+        <ul>
+            <li ng-repeat="serviceBundle in serviceBundleList" data-sbndlid="{{serviceBundle.id}}"
+                ng-click="serviceBundleClick($event)">
+                <button>{{serviceBundle.title}}</button>
+            </li>
+        </ul>
+        <table>
+            <thead>
+            <tr>
+                <th class="hideprc" ng-show="options.showPriceDetail"></th>
+                <th ng-repeat="serviceBundle in serviceBundleList" ng-class="serviceBundle.uiClassName">
+                    {{serviceBundle.title}}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="prcheader">
+                <td class="pkgtitr" ng-show="options.showPriceDetail">امکانات</td>
+                <td ng-repeat="serviceBundle in serviceBundleList"
+                    ng-bind-html="'<small class=\'txt-top\'>' + 'تومان' + '</small><span class=\'txt-l\'>' + (serviceBundle.price / 10  | currency:'':shopFractionSize) + '</span>'">
+                </td>
+            </tr>
+            <tr class="pcdata" ng-show="options.showPriceDetail"
+                ng-repeat="detail in serviceBundleList[0].packageDetail">
+                <td class="srvitem">{{detail.name}}</td>
+                <td ng-repeat="serviceBundle in serviceBundleList"
+                    ng-bind-html="serviceBundle.packageDetail[$parent.$index].value === false ? '<span class=\'nottick\'>❌</span>' : serviceBundle.packageDetail[$parent.$index].value === true ? '<span class=\'tick\'>✔</span>' : '<span class=\'tick\'>'+ serviceBundle.packageDetail[$parent.$index].value +'</span>'">
+                </td>
+            </tr>
+            <tr class="prcfooter">
+                <td class="hideprc" ng-show="options.showPriceDetail"></td>
+                <td ng-repeat="serviceBundle in serviceBundleList">
+                    <label>
+                        <input type="radio" name="selectedServiceBundle" ng-model="options.selectedServiceBundle"
+                               data-sbndlid="{{serviceBundle.id}}" ng-disabled="options.readonly"
+                               ng-click="calcPayableAmount()" ng-value="serviceBundle">
+                        {{serviceBundle.title}}
+                    </label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="dvnewbutton">
+            <a class="btn btn-primary margin-bottom-md margin-top-md"
+               ng-click="options.showPriceDetail = !options.showPriceDetail">
+                {{options.showPriceDetail ? 'عدم نمایش جزئیات' : 'نمایش جزئیات'}}
+            </a>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <p class="margin-bottom-md txt-md bullettdata danger xs bg-success text-danger" ng-if="false"
+       data-bullet="i" style="padding-right: 10px;"
+       ng-bind-html="'accounting.serviceBundleHint' | translate">
+    </p>
+    <div class="col-xs-12 text-center margin-bottom-lg" ng-if="options.payableAmount > 0 && options.showPayableDetail">
+        <div class="margin-bottom-lg">
+            <span class="margin-bottom-lg badge badge-danger txt-sm pd-5">
+                <i class=" fa fa-cancel"></i>موجودی کافی نیست
+            </span>
+        </div>
+        <b class="txt-lg">{{'common.payableAmount' | translate}}: </b>
+        <span class="txt-lg">{{options.payableAmount / 10 | currency:"":shopFractionSize}} <small>تومان<!--{{shopCurrency}}--></small></span>
+        <button class="btn btn-primary" ng-click="chargeWallet()">
+            {{'order.chargeWallet' | translate}}
+        </button>
+    </div>
+    <div id="frmBankPayment"></div>
+
+</div>

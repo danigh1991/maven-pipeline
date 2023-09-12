@@ -1,0 +1,25 @@
+package com.core.common.util.validator.annotation;
+
+
+import com.core.common.util.validator.InRangeIntValidator;
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.*;
+
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Constraint(validatedBy = { InRangeIntValidator.class })
+public @interface InRangeInt {
+    String message() default "Value is out of range";
+
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+    int min() default Integer.MIN_VALUE;
+
+    int max() default Integer.MAX_VALUE;
+}

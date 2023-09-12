@@ -1,0 +1,60 @@
+﻿<section class="content-header">
+    <h1>
+        {{editMode ? ('common.edit' | translate) : ('common.new' | translate)}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/accounting/useraccountcreditlist">{{'accounting.userAccountCredits' | translate}}</a></li>
+        <li class="active">{{editMode ? ('common.edit' | translate) : ('common.new' | translate)}}</li>
+    </ol>
+</section>
+<section class="content row">
+    <div class="row" ng-form="myForm">
+
+        <!--<div class="margin-bottom-md col-md-3 col-xs-12" ng-user-input options="userInputOption"></div>-->
+        <!--<dbx-user events="userEvents" options="userOptions" selected-value="selectedUserId" disabled="editMode"/>-->
+        <div class="margin-bottom-md col-md-6 col-xs-12" ng-model="selectedUserId" ng-drop-box options="dbxUserOptions"
+             additional-data="{}" events="dbxUserEvents" cols="dbxUserCols">
+            <span message-type ng-show="myForm[dbxUserOptions.id].$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.user' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="title" placeholder=" " name="name"
+                       required autofocus data-ng-model="result.name"/>
+                <label for="title">{{'common.name' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.name.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.name' | translate}}'}"></span>
+        </div>
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <select class="form-control col-md-12" ng-model="result.accountPolicyProfileId" name="accountPolicyProfileId" id="accountPolicyProfileId" required
+                        ng-options="item.id as item.name for item in accountPolicyProfileList"></select>
+                <label for="accountPolicyProfileId">{{'accounting.accountPolicyProfile' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.accountPolicyProfileId.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'accounting.accountPolicyProfile' | translate}}'}"></span>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <textarea cols="40" rows="3" class="form-control" style="height:100px" placeholder=" "
+                          name="description" id="description" data-ng-model="result.description"></textarea>
+                <label for="description">{{'common.description' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-md-12 dvnewbutton">
+            <button class="btn btn-primary" style="font-weight:100;" ng-click="ok()" button-type="ok">
+            </button>
+            <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+        </div>
+    </div>
+
+</section>

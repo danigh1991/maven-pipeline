@@ -1,0 +1,24 @@
+﻿<section class="content-header">
+    <h1>
+        لیست کاربران سایت
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">کاربران سایت</li>
+    </ol>
+</section>
+<section class="content col-xs-12 row">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="col-xs-12" ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents"
+                 dt-cols="dtCols" dt-data="dtData"></div>
+
+        </div>
+    </div>
+    <div class="dvnewbutton">
+        <button class="btn btn-primary" backbutton>بازگشت</button>
+    </div>
+
+</section>

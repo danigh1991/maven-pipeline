@@ -1,0 +1,27 @@
+﻿<section class="content-header">
+    <h1>
+        {{'common.userGroup' | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{(isAdminPanel ? 'common.userGroup' : 'common.customerGroups') | translate}}</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+
+    <div class="margin-bottom-md col-md-4 col-xs-12" ng-if="isAdminPanel" ng-model="userId" ng-drop-box options="dbxUserOptions"
+         additional-data="{}" events="dbxUserEvents" cols="dbxUserCols"></div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-12" ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents"
+         dt-cols="dtCols" dt-data="dtData"></div>
+
+    <div class="clearfix"></div>
+
+    <div class="dvnewbutton col-xs-12">
+        <button class="btn btn-primary" id="addRole" ng-click="addEdit()" ng-disabled="!userId && isAdminPanel" button-type="new"></button>
+        <button class="btn btn-primary" backbutton></button>
+    </div>
+
+</section>

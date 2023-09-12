@@ -1,0 +1,11 @@
+<div ng-class="options.dropDownClass">
+    <span class="input-group-addon">نوع جشنواره</span>
+    <div custom-select="g.caption for g in eventTypes | filter: $searchTerm"
+         custom-select-options="eventTypesOptions" ng-disabled="options.disabled"
+         ng-model="selectedEventType" ng-save-state="evt_storeStateName" disable-save-state={{options.saveState}}></div>
+</div>
+<div ng-if="options.showButton" ng-class="options.buttonListClass">
+    <button ng-click="addEventType()" title="تعریف جشنواره" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
+    <button ng-click="editEventType()" ng-disabled="!(selectedEventType && selectedEventType.id > 0)" title="ویرایش جشنواره" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></button>
+    <button ng-click="deleteEventType()" deletebutton ng-disabled="!(selectedEventType && selectedEventType.id > 0)" title="حذف جشنواره" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
+</div>

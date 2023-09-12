@@ -1,0 +1,105 @@
+﻿<section class="content-header">
+    <h1>
+        {{'accountingOperation.accountingOperations' | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{'accountingOperation.accountingOperations' | translate}}</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+    <div class="row">
+
+        <div class="row col-md-4 col-xs-12">
+            <dbx-user events="userEvents" options="userOptions" selected-value="selectedUserId"></dbx-user>
+        </div>
+
+
+        <div class="col-xs-12" ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents"
+             dt-cols="dtCols" dt-data="dtData"></div>
+
+
+    </div>
+    <div class="dvnewbutton">
+        <button class="btn btn-danger" backbutton button-type="back"></button>
+    </div>
+</section>
+
+<script type="text/ng-template" id="operationStatementDeails">
+    <div class="panel panel-default">
+
+        <div class="panel-body row txt-xs">
+            <div class="col-md-6 col-xs-12 mgb-5">
+                <span class="label">{{'common.action' | translate}}:</span>{{item.title}}
+            </div>
+            <div class="col-md-6 col-xs-12 mgb-5">
+                <span class="label">{{'common.amount' | translate}}:</span>
+                <span class="prcblk">{{item.amount | currency: '' : additionalData.shopFractionSize}} {{additionalData.shopCurrency}}</span>
+            </div>
+
+            <div class="col-md-6 col-xs-12 mgb-5">
+                <span class="label">{{'common.status' | translate}}:</span>
+                <span class="badge"
+                      ng-class="{'badge-success' : item.resultStatus, 'badge-danger' : !item.resultStatus}">{{item.statusDesc}}</span>
+            </div>
+            <div class="col-md-6 col-xs-12 mgb-5">
+                <span class="label">{{'common.trackingCode' | translate}}:</span>
+                <span class="badge badge-info">{{item.trackingCode}}</span>
+            </div>
+
+            <div class="col-md-6 col-xs-12 mgb-5">
+                <span class="label">{{'common.userName' | translate}}:</span>
+                <span style="display: inline-block;direction: ltr">{{item.sourceUserName}}</span>
+            </div>
+            <div class="col-md-6 col-xs-12 mgb-5">
+                <span class="label">{{'common.createDate' | translate}}:</span>
+                {{item.createDate}}
+            </div>
+
+            <div class="col-xs-12 mgb-5">
+                <span class="label">{{'common.description' | translate}}:</span>
+                {{item.description}}&nbsp;
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" ng-if="item.otherDetails && (item.otherDetails || []).length > 0">
+        <div class="panel-heading">
+            <div class="txt-lg bulletbx"> {{'common.details' | translate}}</div>
+        </div>
+        <div class="panel-body row txt-xs">
+            <div ng-repeat="otherDetail in item.otherDetails">
+                <div class="col-md-6 col-xs-12 mgb-5" ng-repeat="odtl in otherDetail">
+                    <span class="label">{{odtl.key}}:</span><span style="display: inline-block;direction: ltr">{{odtl.value}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" ng-if="item.additionalDetails && (item.additionalDetails || []).length > 0">
+        <div class="panel-heading">
+            <div class="txt-lg bulletbx"> {{'common.more' | translate}}</div>
+        </div>
+        <div class="panel-body row txt-xs">
+            <div ng-repeat="additionalDetail in item.additionalDetails">
+                <div class="col-md-6 col-xs-12 mgb-5" ng-repeat="addtl in additionalDetail">
+                    <span class="label">{{addtl.key}}:</span><span style="display: inline-block;direction: ltr">{{addtl.value}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" ng-if="item.financialDetails && (item.financialDetails || []).length > 0">
+        <div class="panel-heading">
+            <div class="txt-lg bulletbx"> {{'accounting.financialTransactionsList' | translate}}</div>
+        </div>
+        <div class="panel-body row txt-xs">
+            <div ng-repeat="financialDetail in item.financialDetails">
+                <div class="col-md-6 col-xs-12 mgb-5" ng-repeat="dtl in financialDetail">
+                    <span class="label">{{dtl.key}}:</span><span style="display: inline-block;direction: ltr">{{dtl.value}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+

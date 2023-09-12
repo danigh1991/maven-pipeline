@@ -1,0 +1,138 @@
+﻿<style>
+    .input-group-addon {
+        min-width: 110px;
+    }
+
+    .small-addon {
+        min-width: 70px !important;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        margin-right: 5px;
+    }
+
+    .txtlefttoright {
+        text-align: left;
+        direction: ltr;
+    }
+
+    /* webkit solution */
+    input.txtlefttoright::-webkit-input-placeholder {
+        text-align: left;
+    }
+
+    /* mozilla solution */
+    input.txtlefttoright:-moz-placeholder {
+        text-align: left;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        {{'accounting.bankAccountInformation' | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{'accounting.bankAccountInformation' | translate}}</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+
+    <account-summery params="params"></account-summery>
+
+    <div class="row">
+        <section class="col-xs-12">
+            <!-- Desktop box -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <i class="fa fa-th" style="color: #00c0ef;"></i>
+                    <h3 class="box-title">{{'accounting.bankAccountInformation' | translate}}</h3>
+                    <div class="box-tools pull-left">
+                    </div>
+                </div>
+                <div class="box-footer no-border row">
+                    <div class="col-md-5" ng-form="myForm">
+
+                        <!--<div class="col-xs-12">
+                            <div class="input-group margin-bottom-sm col-xs-12">
+                                <span class="input-group-addon">بانک *</span>
+                                <select class="form-control col-xs-12" ng-model="selectedBank" name="selectedBank"
+                                        ng-options="item.id as item.name for item in banks" required>
+                                    <option value="">بانک را انتخاب کنید</option>
+                                </select>
+                            </div>
+                            <span style="color:red;padding-right: 20px;" ng-show="selectedBank == null && showError"> بانک وارد نشــده است!</span>
+                        </div>-->
+
+                        <div class="col-xs-12" ng-show="financeConfig.showAccountNumber">
+                            <div class="input-group margin-bottom-sm col-xs-12">
+                                <span class="input-group-addon">{{'accounting.accountNumber' | translate}}</span>
+                                <input type="text" class="form-control txtlefttoright" name="acountNumber" numbers-only
+                                       autofocus data-ng-model="myBankAccountInfo.acount_number" ng-maxlength="16"
+                                       ng-minlength="9"/>
+                            </div>
+                            <span style="color:red;padding-right: 20px;" ng-show="myForm.acountNumber.$error.maxlength && showError" translate="validate.maxDigits" translate-values="{max: '16'}"></span>
+                            <span style="color:red;padding-right: 20px;" ng-show="myForm.acountNumber.$error.minlength && showError" translate="validate.minDigits" translate-values="{min: '9'}"></span>
+                        </div>
+
+                        <div class="col-xs-12" ng-show="financeConfig.showCartNumber">
+                            <div class="input-group margin-bottom-sm col-xs-12">
+                                <span class="input-group-addon">{{'accounting.cardNumber' | translate}}</span>
+                                <input type="text" class="form-control txtlefttoright" name="cardNumber"
+                                       ui-mask="{{financeConfig.cartNumberMask}}"
+                                       autofocus data-ng-model="myBankAccountInfo.card_number"/>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12" ng-show="financeConfig.showIbanNumber">
+                            <div class="input-group margin-bottom-sm col-xs-12">
+                                <span class="input-group-addon">{{'accounting.ibanNumber' | translate}}</span>
+                                <input type="text" class="form-control txtlefttoright" name="ibanNumber"
+                                       ui-mask="{{financeConfig.ibanNumberMask}}"
+                                       autofocus data-ng-model="myBankAccountInfo.iban_number"/>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12" ng-show="financeConfig.showSwiftNumber">
+                            <div class="input-group margin-bottom-sm col-xs-12">
+                                <span class="input-group-addon">{{'accounting.swiftNumber' | translate}}</span>
+                                <input type="text" class="form-control txtlefttoright" name="swiftNumber"
+                                       ui-mask="{{financeConfig.swiftNumberMask}}"
+                                       autofocus data-ng-model="myBankAccountInfo.swift_number"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" ng-show="financeConfig.showPaypalAccount">
+                            <div class="input-group margin-bottom-sm col-xs-12">
+                                <span class="input-group-addon">{{'accounting.paypalAccount' | translate}}</span>
+                                <input type="email" class="form-control txtlefttoright" name="paypalAccount"
+                                       autofocus data-ng-model="myBankAccountInfo.paypal_account" placeholder="mail@info.com" />
+                            </div>
+                            <span message-type ng-show="!myForm.paypalAccount.$valid && showError" translate="validate.validMessage" translate-values="{element: '{{'common.email' | translate}}'}"></span>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="input-group margin-bottom-sm col-xs-12">
+                                <span class="input-group-addon">{{'accounting.sitePassword' | translate}} *</span>
+                                <input type="password" id="password" name="password" class="form-control ltr-input"
+                                       placeholder="{{'accounting.sitePassword' | translate}}" autofocus data-ng-model="password" required data-toggle="tooltip" title="{{'accounting.sitePasswordHint' | translate}}"/>
+                            </div>
+                            <span style="color:red;padding-right: 20px;" ng-show="myForm.password.$error.required && showError" translate="validate.requiredMessage" translate-values="{element: '{{'accounting.sitePassword' | translate}}'}"></span>
+                        </div>
+
+                        <div class="dvnewbutton">
+                            <button class="btn btn-primary" id="AccountInfo" ng-click="registerAccountInfo()" button-type="ok">
+                            </button>
+                            <button class="btn btn-primary" backbutton></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </section>
+    </div>
+
+</section>

@@ -1,0 +1,25 @@
+﻿<section class="content-header">
+    <h1>
+        {{'accounting.manualTransactionRequestList' | translate}}
+    </h1>
+    <!--<ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/accounting/useraccountcreditlist">{{'accounting.userAccountCredits' | translate}}</a></li>
+        <li class="active">{{'accounting.accountCreditDetails' | translate}}</li>
+    </ol>-->
+</section>
+<section class="content col-xs-12">
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-12" ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents"
+         dt-cols="dtCols" dt-data="dtData"></div>
+
+    <div class="clearfix"></div>
+
+    <div class="dvnewbutton col-xs-12">
+        <button class="btn btn-primary" id="addManualTransactionRequest" ng-click="addEdit()" button-type="new"></button>
+        <button class="btn btn-primary" backbutton></button>
+    </div>
+
+</section>

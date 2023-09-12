@@ -1,0 +1,108 @@
+﻿<style>
+    .tdcommand{
+        min-width:100px !important;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        {{'accounting.refundRequestList' | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{'accounting.refundRequestList' | translate}}</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+
+    <!--<account-summery params="params"></account-summery>-->
+
+    <div class="row">
+        <section class="col-xs-12">
+            <!-- Desktop box -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <i class="fa fa-th" style="color: #00c0ef;"></i>
+                    <h3 class="box-title">{{'accounting.refundRequestList' | translate}}</h3>
+                    <div class="box-tools pull-left">
+                        <!--<button class="btn btn-box-tool" data-widget="collapse" data-target="#main-chart" data-toggle="tooltip" title="بستن"><i class="fa fa-minus"></i></button>-->
+                    </div>
+                </div>                
+                <div class="box-footer no-border row">
+                    <div class="col-md-4">
+                        <div class="input-group margin-bottom-sm col-xs-12">
+                            <span class="input-group-addon">{{'common.search' | translate}}</span>
+                            <input type="text" class="form-control" name="bzquery" autofocus data-ng-model="bzquery" ng-change="search()" />
+                        </div>
+                    </div>
+                    <div class="dvnewbutton">
+                    </div>
+                    <div class="col-xs-12">
+
+                        <table class="tableClass table-striped" wt-responsive-table>
+                            <thead class="theadClass">
+                                <tr class="MyClass">
+                                    <th class="text-center bg-black thClass col-md-2">{{'common.amount' | translate}}({{shopCurrency}})</th>
+                                    <th class="text-center bg-black thClass col-md-2">{{'common.description' | translate}}</th>
+                                    <th class="text-center bg-black thClass col-md-2">{{'common.saveDate' | translate}}</th>
+                                    <th class="text-center bg-black thClass col-md-1">{{'accounting.depositDate' | translate}}</th>
+                                    <!--<th class="text-center bg-black thClass col-md-1">{{'common.bank' | translate}}</th>-->
+                                    <th class="text-center bg-black thClass col-md-2">{{'destination' | translate}}</th>
+                                    <th class="text-center bg-black thClass col-md-2">{{'common.status' | translate}}</th>
+                                    <th class="text-center bg-black thClass" style="max-width:10px;"></th>                                    
+                                </tr>
+                            </thead>
+
+                            <tbody class="MyClass">
+                                <tr ng-if="items.length >= 1" ng-repeat="data in items" class="trClass">
+
+                                    <td class="text-center thClass">{{data.reqAmount | currency:"":shopFractionSize}}</td>
+                                    <td class="text-center thClass">{{data.reqDesc}}</td>
+                                    <td class="text-center thClass">{{data.createDate}}</td>
+                                    <td class="text-center thClass">{{data.payDate}}</td>
+                                    <!--<td class="text-center thClass">{{data.toBankName}}</td>-->
+                                    <td class="text-center thClass">{{data.financeDestCaption}}: {{data.financeDestValue}}</td>
+                                    <td class="text-center thClass">{{data.statusDesc}}</td>
+                                    <td class="text-center thClass tdcommand">
+                                        <button class="btn btn-info" id="cancelRefund" ng-confirm-click="cancelRefund(this,data.id)" ng-confirm-message="آیا از لغو درخواست برگشت وجه اطمینان دارید؟" ng-show="data.status == 0" title="لغو درخواست">لغو درخواست</button>
+                                    </td>
+
+                                </tr>
+                                <tr class="trClass" ng-if="items.length === 0">
+                                    <td colspan="7" class="thClass tdnotfound">
+                                        {{'common.noRecordFound' | translate}}
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <!-- pager -->
+                        <ul ng-if="pager.pages.length" class="pagination">
+                            <li ng-class="{disabled:pager.currentPage === 1}">
+                                <a ng-click="setPage(1)">{{'pager.first' | translate}}</a>
+                            </li>
+                            <li ng-class="{disabled:pager.currentPage === 1}">
+                                <a ng-click="setPage(pager.currentPage - 1)">{{'pager.previous' | translate}}</a>
+                            </li>
+                            <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+                                <a ng-click="setPage(page)">{{page}}</a>
+                            </li>
+                            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                                <a ng-click="setPage(pager.currentPage + 1)">{{'pager.next' | translate}}</a>
+                            </li>
+                            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                                <a ng-click="setPage(pager.totalPages)">{{'pager.last' | translate}}</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </section>
+    </div>
+    <div class="dvnewbutton">
+        <!--<a class="btn btn-primary" style="font-weight:100;" id="addRefund" ng-href="{{addRefund}}" button-type="new"></a>-->
+        <button class="btn btn-primary" backbutton></button>
+    </div>
+</section>

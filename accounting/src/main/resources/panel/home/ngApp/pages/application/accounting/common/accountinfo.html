@@ -1,0 +1,30 @@
+﻿<div id="SmalBoxes" class="row col-xs-12">
+    <div class="col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-usd"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">{{'accounting.balance' | translate}}</span>
+                <span class="info-box-number">{{result.balance}}<small>{{shopCurrency}}</small></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="ion ion-ios-locked-outline"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">{{'accounting.blocked' | translate}}</span>
+                <span class="info-box-number">{{result.block}}<small>{{shopCurrency}}</small></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+</div>

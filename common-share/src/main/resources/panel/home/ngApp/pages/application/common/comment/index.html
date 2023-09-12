@@ -1,0 +1,111 @@
+﻿<style>
+    .tdcommand{
+        min-width:155px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        {{"comment.commentList" | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{"comment.commentList" | translate}}</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+
+    <div class="row">
+
+        <div class="col-md-3" ng-hide="targetTypeList.length == 1">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon">{{'comment.commentsOn' | translate}}</span>
+                <select class="form-control col-xs-12" ng-model="selectedTargetType" name="selectedTargetType" ng-options="item as item.name for item in targetTypeList"></select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon">{{'common.fromDate' | translate}} *</span>
+                <!--<input type="text" class="form-control" placeholder="{{'common.fromDate' | translate}}" name="fromDate" id="fromDate" onchange="commentListChangeDates()" autofocus data-ng-model="fromDate"
+                       ngdatebox />-->
+                <adm-dtp ng-model='fromDate' placeholder="'common.fromDate' | translate" ng-name="'fromDate'" ng-id="'fromDate'"></adm-dtp>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon">{{'common.toDate' | translate}} *</span>
+                <!--<input type="text" class="form-control" placeholder="{{'common.toDate' | translate}}" name="toDate" id="toDate" onchange="commentListChangeDates()" autofocus data-ng-model="toDate"
+                       ngdatebox />-->
+                <adm-dtp ng-model='toDate' placeholder="'common.toDate' | translate" ng-name="'toDate'" ng-id="'toDate'"></adm-dtp>
+            </div>
+        </div>        
+
+        <div class="col-md-3">
+            <button class="btn btn-primary btn-def" id="search" ng-click="getAllMyComments()">{{'common.search' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="input-group margin-bottom-sm col-xs-12 col-sm-12">
+                <span class="input-group-addon">{{'common.search' | translate}}</span>
+                <input type="text" class="form-control" name="bzquery" autofocus data-ng-model="bzquery" ng-change="search()" />
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <table class="tableClass table-striped" wt-responsive-table>
+        <thead class="theadClass">
+            <tr class="MyClass">
+                <th class="text-center bg-black thClass col-md-1">{{'common.id' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-1">{{'common.name' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-1">{{'common.type' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-4">{{'common.comment' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-1">{{'common.saveDate' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-1">{{'common.commentLink' | translate}}</th>
+            </tr>
+        </thead>
+
+        <tbody class="MyClass">
+            <tr ng-if="items.length >= 1" ng-repeat="data in items" class="trClass">
+                <td class="text-center thClass">{{data.id}}</td>
+                <td class="text-center thClass">{{data.name}}</td>
+                <td class="text-center thClass">{{data.targetTypeCaption}}</td>
+                <td class="text-center thClass">{{data.comment}}</td>
+                <td class="text-center thClass">{{data.commentDate}}</td>
+                <td class="text-center thClass"><a href="{{data.url}}/#comment-{{data.id}}" target="_blank"><i class="fa fa-link"></i></a></td>
+            </tr>
+            <tr class="trClass" ng-if="items.length === 0">
+                <td colspan="6" class="thClass tdnotfound">
+                    {{'common.noRecordFound' | translate}}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    </div>
+    <!-- pager -->
+    <ul ng-if="pager.pages.length" class="pagination">
+        <li ng-class="{disabled:pager.currentPage === 1}">
+            <a ng-click="setPage(1)">{{'pager.first' | translate}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === 1}">
+            <a ng-click="setPage(pager.currentPage - 1)">{{'pager.previous' | translate}}</a>
+        </li>
+        <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+            <a ng-click="setPage(page)">{{page}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.currentPage + 1)">{{'pager.next' | translate}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.totalPages)">{{'pager.last' | translate}}</a>
+        </li>
+    </ul>
+    <div class="dvnewbutton">
+        <button class="btn btn-primary" backbutton></button>
+    </div>
+</section>

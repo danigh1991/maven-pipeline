@@ -1,0 +1,52 @@
+<div id="SmalBoxes" class="row col-xs-12">
+    <div class="col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-usd"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">{{'accounting.balance' | translate}}</span>
+                <span class="info-box-number">{{params.accounts[0].balance | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span>
+                <span class="info-box-text ng-binding text-left mgt-5 pdt-5" ng-show="events && events.loadAccountTypeDetail">
+                    <button class="btn btn-warning btn-xs" ng-click="loadAccountTypeDetail(params.accounts[0])">جزئیات</button>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="ion ion-ios-locked-outline"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">{{'accounting.blocked' | translate}}</span>
+                <span class="info-box-number">{{params.accounts[0].block | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+</div>
+<div id="otherSmalBoxes" class="row col-xs-12" ng-show="params.accounts.length > 1">
+    <div class="col-sm-3 col-xs-12" ng-repeat="account in params.accounts.slice(1)">
+        <div class="info-box">
+            <span class="info-box-icon {{account.accountType.nature == 2 ? 'bg-green' : 'bg-aqua'}}"><i class="fa fa-usd"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">{{account.accountType.description}}</span>
+                <span class="info-box-number">{{account.balance | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span>
+                <span class="info-box-text ng-binding text-left mgt-5 pdt-5" ng-show="events && events.loadAccountTypeDetail">
+                    <button class="btn btn-warning btn-xs" ng-click="loadAccountTypeDetail(account)">جزئیات</button>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="clearfix visible-sm-block"></div>
+</div>

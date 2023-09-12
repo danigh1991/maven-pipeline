@@ -1,0 +1,20 @@
+﻿<style>
+    .label {
+        font-size: unset;
+        color: unset;
+    }
+</style>
+<section class="content-header">
+    <h1>
+       {{rgOptions.label | translate}}
+    </h1>
+</section>
+<section class="content" id="rptMainSection">
+    <ng-report-viewer options="rgOptions" rg-template="rgTemplate" additional-data="dtAdditionalData" events="dtEvents" rg-rows="rgRows" rg-data="rgData"></ng-report-viewer>
+
+</section>
+<div class="dvnewbutton">
+    <button class="btn btn-primary btnmd" ng-if="allowPrint" ng-click="printReport()" button-type="print"></button>
+    <button class="btn btn-danger" backbutton button-type="back"></button>
+</div>
+

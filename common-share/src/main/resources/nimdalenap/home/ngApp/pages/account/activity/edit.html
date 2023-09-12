@@ -1,0 +1,89 @@
+﻿<style>
+    .input-group-addon {
+        min-width: 97px;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        {{'common.editActivity' | translate}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/accessright/activities">{{'common.activities' | translate}}</a></li>
+        <li class="active">{{'common.editActivity' | translate}}</li>
+    </ol>
+</section>
+<section class="content row">
+    <div class="row" ng-form="myForm">
+
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="name" placeholder=" " name="name"
+                       required autofocus data-ng-model="result.title"/>
+                <label for="name">{{'common.name' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.name.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.name' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control ltr-input" id="icon" placeholder=" " name="icon"
+                       autofocus data-ng-model="result.icon"/>
+                <label for="name">{{'common.icon' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <textarea cols="40" rows="3" class="form-control" style="height:100px" placeholder=" "
+                          name="description" id="description" data-ng-model="result.description"/>
+                <label for="description">{{'common.description' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <label><input type="checkbox" name="active" ng-checked="result.active" ng-model="result.active"/>{{'common.active' | translate}}</label>
+            <label><input type="checkbox" name="isBlank" ng-checked="result.blank" ng-model="result.blank"/>{{'common.isBlank' | translate}}</label>
+            <label><input type="checkbox" name="isModal" ng-checked="result.modal" ng-model="result.modal"/> {{'common.isModal' | translate}}</label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="panel panel-default brandpanel">
+                <div class="panel-heading">
+                    <div class="input-group has-float-label">
+                        <input type="text" id="query" class="form-control" ng-model="query" placeholder=" "/>
+                        <label for="query">{{'common.search' | translate}}</label>
+                    </div>
+                </div>
+                <div class="panel-body" style="height: 200px;overflow-y: auto;">
+                    <ul style="padding-right:10px;">
+                        <li ng-repeat="permission in permissions | filter:query" class="col-md-5">
+                            <label class="lblcheckbox" ng-attr-tooltip="{{permission.description}}" title-direction="{{isLeftToRight ? 'right-bottom' : 'left-bottom'}}">
+                                <input type="checkbox" class="chkcheckbox" checklist-model="result.permissions"
+                                       checklist-value="permission.id">
+                                {{permission.name}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-md-12 dvnewbutton">
+            <button class="btn btn-primary" ng-click="editActivity()" button-type="ok">
+            </button>
+            <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+        </div>
+    </div>
+
+</section>

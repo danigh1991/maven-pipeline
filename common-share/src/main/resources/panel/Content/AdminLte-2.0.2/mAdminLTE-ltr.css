@@ -1,0 +1,89 @@
+.mbdltr .main-header > .navbar {
+  margin-right: unset;
+  margin-left: 230px;
+}
+.mbdltr .main-sidebar,
+.mbdltr .left-side {
+  right: unset;
+  left: 0;
+  padding-left: 0;
+  padding-right: 1px;
+}
+.mbdltr .content-wrapper,
+.mbdltr .right-side,
+.mbdltr .main-footer {
+  margin-right: unset;
+  margin-left: 230px;
+}
+.mbdltr .main-header .sidebar-toggle {
+  float: left;
+}
+.mbdltr .main-header .navbar-custom-menu,
+.mbdltr .main-header .navbar-right {
+  float: left;
+  margin-right: unset;
+  margin-left: 5px;
+}
+.mbdltr .navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+  left: 0;
+  right: auto;
+}
+.mbdltr .sidebar-menu li > a > .fa-angle-left {
+  transform: scaleX(-1);
+}
+.mbdltr .small-box > .small-box-footer .fa.fa-arrow-circle-left {
+  transform: scaleX(-1);
+}
+.mbdltr .main-header .logo {
+  float: left;
+}
+@media (max-width: 991px) {
+  .mbdltr .navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+    left: 5%;
+    right: auto;
+  }
+}
+@media (max-width: 767px) {
+  .mbdltr .content-wrapper,
+  .mbdltr .right-side,
+  .mbdltr .main-footer {
+    margin-right: unset;
+    margin-left: 0;
+  }
+  .mbdltr .main-sidebar,
+  .mbdltr .left-side {
+    -webkit-transform: translate(-235px, 0);
+    -ms-transform: translate(-235px, 0);
+    -o-transform: translate(-235px, 0);
+    transform: translate(-235px, 0);
+  }
+  .mbdltr.sidebar-open .main-sidebar,
+  .mbdltr.sidebar-open .left-side {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+  .mbdltr .main-header .navbar {
+    margin: 0;
+  }
+}
+@media (min-width: 768px) {
+  .mbdltr.sidebar-collapse .main-sidebar,
+  .mbdltr.sidebar-collapse .left-side {
+    -webkit-transform: translate(-230px, 0);
+    -ms-transform: translate(-230px, 0);
+    -o-transform: translate(-230px, 0);
+    transform: translate(-230px, 0);
+  }
+  .mbdltr.sidebar-collapse .content-wrapper,
+  .mbdltr.sidebar-collapse .right-side,
+  .mbdltr.sidebar-collapse .main-footer {
+    margin-right: unset;
+    margin-left: 0;
+  }
+  .mbdltr #footer {
+    margin-left: 0 !important;
+  }
+}
+/*# sourceMappingURL=mAdminLTE-ltr.css.map */

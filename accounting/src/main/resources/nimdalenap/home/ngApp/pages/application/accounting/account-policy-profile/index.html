@@ -1,0 +1,44 @@
+﻿<section class="content-header">
+    <h1>
+        {{'accounting.accountPolicyProfile' | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{'accounting.accountPolicyProfile' | translate}}</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+
+    <!--<div class="margin-bottom-md col-md-3 col-xs-12" ng-user-input options="userInputOption" after-load-data="search()" after-failed-data="search()"></div>-->
+    <div class="margin-bottom-md col-md-4 col-xs-12" ng-model="selectedUserId" ng-drop-box options="dbxUserOptions"
+         additional-data="{}" events="dbxUserEvents" cols="dbxUserCols"></div>
+
+    <div class="margin-bottom-md col-md-9 col-xs-12" ng-if="false">
+        <button class="btn btn-primary btn-def" id="search" ng-click="search()">{{'common.search' | translate}}</button>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="text-center">
+        <div class="btn-group margin-bottom-md" role="group" ng-show="allActiveAccountTypes && allActiveAccountTypes.length > 1">
+            <div ng-repeat-start="item in allActiveAccountTypes" ng-if="false"></div>
+                <input type="radio" class="btn-check" name="accountType" id="accountType{{item.id}}" autocomplete="off"
+                       ng-value="item" ng-model="$parent.accountType" ng-change="$parent.accountTypeChange()"/>
+                <label class="btn button-outline" for="accountType{{item.id}}">{{item.caption}}</label>
+            <div ng-repeat-end ng-if="false"></div>
+        </div>
+    </div>
+
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-12" ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents"
+         dt-cols="dtCols" dt-data="dtData"></div>
+
+    <div class="clearfix"></div>
+
+    <div class="dvnewbutton col-xs-12">
+        <button class="btn btn-primary" ng-click="addEdit()" button-type="new"></button>
+        <button class="btn btn-primary" backbutton></button>
+    </div>
+</section>

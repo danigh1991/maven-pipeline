@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="margin-bottom-sm col-md-12" style="display: flex;">
+            <input type="text" enter-event="addValue()" class="form-control"
+                   ng-model="value" placeholder="{{options.caption | translate}}" style="border-radius: 4px !important;" />
+            <button ng-click="addValue()" ng-show="!editMode" class="btn btn btn-default"><i class="fa fa-plus"></i></button>
+            <button ng-click="editValue()" ng-show="editMode" class="btn btn btn-warning"><i class="fa fa-pencil"></i></button>
+            <button ng-click="cancleEditValue()" ng-show="editMode" class="btn btn btn-danger"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+    <div class="panel-body" style="height: auto;">
+        <span class="{{options.blockClass}}" ng-repeat="valueNode in options.valueList track by $index">
+            {{valueNode}}
+            <span ng-click="editValueState(valueNode)" class="fa fa-pencil pull-left mgt-5"></span>
+            <span ng-click="removeValue(valueNode)" class="fa fa-remove pull-left mgt-5"></span>
+        </span>
+    </div>
+</div>

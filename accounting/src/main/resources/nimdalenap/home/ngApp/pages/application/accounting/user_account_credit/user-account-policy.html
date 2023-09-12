@@ -1,0 +1,122 @@
+﻿<section class="content-header">
+    <h1>
+        {{pageTitle}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/accounting/useraccountcreditlist">{{'accounting.userAccountCredits' | translate}}</a></li>
+        <li class="active">{{pageTitle}}</li>
+    </ol>
+</section>
+<section class="content row col-xs-12">
+    <div class="row" ng-form="myForm">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body txtlgh txt-sm row" ng-if="isAccountCredit">
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'common.title' | translate}}: </span>{{masterAccountInfo.title}}</div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'common.expireDate' | translate}}: </span>{{masterAccountInfo.expireDate}}</div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'common.status' | translate}}: </span>{{masterAccountInfo.active ? ('common.active' | translate) : ('common.inactive' | translate)}}</div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.creditAmount' | translate}}: </span><span class="prcblk">{{masterAccountInfo.creditAmount | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.creditAmountPerUser' | translate}}: </span><span class="prcblk">{{masterAccountInfo.creditAmountPerUser | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.blocked' | translate}}: </span><span class="prcblk">{{masterAccountInfo.block | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.minCreditAmountAlarm' | translate}}: </span><span class="prcblk">{{masterAccountInfo.minCreditAmount | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.spendingRestrictions' | translate}}: </span>
+                        {{masterAccountInfo.spendingRestrictions ?
+                                (('common.yes' | translate) + ' (' + (masterAccountInfo.rateRestrictions ? (masterAccountInfo.rateRestrictions + ' ' + ('common.precent' | translate) + ', ') : '') + ('common.maximum' | translate) + ' ' + (masterAccountInfo.maxAmountRestrictions | currency : '' : shopFractionSize) + shopCurrency + ')')
+                                : ('common.no' | translate)}}</div>
+
+                    <div class="col-xs-12 shp-blk"><span class="label">{{'common.description' | translate}}: </span>{{masterAccountInfo.description}}</div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body txtlgh txt-sm row" ng-if="!isAccountCredit">
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'common.name' | translate}}: </span>{{masterAccountInfo.name}}</div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'common.type' | translate}}: </span>{{masterAccountInfo.accountTypeCaption}}</div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'common.status' | translate}}: </span>{{masterAccountInfo.statusDesc}}</div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.creditAmount' | translate}}: </span><span class="prcblk">{{masterAccountInfo.creditAmount | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.remainCreditAmount' | translate}}: </span><span class="prcblk">{{masterAccountInfo.balance | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.blocked' | translate}}: </span><span class="prcblk">{{masterAccountInfo.block | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>
+                    <!--<div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.remainCreditAmount' | translate}}: </span><span class="prcblk">{{masterAccountInfo.availableBalance | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>-->
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'common.createDate' | translate}}: </span>{{masterAccountInfo.createDate}}</div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'common.expireDate' | translate}}: </span>{{masterAccountInfo.expireDate}}</div>
+                    <div class="col-xs-12 shp-blk"><span class="label">{{'common.description' | translate}}: </span>{{masterAccountInfo.description}}</div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="text-center margin-bottom-md" ng-if="!isMerchant">
+                        <label>
+                            <input type="radio" class="" name="type" value="1" ng-model="$parent.type">
+                            {{'common.userName' | translate}}
+                        </label>
+                        <label>
+                            <input type="radio" class="" name="type" value="2" ng-model="$parent.type">
+                            {{'group' | translate}}
+                        </label>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="margin-bottom-sm col-md-12" style="display: flex;" ng-show="type==='1'">
+                        <!--<input type="text" id="userName" enter-event="add()" class="form-control"
+                               ng-model="userName" placeholder="{{'common.userName' | translate}}" style="border-radius: 4px !important;" />-->
+                        <!--<div class="margin-bottom-md col-xs-12" ng-user-input options="userInputOption"
+                             after-enter-event="add()"></div>-->
+                        <div class="col-xs-12" ng-model="selectedUserId" ng-drop-box options="dbxUserOptions"
+                             additional-data="{}" events="dbxUserEvents" cols="dbxUserCols">
+                        </div>
+                        <button ng-click="add()" class="btn btn btn-warning">{{'common.add' | translate}}</button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="margin-bottom-sm col-md-12" style="display: flex;" ng-show="type==='2'">
+                        <div custom-select="g.name for g in userGroups | filter: $searchTerm"
+                             custom-select-options="userGroupOptions"
+                             ng-model="selectedUserGroup"></div>
+                        <button ng-click="add()" class="btn btn btn-warning">{{'common.add' | translate}}</button>
+                    </div>
+                </div>
+                <div class="panel-body" style="height: auto;">
+                    <ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents" dt-cols="dtCols" dt-data="dtData">
+                        <div class="panel panel-default pdt-5">
+                            <div class="panel-body txtlgh txt-sm row" ng-class="{'text-center' : additionalData.formType !== 'accountcreditdetailpolicy', 'text-right': additionalData.formType === 'accountcreditdetailpolicy'}">
+                                <div class="col-xs-12">
+                                    <span class="label">
+                                        {{data.type === 1 ? (('group' | translate) + ': ') : (((additionalData.isMerchant ? 'common.merchant' : 'common.userName') | translate) + ': ')}}
+                                    </span>
+                                        {{data.type === 1 ? data.name : data.userName + (additionalData.formType !== 'accountcreditdetailpolicy' && data.family ? '(' + data.family + ')' : '')}}
+                                </div>
+
+                                <div ng-show="additionalData.formType == 'accountcreditdetailpolicy'">
+                                    <div class="col-xs-12"><span class="label">{{'common.name' | translate}} : </span> {{(data.name || data.family) ? (data.name + ' ' + data.family) : '--'}}</div>
+                                    <div class="col-xs-12"><span class="label">{{'اعتبار' | translate}} : </span> <span>{{data.creditAmount | currency : '' : additionalData.shopFractionSize}} <small>{{additionalData.shopCurrency}}</small></span></div>
+                                    <div class="col-xs-12"><span class="label">{{'استفاده شده' | translate}} : </span> <span>{{data.usedAmount | currency : '' : additionalData.shopFractionSize}} <small>{{additionalData.shopCurrency}}</small></span></div>
+                                    <div class="col-xs-12"><span class="label">{{'بلوکه شده' | translate}} : </span> <span>{{data.blockAmount | currency : '' : additionalData.shopFractionSize}} <small>{{additionalData.shopCurrency}}</small></span></div>
+                                    <div class="col-xs-12"><span class="label">{{'common.createDate' | translate}} : </span> {{data.createDate}}</div>
+                                </div>
+
+                                <button ng-click="events.delete(data)" deletebutton ng-show="additionalData.formType !== 'accountcreditdetailpolicy'"
+                                        style="position: absolute;top: 2px;left: 7px;z-index: 5;"
+                                        class="btn btn-xs btn-danger"><i
+                                        class="fa fa-cancel"></i></button>
+                            </div>
+                            <div class="shp-pnl-ftr" ng-show="additionalData.formType == 'accountcreditdetailpolicy'">
+                                <div class="row">
+                                    <div class="col-xs-12 shp-blk text-center">
+                                        <button class="btn btn-danger" ng-click="events.delete(data);" deletebutton button-type="delete"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-data-table>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-md-12 dvnewbutton">
+            <button class="btn btn-primary" backbutton button-type="back"></button>
+        </div>
+    </div>
+
+</section>

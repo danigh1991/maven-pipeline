@@ -1,0 +1,112 @@
+.my-buttons(@skin-main-color, @skin-on-main-color: #fff) {
+  @skin-main-color-dark: darken(@skin-main-color, 10%);
+  @skin-main-color-light: lighten(@skin-main-color, 10%);
+
+  @color: @skin-main-color;
+  @color-hover: @skin-main-color-dark;
+  @active-background: @skin-main-color;
+  @active-border: @skin-main-color;
+  @active-color: @skin-on-main-color;
+  @btn-border-width: 1px;
+  @btn-border-radius: 3px;
+
+  //#region global
+  .btn-check {
+    position: absolute;
+    clip: rect(0,0,0,0);
+    pointer-events: none;
+  }
+  //#endregion
+
+  .button-outline {
+    color: @color;
+    border-color: @color;
+
+    &:hover, &:focus {
+      color: @active-color;
+      background-color: @active-background;
+      border-color: @active-border;
+    }
+
+    &:active,
+    &.active,
+    &.dropdown-toggle.show {
+      color: @active-color;
+      background-color: @active-background;
+      border-color: @active-border;
+    }
+
+    &:disabled,
+    &.disabled {
+      color: @color;
+      background-color: transparent;
+    }
+  }
+
+  .btn-check:checked + .btn,
+  .btn-check:active + .btn {
+    color: @active-color;
+    background-color: @active-background;
+    border-color: @active-border;
+  }
+
+  &:not(.mbdltr) {
+    .btn-group,
+    .btn-group-vertical {
+      position: relative;
+      display: inline-flex;
+      vertical-align: middle;
+      flex-wrap: wrap;
+
+      > .btn {
+        position: relative;
+        flex: 1 1 auto;
+      }
+
+      // Prevent double borders when buttons are next to each other
+      > .btn-group:not(:first-child), > .btn:not(:first-child) {
+        margin-left: -@btn-border-width;
+      }
+
+      > .btn {
+        border-radius: @btn-border-radius !important;
+      }
+
+      > .btn-group:not(:last-child) > .btn, > .btn:not(:last-child):not(.dropdown-toggle) {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+
+      > .btn-group:not(:first-child) > .btn, > .btn:nth-child(n+3), > :not(.btn-check) + .btn {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+
+    }
+  }
+  //Left To Right
+  &.mbdltr {
+    .btn-group,
+    .btn-group-vertical {
+      // Prevent double borders when buttons are next to each other
+      >.btn-group:not(:first-child), >.btn:not(:first-child) {
+        margin-right: -@btn-border-width;
+        margin-left: unset;
+      }
+
+      > .btn {
+        border-radius: @btn-border-radius !important;
+      }
+
+      >.btn-group:not(:last-child)>.btn, >.btn:not(:last-child):not(.dropdown-toggle) {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+      >.btn-group:not(:first-child)>.btn, >.btn:nth-child(n+3), >:not(.btn-check)+.btn{
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+    }
+  }
+}
+

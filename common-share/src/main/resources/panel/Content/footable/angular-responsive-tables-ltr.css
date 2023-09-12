@@ -1,0 +1,33 @@
+@media only screen and (max-width: 800px) {
+  .mbdltr .responsive > tbody > tr > td {
+    padding-left: 50%;
+    padding-right: 5px;
+    text-align: right;
+  }
+  .mbdltr .responsive > tbody > tr > td.lg {
+    padding-left: 30%;
+  }
+  .mbdltr .responsive > tbody > tr > td.full {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+  .mbdltr .responsive > tbody > tr > td::before {
+    left: 6px;
+    padding-right: unset;
+    text-align: left;
+  }
+  .mbdltr .responsive td.responsive-omit-title:nth-child(odd),
+  .mbdltr .responsive td.responsive-omit-title:nth-child(even) {
+    padding-right: 6px;
+  }
+  .mbdltr .responsive > tbody > tr > td.text-right {
+    text-align: left;
+  }
+  .mbdltr .responsive > tbody > tr > td.text-left {
+    text-align: right;
+  }
+  .mbdltr .responsive > tbody > tr > td.text-center {
+    text-align: center;
+  }
+}
+/*# sourceMappingURL=angular-responsive-tables-ltr.css.map */

@@ -1,0 +1,96 @@
+﻿<section class="content-header">
+    <h1>
+        {{editMode ? ('common.edit' | translate) : ('common.new' | translate)}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/store/seasons">{{'common.season' | translate}}</a></li>
+        <li class="active">{{editMode ? ('common.edit' | translate) : ('common.new' | translate)}}</li>
+    </ol>
+</section>
+<section class="content row">
+    <div class="row" ng-form="myForm">
+
+        <div class="margin-bottom-md col-md-6 col-sm-12 col-xs-12" ng-if="isAdminPanel && projectType==='wallet' && !editMode">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="userName" placeholder=" " name="userName" ng-disabled="true"
+                       ng-required="projectType==='wallet'" autofocus data-ng-model="result.userName"/>
+                <label for="userName">{{'common.merachant' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.userName.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.merachant' | translate}}'}"></span>
+        </div>
+
+        <!--<div class="margin-bottom-md col-md-6 col-sm-12 col-xs-12" ng-if="projectType!=='wallet'">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="storeBranchId" placeholder=" " name="storeBranchId"
+                       ng-required="projectType!=='wallet'" autofocus data-ng-model="result.storeBranchId"/>
+                <label for="name">{{'shop.storeBranchId' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.storeBranchId.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'shop.storeBranchId' | translate}}'}"></span>
+        </div>-->
+
+        <div class="margin-bottom-md col-md-6 col-sm-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="name" placeholder=" " name="name"
+                       required autofocus data-ng-model="result.name"/>
+                <label for="name">{{'common.name' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.name.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.name' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-6 col-sm-12 col-xs-12">
+            <div class="input-group margin-bottom-sm">
+                <label>
+                    <input type="checkbox" name="active" data-ng-model="result.active"/>
+                    {{'common.active' | translate}}
+                </label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <textarea cols="40" rows="3" class="form-control" style="height:100px" placeholder=" "
+                          name="description" id="description" data-ng-model="result.description"></textarea>
+                <label for="description">{{'common.description' | translate}}</label>
+            </div>
+        </div>
+        <div class="col-md-12 col-xs-12" ng-if="editMode">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="margin-bottom-sm col-xs-12" style="display: flex;">
+                        <!--<input type="text" id="groupUserId" enter-event="addGroupMemberByUserName()" class="form-control" ng-model="$parent.groupUserId" placeholder="{{'common.userName' | translate}}" style="border-radius: 4px !important;" />-->
+                        <div class="col-xs-12 pdl-5 pdr-5" ng-model="$parent.groupUserId" ng-drop-box options="$parent.dbxUserOptions"
+                             additional-data="{}" events="$parent.dbxUserEvents" cols="$parent.dbxUserCols"></div>
+                        <button ng-click="addGroupMemberByUserName()" class="btn btn btn-warning">{{'common.add' | translate}}</button>
+                    </div>
+                </div>
+                <div class="panel-body" style="height: auto;">
+                    <ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents" dt-cols="dtCols" dt-data="dtData">
+                        <div class="panel panel-default pdt-5">
+                            <div class="panel-body txtlgh txt-sm text-center">
+                                <span class="label ltrdir">{{data}}</span>
+                                <button ng-click="events.delete(data)" deletebutton
+                                        style="position: absolute;top: 2px;left: 7px;z-index: 5;"
+                                        class="btn btn-xs btn-danger"><i
+                                        class="fa fa-cancel"></i></button>
+                            </div>
+                        </div>
+                    </ng-data-table>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-md-12 dvnewbutton">
+            <button class="btn btn-primary" style="font-weight:100;" ng-click="ok()" button-type="ok">
+            </button>
+            <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+        </div>
+    </div>
+
+</section>

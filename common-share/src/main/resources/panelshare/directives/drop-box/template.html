@@ -1,0 +1,13 @@
+<div class="dropboxwrp">
+    <div class="input-group has-float-label">
+        <input type="hidden" id="hdn{{options.id}}" ng-model="ngModel">
+        <input type="text" class="form-control" ng-focus="inputClicked()" id="{{options.id}}" name="{{options.id}}" placeholder=" "
+               ng-save-state="{{options.saveState ? options.saveStateKey : ''}}" disable-save-state="{{!options.saveState}}"
+               ng-required="{{options.required}}" ng-disabled="options.disabled" ng-model="ngTextModel" ng-model-options="{updateOn: 'blur'}"/>
+        <label for="{{options.id}}" ng-show="(options.label || '').length > 0">{{options.label | translate}}</label>
+        <div class="btn-group">
+            <button class="btn btn-default btn-def" ng-disabled="options.disabled" id="search{{options.id}}" ng-click="openSearchModal()"><i style="top: 3px" class="fa fa-search"></i></button>
+            <button class="btn btn-default btn-def" ng-disabled="options.disabled" id="erase{{options.id}}" ng-click="ngModel && eraseResult()"><i style="top: 3px" class="fa fa-cancel"></i></button>
+        </div>
+    </div>
+</div>

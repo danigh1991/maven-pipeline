@@ -1,0 +1,263 @@
+/*
+ * Skin: Black
+ * -----------
+ */
+@import "../../bootstrap/mixins.less";
+@import "../../bootstrap/variables.less";
+@import "../variables.less";
+@import "../mixins.less";
+@import "../header.less";
+
+:root{
+  --main-color: #222;
+  --main-color-dark: darken(#222, 5%);
+  --main-color-light: lighten(#222, 10%);
+}
+
+/* skin-black navbar */
+.skin-light {
+  //Navbar & Logo 
+  .main-header {
+    .box-shadow(0px 1px 1px rgba(0, 0, 0, 0.05));
+    .navbar-toggle {
+      color: #333;
+    }
+    .navbar-brand {
+      color: #333;
+      border-left: 1px solid #eee;
+    }
+    > .navbar {
+      .navbar-variant(#fff; #333; #999; #fff);
+      > .sidebar-toggle {
+        color: #333;
+        border-left: 1px solid #eee;
+      }
+      .navbar-nav {
+        > li > a {
+          border-left: 1px solid #eee;
+        }
+      }
+      /*.navbar-custom-menu .navbar-nav,
+      .navbar-right {
+        > li {
+          > a {
+            border-right: 1px solid #eee;
+            border-left-width: 0;
+          }
+        }
+      }*/
+    }
+    > .logo {
+      .logo-variant(#fff; #333);
+      border-left: 1px solid #eee;
+      @media (max-width: @screen-header-collapse) {
+        .logo-variant(#222; #fff);
+        border-left: none;
+      }
+    }
+
+    li.user-header {
+      background-color: #222;
+    }
+  }
+
+  //Content Header
+  .content-header {
+    background: transparent;
+    box-shadow: none;
+  }
+  //User Panel (resides in sidebar)
+  .user-panel {
+    > .image > img {
+      border: 1px solid rgb(0,0,0,.6);
+    }
+
+    > .info, > .info > a {
+      color: rgb(0,0,0,.9);
+      font-weight: bold;
+    }
+  }
+  //Sidebar & Treeview
+  // Sidebar color
+  .main-sidebar,
+  .left-side,
+  .wrapper {
+    background: #fff;
+  }
+  // the menu
+  .sidebar > .sidebar-menu > li {
+    &.header {
+      background: darken(#222, 2%);
+      color: rgba(255, 255, 255, .4);
+    }
+    > a {
+      margin-left: 1px;
+      border-right: 3px solid transparent;
+    }
+    //Hover and active states
+    > a:hover,
+    &.active > a {
+      color: rgba(0,0,0,.9);
+      background: #f6f9fc;
+      //border-right-color: #fff;
+      border-radius: .375rem;
+    }
+
+    > .treeview-menu {
+      //background: #fff;
+    }
+  }
+
+  .sidebar a {
+    color: rgba(0,0,0,.6);
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  // skin blue treeview-menu
+  .treeview-menu {
+    > li {
+      > a {
+        color: rgba(0, 0, 0, 0.6);
+      }
+      &.active > a,
+      > a:hover {
+        color: rgba(0, 0, 0, 0.9);
+        background: #f6f9fc;
+        border-radius: .375rem;
+      }
+    }
+  }
+
+  //Sidebar Search Form
+  .sidebar-form {
+    .border-radius(3px);
+    border: 1px solid lighten(#222, 10%);
+    margin: 10px 10px;
+    input[type="text"], .btn {
+      box-shadow: none;
+      background-color: lighten(#222, 10%);
+      border: 1px solid transparent;
+      height: 35px;
+      .transition(all @transition-speed @transition-fn);
+    }
+    input[type="text"] {
+      color: #666;
+      .border-radius(2px, 0, 2px, 0) !important;
+      &:focus, &:focus + .input-group-btn .btn {
+        background-color: #fff;
+        color: #666;
+      }
+      &:focus + .input-group-btn .btn {
+        border-right-color: #fff;
+      }
+    }
+    .btn {
+      color: #999;
+      .border-radius(0, 2px, 0, 2px) !important;
+    }
+  }
+
+  /*#region Override*/
+  .sidebar-menu{
+    font-size: 14px;
+  }
+  .sidebar-menu > li > a{
+    padding: 10px;
+  }
+  .sidebar::-webkit-scrollbar-track{
+    background-color: #eee !important;
+  }
+  .sidebar::-webkit-scrollbar {
+    background-color: #eee;
+  }
+  .sidebar::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+  }
+
+  .content-header > h1{
+    visibility: hidden;
+  }
+  .panel-default > .panel-heading{
+    background: #EEE;
+    color: #555 !important;
+    border-color: #ccc;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  /*#endregion*/
+
+  /*#region table*/
+  .bg-black{
+    background: #000000b3;
+    color: #fff !important;
+    padding: .55rem;
+  }
+
+  .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus,
+  .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #000000b3;
+    border-color: #000000b3;//darken(#222, 2%);
+    color: #fff;
+  }
+  /*#endregion*/
+
+  /*#region table dropdown-menu*/
+  .tableClass .dropdown-menu.panel-dropdown.action-list .btn {
+    background: #fff;
+    color: rgba(0, 0, 0, 0.8);
+    border: 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .tableClass .dropdown-menu.panel-dropdown.action-list .btn:last-child{
+    border-bottom: 0;
+  }
+  .tableClass .dropdown-menu.panel-dropdown.action-list .btn:hover,
+  .tableClass .dropdown-menu.panel-dropdown.action-list .btn:active,
+  .tableClass .dropdown-menu.panel-dropdown.action-list .btn:focus{
+    background: #f6f9fc !important;
+    color: rgba(0, 0, 0, 0.8) !important;
+    box-shadow: unset;
+    border-color: #ddd !important;
+  }
+  /*#endregion*/
+
+  /*#region table dropdown-menu*/
+  .fa-stack{
+    .fa-user{
+      color: #3399ff;
+    }
+    .fa-registered{
+      color: #e55353;
+    }
+    .fa-bar-chart-o{
+      color: #2eb85c;
+    }
+    .fa-calendar{
+      color: #321fdb;
+    }
+    .fa-comment{
+      color: #008080;
+    }
+    .fa-shopping-cart{
+      color: #ff0080;
+    }
+    .fa-usd{
+      color: #f9b115;
+    }
+    .fa-phone{
+      color: #D2691E;
+    }
+    .fa-sign-out{
+      color: #FF8C00;
+    }
+  }
+  /*#endregion*/
+  .my-components(#333);
+
+  .nav .caret {
+    border-top-color: #333 !important;
+    border-bottom-color: #333 !important;
+  }
+}
+//@import "skin-light-ltr.less";

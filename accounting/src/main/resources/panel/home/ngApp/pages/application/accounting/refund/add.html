@@ -1,0 +1,117 @@
+﻿<style>
+    .input-group-addon {
+        min-width: 130px;
+        text-align: right;
+    }
+    .mbdltr .input-group-addon {
+        text-align: left;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        {{'accounting.refundRequest' | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/accounting/refund">{{'accounting.refundRequestList' | translate}}</a></li>
+        <li class="active">{{'accounting.refundRequest' | translate}}</li>
+    </ol>
+</section>
+
+<section class="content col-xs-12" ng-form="myForm">
+
+    <account-summery params="params"></account-summery>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">{{'accounting.selectRefundBankAccount' | translate}}</legend>
+        <div class="col-xs-12" ng-show="financeConfig.showAccountNumber">
+            <div class="input-group margin-bottom-sm col-xs-12">
+                <label class="input-group-addon">
+                    <label class="input-group-addon">
+                        <input type="radio" class="" name="selectedBankAccount" value="acount_number" ng-model="selectedBankAccount" />
+                        {{'accounting.accountNumber' | translate}}
+                    </label>
+                </label>
+                <input type="text" class="form-control txtlefttoright" name="acountNumber" numbers-only
+                       autofocus data-ng-model="myBankAccountInfo.acount_number" ng-maxlength="16"
+                       ng-minlength="9"/>
+            </div>
+            <span style="color:red;padding-right: 20px;" ng-show="myForm.acountNumber.$error.maxlength && showError" translate="validate.maxDigits" translate-values="{max: '16'}"></span>
+            <span style="color:red;padding-right: 20px;" ng-show="myForm.acountNumber.$error.minlength && showError" translate="validate.minDigits" translate-values="{min: '9'}"></span>
+        </div>
+
+        <div class="col-xs-12" ng-show="financeConfig.showCartNumber">
+            <div class="input-group margin-bottom-sm col-xs-12">
+                <label class="input-group-addon">
+                    <input type="radio" class="" name="selectedBankAccount" value="card_number" ng-model="selectedBankAccount" />
+                    {{'accounting.cardNumber' | translate}}
+                </label>
+                <input type="text" class="form-control txtlefttoright" name="cardNumber"
+                       ui-mask="{{financeConfig.cartNumberMask}}"
+                       autofocus data-ng-model="myBankAccountInfo.card_number"/>
+            </div>
+        </div>
+
+        <div class="col-xs-12" ng-show="financeConfig.showIbanNumber">
+            <div class="input-group margin-bottom-sm col-xs-12">
+                <label class="input-group-addon">
+                    <input type="radio" class="" name="selectedBankAccount" value="iban_number" ng-model="selectedBankAccount" />
+                    {{'accounting.ibanNumber' | translate}}
+                </label>
+                <input type="text" class="form-control txtlefttoright" name="ibanNumber"
+                       ui-mask="{{financeConfig.ibanNumberMask}}"
+                       autofocus data-ng-model="myBankAccountInfo.iban_number"/>
+            </div>
+        </div>
+
+        <div class="col-xs-12" ng-show="financeConfig.showSwiftNumber">
+            <div class="input-group margin-bottom-sm col-xs-12">
+                <label class="input-group-addon">
+                    <input type="radio" class="" name="selectedBankAccount" value="swift_number" ng-model="selectedBankAccount" />
+                    {{'accounting.swiftNumber' | translate}}
+                </label>
+                <input type="text" class="form-control txtlefttoright" name="swiftNumber"
+                       ui-mask="{{financeConfig.swiftNumberMask}}"
+                       autofocus data-ng-model="myBankAccountInfo.swift_number"/>
+            </div>
+        </div>
+        <div class="col-xs-12" ng-show="financeConfig.showPaypalAccount">
+            <div class="input-group margin-bottom-sm col-xs-12">
+                <label class="input-group-addon">
+                    <input type="radio" class="" name="selectedBankAccount" value="paypal_account" ng-model="selectedBankAccount" />
+                    {{'accounting.paypalAccount' | translate}}
+                </label>
+                <input type="email" class="form-control txtlefttoright" name="paypalAccount"
+                       autofocus data-ng-model="myBankAccountInfo.paypal_account" placeholder="mail@info.com" />
+            </div>
+            <span message-type ng-show="!myForm.paypalAccount.$valid && showError" translate="validate.validMessage" translate-values="{element: '{{'common.email' | translate}}'}"></span>
+        </div>
+
+    </fieldset>
+
+    <div class="margin-bottom-md col-md-4 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control ltr-input" placeholder=" " name="reqAmount" id="reqAmount" autofocus
+                   data-ng-model="reqAmount" required money-box/>
+            <label for="reqAmount">{{'accounting.checkRequestedAmount' | translate}} *</label>
+            <span class="input-group-addon">{{shopCurrency}}</span>
+        </div>
+        <span message-type ng-show="myForm.reqAmount.$error.required && showError" translate="validate.requiredMessage" translate-values="{element: '{{'accounting.checkRequestedAmount' | translate}}'}"></span>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="margin-bottom-md col-xs-12">
+        <div class="input-group has-float-label">
+            <textarea class="form-control" placeholder=" " id="reqDesc" name="reqDesc"
+                      autofocus data-ng-model="reqDesc"/>
+            <label for="reqDesc">{{'common.description' | translate}}</label>
+        </div>
+    </div>
+
+    <div class="row dvnewbutton">
+        <button class="btn btn-primary" button-type="ok" style="font-weight:100;" id="createUserRequestRefundMoney" ng-click="createUserRequestRefundMoney()">
+        </button>
+        <button class="btn btn-primary" backbutton></button>
+    </div>
+
+</section>

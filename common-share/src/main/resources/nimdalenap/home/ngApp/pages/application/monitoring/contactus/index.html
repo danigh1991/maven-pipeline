@@ -1,0 +1,91 @@
+﻿<style>
+    .tdcommand{
+        min-width:155px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        لیست تماس با ما
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">لیست تماس با </li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon">{{'common.status' | translate}}</span>
+                <select class="form-control col-md-12" ng-model="selectedType" name="selectedType" ng-change="getAllContactusMessage()" ng-options="item as item.name for item in typeList"></select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                <span class="input-group-addon">{{'common.search' | translate}}</span>
+                <input type="text" class="form-control" name="bzquery" autofocus data-ng-model="bzquery" ng-change="search()" />
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <table class="tableClass table-striped" wt-responsive-table>
+        <thead class="theadClass">
+            <tr class="MyClass">
+                <th class="text-center bg-black thClass col-md-1">بخش</th>
+                <th class="text-center bg-black thClass col-md-1">{{'common.name' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-1">{{'common.mobile' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-1">موبایل</th>
+                <th class="text-center bg-black thClass col-md-4">پیغام</th>
+                <th class="text-center bg-black thClass col-md-1">تاریخ</th>
+                <th class="text-center bg-black thClass col-md-1">تاریخ پاسخ</th>
+                <th class="text-center bg-black thClass col-md-1"></th>                
+            </tr>
+        </thead>
+
+        <tbody class="MyClass">
+            <tr ng-if="items.length >= 1" ng-repeat="data in items" class="trClass">
+                <td class="text-center thClass">{{data.contactTargetCaption}}</td>
+                <td class="text-center thClass">{{data.name}}</td>
+                <td class="text-center thClass">{{data.email}}</td>
+                <td class="text-center thClass">{{data.mobileNumber}}</td>
+                <td class="text-center thClass">{{data.comment.length > letterLimit ? ((data.comment | limitTo:letterLimit) + ' ...') : data.comment}}</td>
+                <td class="text-center thClass">{{data.commentDate}}</td>
+                <td class="text-center thClass">{{data.replyDate}}</td>
+                <td class="thClass tdcommand">
+                    <button class="btn btn-primary btn-def" id="btnReply" ng-click="reply(data.id)">پاسخ</button>
+                </td>
+            </tr>
+            <tr class="trClass" ng-if="items.length === 0">
+                <td colspan="8" class="thClass tdnotfound">
+                    {{'common.noRecordFound' | translate}}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    </div>
+    <!-- pager -->
+    <ul ng-if="pager.pages.length" class="pagination">
+        <li ng-class="{disabled:pager.currentPage === 1}">
+            <a ng-click="setPage(1)">{{'pager.first' | translate}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === 1}">
+            <a ng-click="setPage(pager.currentPage - 1)">{{'pager.previous' | translate}}</a>
+        </li>
+        <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+            <a ng-click="setPage(page)">{{page}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.currentPage + 1)">{{'pager.next' | translate}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.totalPages)">{{'pager.last' | translate}}</a>
+        </li>
+    </ul>
+    <div class="dvnewbutton">
+        <button class="btn btn-primary" backbutton>بازگشت</button>
+    </div>
+</section>

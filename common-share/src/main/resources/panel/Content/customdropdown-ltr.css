@@ -1,0 +1,9 @@
+.mbdltr .custom-select > a.dropdown-toggle > b {
+  left: unset;
+  right: 0;
+}
+.mbdltr .custom-select > a.dropdown-toggle > span {
+  margin-left: unset;
+  margin-right: 26px;
+}
+/*# sourceMappingURL=customdropdown-ltr.css.map */

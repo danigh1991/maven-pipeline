@@ -1,0 +1,173 @@
+﻿<section class="content-header">
+    <h1>
+        {{editMode ? ('common.edit' | translate) : ('common.new' | translate)}} ({{accountType.caption}})
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{editMode ? ('common.edit' | translate) : ('common.new' | translate)}}</li>
+    </ol>
+</section>
+<section class="content row">
+    <div class="row" ng-form="myForm">
+
+        <div class="margin-bottom-md col-md-3 col-sm-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="title" placeholder=" " name="name"
+                       required autofocus data-ng-model="result.name"/>
+                <label for="title">{{'common.name' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.name.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.name' | translate}}'}"></span>
+        </div>
+
+        <!--<div ng-if="!editMode || userInputOption.userId" class="margin-bottom-md col-md-3 col-xs-12" ng-user-input options="userInputOption"></div>-->
+
+        <div class="margin-bottom-md col-md-6 col-xs-12" ng-model="selectedUserId" ng-drop-box options="dbxUserOptions" ng-if="!editMode || selectedUserId"
+             additional-data="{}" events="dbxUserEvents" cols="dbxUserCols">
+            <span message-type ng-show="myForm[dbxUserOptions.id].$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.user' | translate}}'}"></span>
+        </div>
+
+
+
+        <div class="margin-bottom-md col-md-3 col-xs-12">
+            <label><input type="checkbox" name="active" ng-checked="result.active" ng-model="result.active"/>{{'common.active' | translate}}</label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{'accounting.operationTypes' | translate}}
+                    </div>
+                    <div class="panel-body" style="height: auto;">
+                        <div class="row" ng-repeat="operationType in operationTypeList">
+                            <div class="margin-bottom-md col-md-6 col-sm-6 col-xs-12 pdt-5 switch-input">
+                                <ng-switch-box name="onOff" ng-model="operationType.selected" on=" " off=" " class="xxs"
+                                               text="" ng-change="changeValidValSelected(operationType)"></ng-switch-box>
+                                <span class="ngswitchboxtext mgr-5">{{operationType.operationTypeWrapper.caption}}</span>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="margin-bottom-md col-xs-12" ng-show="operationType.selected">
+                                <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">{{'common.limits' | translate}}</legend>
+                                    <div class="margin-bottom-md col-md-4 col-xs-12">
+                                        <div class="input-group has-float-label">
+                                            <input type="text" class="form-control ltr-input" placeholder=" "
+                                                   name="minAmount{{$index}}" id="minAmount{{$index}}" autofocus
+                                                   data-ng-model="operationType.resultOperationTypeWrapper.minAmount" money-box/>
+                                            <label for="minAmount{{$index}}">{{'common.minAmount' | translate}}</label>
+                                            <span class="input-group-addon">{{shopCurrency}}</span>
+                                        </div>
+                                        <span class="txt-xxs txtlgh" ng-if="operationType.operationTypeWrapper.minAmount">
+                                            {{'common.default' | translate}}: {{operationType.operationTypeWrapper.minAmount | currency : '' : shopFractionSize}} {{shopCurrency}}
+                                        </span>
+                                    </div>
+
+                                    <div class="margin-bottom-md col-md-4 col-xs-12">
+                                        <div class="input-group has-float-label">
+                                            <input type="text" class="form-control ltr-input" placeholder=" "
+                                                   name="maxAmount{{$index}}" id="maxAmount{{$index}}" autofocus
+                                                   data-ng-model="operationType.resultOperationTypeWrapper.maxAmount" money-box/>
+                                            <label for="maxAmount{{$index}}">{{'common.maxAmount' | translate}}</label>
+                                            <span class="input-group-addon">{{shopCurrency}}</span>
+                                        </div>
+                                        <span class="txt-xxs txtlgh" ng-if="operationType.operationTypeWrapper.maxAmount">
+                                            {{'common.default' | translate}}: {{operationType.operationTypeWrapper.maxAmount | currency : '' : shopFractionSize}} {{shopCurrency}}
+                                        </span>
+                                    </div>
+
+                                    <div class="margin-bottom-md col-md-4 col-xs-12">
+                                        <div class="input-group has-float-label">
+                                            <input type="text" class="form-control ltr-input" placeholder=" "
+                                                   name="globalMaxDailyAmount{{$index}}" id="globalMaxDailyAmount{{$index}}" autofocus
+                                                   data-ng-model="operationType.resultOperationTypeWrapper.globalMaxDailyAmount" money-box/>
+                                            <label for="globalMaxDailyAmount{{$index}}">{{'accounting.globalMaxDailyAmount' | translate}}</label>
+                                            <span class="input-group-addon">{{shopCurrency}}</span>
+                                        </div>
+                                        <span class="txt-xxs txtlgh" ng-if="operationType.operationTypeWrapper.globalMaxDailyAmount">
+                                            {{'common.default' | translate}}: {{operationType.operationTypeWrapper.globalMaxDailyAmount | currency : '' : shopFractionSize}} {{shopCurrency}}
+                                        </span>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="margin-bottom-md col-xs-12" ng-show="operationType.selected">
+                                <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">{{'accountingOperation.validAmounts' | translate}}</legend>
+                                    <div class="row">
+                                        <div class="margin-bottom-md col-md-4 col-xs-10" >
+                                            <div class="input-group has-float-label">
+                                                <input type="text" class="form-control ltr-input" placeholder=" "
+                                                       name="defaultAmount{{$index}}" id="defaultAmount{{$index}}" autofocus enter-event="addDefaultAmount(operationType, 'defaultAmount{{$index}}')"
+                                                       data-ng-model="operationType.defaultAmount" money-box/>
+                                                <label for="defaultAmount{{$index}}">{{'common.amount' | translate}}</label>
+                                                <span class="input-group-addon">{{shopCurrency}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="margin-bottom-lg col-xs-2">
+                                            <button class="btn btn-primary fa fa-plus"
+                                                    ng-click="addDefaultAmount(operationType, 'defaultAmount' + $index)">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-bottom-md">
+                                        <span class="bzttag" ng-repeat="defaultAmount in operationType.resultOperationTypeWrapper.defaultAmountList track by $index">
+                                            <span>{{defaultAmount | currency : '' : shopFractionSize}} {{shopCurrency}}</span>
+                                            <span ng-click="removeDefaultAmount(operationType, defaultAmount)" class="fa fa-remove"></span>
+                                        </span>
+                                    </div>
+
+                                    <div class="row margin-bottom-md txtlgh txt-xs" style="opacity: .5"
+                                         ng-if="operationType.operationTypeWrapper.defaultAmountList && operationType.operationTypeWrapper.defaultAmountList.length > 0">
+                                        {{'common.default' | translate}}:<br>
+                                        <span class="bzttag" ng-repeat="defaultAmount in operationType.operationTypeWrapper.defaultAmountList track by $index">
+                                            <span>{{defaultAmount | currency : '' : shopFractionSize}} {{shopCurrency}}</span>
+                                            <span ng-click="removeDefaultAmount(operationType, defaultAmount)" class="fa fa-remove"></span>
+                                        </span>
+                                    </div>
+
+                                </fieldset>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <hr class="col-xs-12 pd-0 mgt-0" ng-show="$index < operationTypeList.length - 1"/>
+                        </div>
+                    </div>
+                    <div class="panel-footer" ng-show="data.userExtend">
+                        <div class="row">
+                            <div class="margin-bottom-sm col-md-12" style="display: flex;">
+                                <input type="text" id="newValidVal" enter-event="addValidValue()" class="form-control" ng-model="newValidVal"
+                                       placeholder="{{'customSelect.addInputPlaceHodler' | translate}}" style="border-radius: 4px !important;" />
+                                <button ng-click="addValidValue()" class="btn btn btn-success"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <textarea cols="40" rows="3" class="form-control" style="height:100px" placeholder=" "
+                          name="description" id="description" data-ng-model="result.description"></textarea>
+                <label for="description">{{'common.description' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-md-12 dvnewbutton">
+            <button class="btn btn-primary" style="font-weight:100;" ng-click="ok()" button-type="ok">
+            </button>
+            <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+        </div>
+    </div>
+
+</section>

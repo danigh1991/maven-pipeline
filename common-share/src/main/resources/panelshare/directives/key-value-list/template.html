@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="margin-bottom-md col-md-4 col-sm-5 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control" placeholder=" " id="txtKey"
+                   name="txtKey" autofocus data-ng-model="txtKey"/>
+            <label for="txtKey">{{options.keyCaption || ('common.title' | translate)}} *</label>
+        </div>
+        <span message-type ng-show="!txtKey && showAttributeError" translate="validate.requiredMessage"
+              translate-values="{element: '{{options.keyCaption || ('common.title' | translate)}}'}"></span>
+    </div>
+    <div class="margin-bottom-md col-md-4 col-sm-5 col-xs-12">
+        <div class="input-group has-float-label">
+            <input type="text" class="form-control" placeholder=" " id="txtValue"
+                   name="txtValue" autofocus data-ng-model="txtValue"/>
+            <!--<textarea class="form-control" placeholder=" " id="txtValue"
+                   name="txtValue" data-ng-model="txtValue"></textarea>-->
+            <label for="txtValue">{{options.valueCaption || ('common.value' | translate)}} *</label>
+        </div>
+        <span message-type ng-show="!txtValue && showAttributeError" translate="validate.requiredMessage"
+              translate-values="{element: '{{options.valueCaption || ('common.value' | translate)}}'}"></span>
+    </div>
+    <div class="margin-bottom-lg col-md-4 col-sm-2 col-xs-12">
+        <button class="btn btn-primary fa fa-plus" ng-show="!keyValueEditMode" title="{{'shop.addAttribute' | translate}}"
+                style="font-weight:100;"
+                id="addKeyValue"
+                ng-click="addKeyValue()">
+        </button>
+        <button ng-click="editKeyValue()" ng-show="keyValueEditMode" class="btn btn btn-warning"><i
+                class="fa fa-pencil"></i></button>
+        <button ng-click="cancelEditKeyValue()" ng-show="keyValueEditMode" class="btn btn btn-danger"><i
+                class="fa fa-remove"></i></button>
+    </div>
+</div>
+<div class="row">
+    <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12"
+         ng-repeat="keyValue in options.keyValueList">
+        <div class="attrbox">
+            <span class="caption-text bullettrangle">{{keyValue[options.keyName]}} :</span>
+            <span class="display-text">{{keyValue[options.valueName]}}</span>
+            <a class="attrdel fa fa-times txtdngr" ng-click="removeKeyValue(keyValue)"
+               href="javascript:void(0)" title="{{'common.delete' | translate}}"></a>
+
+            <a class="attredit fa fa-pencil txtgrn" ng-click="bindEditKeyValue(keyValue)"
+               href="javascript:void(0)" title="{{'common.edit' | translate}}"></a>
+        </div>
+    </div>
+</div>

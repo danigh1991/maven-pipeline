@@ -1,0 +1,37 @@
+.mbdltr {
+  @media only screen and (max-width: 800px) {
+    .responsive > tbody > tr > td {
+      padding-left: 50%;
+      padding-right: 5px;
+      text-align: right;
+    }
+    .responsive > tbody > tr > td.lg{
+      padding-left: 30%;
+    }
+
+    .responsive > tbody > tr > td.full{
+      padding-left: 2%;
+      padding-right: 2%;
+    }
+    .responsive > tbody > tr > td::before {
+      left: 6px;
+      padding-right: unset;
+      text-align: left;
+    }
+    .responsive td.responsive-omit-title:nth-child(odd), .responsive td.responsive-omit-title:nth-child(even) {
+      padding-right: 6px;
+    }
+
+    .responsive > tbody > tr > td.text-right {
+      text-align: left;
+    }
+
+    .responsive > tbody > tr > td.text-left {
+      text-align: right;
+    }
+
+    .responsive > tbody > tr > td.text-center {
+      text-align: center;
+    }
+  }
+}

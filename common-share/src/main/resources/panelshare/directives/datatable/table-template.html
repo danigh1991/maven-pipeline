@@ -1,0 +1,45 @@
+<table class="tableClass table-striped" wt-responsive-table id="{{options.id}}">
+    <thead class="theadClass">
+    <tr class="MyClass" ng-class="{'search-active' : options.mobileSearchActive}">
+        <th class="bg-black thClass {{col.headerClass}}"
+            ng-class="{'header-has-action' : col.filterable || col.allowSorting, 'command-header' : $last}" style="{{col.headerStyles}}"
+            ng-repeat="col in dtCols">
+            <div ng-data-table-header header-options="col" options="options" additional-data="additionalData"
+                 server-side-mode="serverSideMode"
+                 events="events" is-command-col="$last"></div>
+        </th>
+    </tr>
+    </thead>
+
+    <tbody class="MyClass">
+    <!--<tr ng-if="items.length >= 1" ng-repeat="data in items | orderBy:options.propertyName:options.reverse" class="trClass">-->
+    <tr ng-if="items.length >= 1" ng-repeat="data in items" class="trClass" ng-dblclick="onRowDblClick(data)" ng-click="onRowClick(data)">
+        <td class="{{col.cellClass}}" data-title="{{col.title | translate}}" ng-repeat="col in dtCols">
+            <div ng-data-table-cell cell-options="col" data="data" additional-data="additionalData"
+                 events="events"></div>
+        </td>
+    </tr>
+    <tr class="trClass" ng-if="items.length === 0">
+        <td colspan="{{dtCols.length}}" class="tdnotfound">
+            <div>{{ options.textNoResults | translate }}</div>
+        </td>
+    </tr>
+    <tr class="trClass tblldngmd" ng-if="loadingMode">
+        <td colspan="{{dtCols.length}}" class="tdloading">
+            <div class="ring-loader-wrapper">
+                <svg class="ring-loader" viewBox="0 0 50 50">
+                    <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                </svg>
+            </div>
+            <!--<div class="gloadersh1">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>-->
+            <div class="dvldngmd"></div>
+            <!--<div>{{ ('loading' | translate) + ' ...' }}</div>-->
+        </td>
+    </tr>
+    </tbody>
+</table>

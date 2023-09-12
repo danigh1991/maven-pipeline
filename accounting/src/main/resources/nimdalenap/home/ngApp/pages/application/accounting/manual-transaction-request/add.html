@@ -1,0 +1,108 @@
+﻿<section class="content-header">
+    <h1>
+        {{editMode ? ('common.editElement' | translate: {'element': ('accounting.manualTransactionRequest' | translate)})
+            : ('common.newElement' | translate: {'element': ('accounting.manualTransactionRequest' | translate)})}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/accounting/useraccountcreditlist">{{'accounting.userAccountCredits' | translate}}</a></li>
+        <li class="active">{{editMode ? ('common.edit' | translate) : ('common.new' | translate)}}</li>
+    </ol>
+</section>
+<section class="content row">
+    <div class="row" ng-form="myForm">
+
+        <div class="col-xs-12 margin-bottom-xs">
+            <account-summery params="params" events="events"></account-summery>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-xs-12 margin-bottom-lg" ng-if="editMode">
+            <div class="panel panel-default pdt-5">
+                <div class="panel-body txtlgh txt-sm row">
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span
+                            class="label">{{'accounting.accountName' | translate}}: </span>{{accountInfo.name}}
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span
+                            class="label">{{'accounting.accountTypeName' | translate}}: </span>{{accountInfo.accountType.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control ltr-input" placeholder=" "
+                       name="amount" id="amount" autofocus ng-required="true" min="1" limit-to-max
+                       data-ng-model="result.amount" money-box/>
+                <label for="amount">{{'common.amount' | translate}} *</label>
+                <span class="input-group-addon">{{shopCurrency}}</span>
+            </div>
+            <span message-type ng-show="myForm.amount.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.amount' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-4 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="reference" placeholder=" " name="reference"
+                       required autofocus data-ng-model="result.reference"/>
+                <label for="reference">{{'accounting.bankDepositReference' | translate}} *</label>
+            </div>
+            <span message-type ng-show="myForm.reference.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'accounting.bankDepositReference' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <adm-dtp ng-model='result.referenceDate' placeholder="' '"
+                         full-data="referenceDate_detail" ng-required="true"
+                         ng-name="'referenceDate'" ng-id="'referenceDate'"></adm-dtp>
+                <label for="referenceDate">{{'accounting.bankDepositDate' | translate}} *</label>
+            </div>
+            <span message-type ng-show="myForm.referenceDate.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'accounting.bankDepositDate' | translate}}'}"></span>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <textarea cols="40" rows="3" class="form-control" style="height:100px" placeholder=" "
+                          name="description" id="description" data-ng-model="result.description"></textarea>
+                <label for="description">{{'common.description' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <label class="col-md-3 col-sm-6 col-xs-12 margin-bottom-md ng-binding" ng-if="editMode">
+            {{'common.status' | translate}} : <span class="label" ng-class="{'label-success' : manualTransactionRequest.status === 1, 'label-danger' : manualTransactionRequest.status === 2, 'label-info' : manualTransactionRequest.status === 0}"> {{manualTransactionRequest.statusDesc}}</span>
+        </label>
+        <label class="col-md-3 col-sm-6 col-xs-12 margin-bottom-md" ng-if="editMode && manualTransactionRequest.status !== 0">
+            {{'common.time' | translate}} : <span class=""> {{manualTransactionRequest.approvedDate}}</span>
+        </label>
+        <label class="col-md-3 col-sm-6 col-xs-12 margin-bottom-md" ng-if="editMode && manualTransactionRequest.status !== 0 && manualTransactionRequest.approvedDescription && manualTransactionRequest.approvedDescription.length > 0 ">
+            {{'common.adminDescription' | translate}} : <span class=""> {{manualTransactionRequest.approvedDescription}}</span>
+        </label>
+
+        <div class="clearfix"></div>
+
+        <div class="col-md-12 dvnewbutton">
+
+            <button class="btn btn-primary" ng-if="editMode && manualTransactionRequest.status === 0" ng-confirm-click="approve(result)"
+                    style="font-weight:100;" id="approve">
+                {{'common.verify' | translate}}
+            </button>
+            <button class="btn btn-danger" ng-if="editMode && manualTransactionRequest.status === 0" ng-confirm-click="cancel(result)"
+                    style="font-weight:100;" id="cancel">
+                {{'cancel' | translate}}
+            </button>
+            <button class="btn btn-primary" style="font-weight:100;" ng-if="!editMode || manualTransactionRequest.status === 0" ng-click="ok()" button-type="ok">
+            </button>
+            <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+        </div>
+    </div>
+
+</section>

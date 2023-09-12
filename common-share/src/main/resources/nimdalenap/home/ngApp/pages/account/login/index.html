@@ -1,0 +1,91 @@
+﻿<style>
+    /* ngIf animation */
+    .animationIf.ng-enter
+        /*,.animationIf.ng-leave*/
+    {
+        -webkit-transition: opacity ease-in-out 1s;
+        -moz-transition: opacity ease-in-out 1s;
+        -ms-transition: opacity ease-in-out 1s;
+        -o-transition: opacity ease-in-out 1s;
+        transition: opacity ease-in-out 1s;
+    }
+
+    .animationIf.ng-enter,
+    .animationIf.ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+
+    .animationIf.ng-leave,
+    .animationIf.ng-enter.ng-enter-active {
+        opacity: 1;
+    }
+</style>
+<section class="content-header">
+
+</section>
+
+<section class="content" style="width:100%; margin-top: 7%;" ng-form="myForm">
+    <div class="col-centered" style="width: 325px">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{'login.userLogin' | translate}}</div>
+            <div class="panel-body" style="padding-top: 30px;">
+                <div class="margin-bottom-md animationIf" ng-if="loginFormStatus==='init'">
+                    <div class="input-group has-float-label">
+                        <input type="text" class="form-control ltr-input" id="userName" placeholder=" " required autofocus
+                               data-ng-model="$parent.userName" english-numbers
+                               ng-keypress="($event.which === 13)?send2faCode():null"/>
+                        <label for="userName">{{'common.userName' | translate}}</label>
+                    </div>
+                    <span message-type ng-show="myForm.email.$error.required && showError" translate="validate.requiredMessage"
+                          translate-values="{element: '{{'common.mobile' | translate}}'}"></span>
+                </div>
+                <div class="animationIf">
+
+                    <div class="margin-bottom-md" ng-if="loginFormStatus==='password' || loginFormStatus==='otpPassword'">
+                        <div class="input-group has-float-label">
+                            <input name="password" id="password" type="password" placeholder=" " class="form-control ltr-input" required
+                                   autofocus data-ng-model="$parent.password" english-numbers
+                                   ng-keypress="($event.which === 13) ? (loginFormStatus==='password') ? login() : nextFocus('otp') : null"/>
+                            <label for="password">{{'common.password' | translate}}</label>
+                        </div>
+                        <span message-type ng-show="myForm.password.$error.required && showError" translate="validate.requiredMessage"
+                              translate-values="{element: '{{'common.password' | translate}}'}"></span>
+                    </div>
+
+                    <div class="margin-bottom-md" ng-if="loginFormStatus==='otpPassword' || loginFormStatus.toLowerCase() === 'sendverificationcode'">
+                        <div class="flexbx" style="flex-wrap: nowrap;-ms-flex-wrap: wrap;">
+                            <div class="input-group has-float-label">
+                                <input name="otp" id="otp" type="text" placeholder=" " class="form-control ltr-input" required
+                                       autofocus data-ng-model="$parent.otp" english-numbers
+                                       ng-keypress="($event.which === 13)?login():null"/>
+                                <label for="otp">{{'login.Otp' | translate}}</label>
+                            </div>
+                            <button ng-click="sendOtpCode()" ng-disabled="sendOtpButtonDisabled" class="btn btn-sm btn-success" style="height: 34px;">
+                                {{sendOtpButtonText}}
+                            </button>
+                        </div>
+                        <span message-type ng-show="myForm.otp.$error.required && showError" translate="validate.requiredMessage"
+                              translate-values="{element: '{{'login.Otp' | translate}}'}"></span>
+                    </div>
+
+                    <a href="javascript:void(0)" class="txt-sm bulletcrcl xs"
+                       ng-if="loginFormStatus==='password' || loginFormStatus==='otpPassword' || loginFormStatus.toLowerCase() === 'sendverificationcode'"
+                       ng-click="backToUserName()">{{'login.changeUserName' | translate}}</a>
+                </div>
+                <br/>
+
+                <br/>
+                <div style="text-align:center"
+                     ng-if="loginFormStatus === 'init' || loginFormStatus === 'password' || loginFormStatus.toLowerCase() === 'sendverificationcode'">
+                    <button style="width:100px" class="btn btn-primary" ng-click="loginFormStatus === 'init' ? send2faCode() : login()">
+                        {{loginFormStatus === 'init' ? ('common.continue' | translate) : ('login.login' | translate)}}
+                    </button>
+                    <!--<markau-timer time="20" />-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br/>
+</section>
+

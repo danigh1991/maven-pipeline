@@ -1,0 +1,43 @@
+﻿<section class="content-header">
+    <h1>
+        ویرایش نظر
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/monitoring/commentlist">لیست نظرها</a></li>
+        <li class="active">ویرایش نظر</li>
+    </ol>
+</section>
+<section class="content" ng-form="myForm">
+
+    <div class="col-xs-12" style="padding: 5px 0;">
+        <label class="col-xs-12">
+            {{'accounting.currentState' | translate}} : <span class="label label-danger"> {{commentApproved == 0 ? 'بررسی مجدد' : commentApproved == 1 ? ('common.verify' | translate) : ('common.notVerify' | translate)}}</span>
+        </label>
+    </div>
+
+    <div class="input-group margin-bottom-sm">
+        <span class="input-group-addon">{{'common.comment' | translate}}</span>
+        <textarea cols="40" rows="6" class="form-control" style="height:200px" placeholder="{{'common.comment' | translate}}"
+                  name="comment" data-ng-model="comment"/>
+    </div>
+
+
+    <div class="row col-xs-12 dvnewbutton">
+        <button class="btn btn-primary btn-def" id="setInChecking"
+                ng-disabled="commentApproved == 0" ng-click="approvedOrRejectComment(0)">بررسی مجدد
+        </button>
+        <button class="btn btn-primary btn-def" id="setVerify"
+                ng-disabled="commentApproved == 1" ng-click="approvedOrRejectComment(1)">تایید
+        </button>
+        <button class="btn btn-primary btn-def" id="setNotVerify"
+                ng-disabled="commentApproved == 2" ng-click="approvedOrRejectComment(2)">عدم تایید
+        </button>
+        <button class="btn btn-primary" id="editComment" ng-click="editComment()">ثبت اطلاعات
+        </button>
+        <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+    </div>
+
+</section>
+
+

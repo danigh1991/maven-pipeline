@@ -1,0 +1,141 @@
+﻿
+<section class="content-header">
+    <h1>
+        {{'image.selectImage' | translate}}
+    </h1>
+</section>
+<section class="content">
+    <!--<input type="file" onchange="angular.element(this).scope().onFile(this.files[0])">-->
+    <div class="row col-md-12 select-image" style="max-height: 80vh;">
+        <img id="imageForCrop" ng-src="{{dataUrl ? dataUrl : '/nimdalenap/Content/img/add-image.png'}}" width="800"
+             ng-cropper
+             ng-cropper-proxy="cropperProxy"
+             ng-cropper-show="showEvent"
+             ng-cropper-hide="hideEvent"
+             ng-cropper-options="options"
+             ng-cropper-events="events"
+             ng-click="!dataUrl ? openSelectFile() : void(0)"
+        >
+    </div>
+
+    <div class="row" ng-if="dataUrl">
+        <div class="col-xs-12 docs-buttons">
+
+            <button type="button" class="btn btn-primary" ng-click="reset()" data-method="reset" title="Reset">
+                <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title=""
+                      data-original-title="{{'image.reset' | translate}}">
+                  <span class="fa fa-refresh"></span>
+                </span>
+            </button>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="scaleX()" data-method="scaleX" data-option="-1"
+                        title="Flip Horizontal">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title=""
+                          data-original-title="{{'image.flipHorizontal' | translate}}">
+                      <span class="fa fa-arrows-h"></span>
+                    </span>
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="scaleY()" data-method="scaleY" data-option="-1"
+                        title="Flip Vertical">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title=""
+                          data-original-title="{{'image.flipVertical' | translate}}">
+                      <span class="fa fa-arrows-v"></span>
+                    </span>
+                </button>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="rotate(ROTATELEFT)" data-method="rotate" data-option="-45"
+                        title="Rotate Left">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title=""
+                          data-original-title="{{'image.rotateLeft' | translate}}">
+                      <span class="fa fa-rotate-left"></span>
+                    </span>
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="rotate(ROTATERIGHT)" data-method="rotate" data-option="45"
+                        title="Rotate Right">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title=""
+                          data-original-title="{{'image.rotateRight' | translate}}">
+                      <span class="fa fa-rotate-right"></span>
+                    </span>
+                </button>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary"  ng-click="changeZoom(ZOOMIN)" data-method="zoom" data-option="0.1" title="Zoom In">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title=""
+                          data-original-title="{{'image.zoomIn' | translate}}">
+                      <span class="fa fa-search-plus"></span>
+                    </span>
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="changeZoom(ZOOMOUT)" data-method="zoom" data-option="-0.1" title="Zoom Out">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title=""
+                          data-original-title="{{'image.zoomOut' | translate}}">
+                      <span class="fa fa-search-minus"></span>
+                    </span>
+                </button>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary"  ng-click="changeDragMode(DRAG_MODE_MOVE)" data-method="setDragMode" data-option="move" title="Move">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title=""
+                          data-original-title="{{'image.dragTool' | translate}}">
+                      <span class="fa fa-arrows"></span>
+                    </span>
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="changeDragMode(DRAG_MODE_CROP)" data-method="setDragMode" data-option="crop" title="Crop">
+                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title=""
+                          data-original-title="{{'image.cropTool' | translate}}">
+                      <span class="fa fa-crop"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center" ng-if="dataUrl && (showRatio || (showRatio && !fixRatio))">
+        <label class="margin-bottom-lg" ng-hide="fixRatio">
+            <input type="checkbox" id="freeCrop" ng-model="config.freeCrop" ng-change="freeCropChanged()">{{'image.freeCrop' | translate}}
+        </label>
+        <br ng-hide="fixRatio"/>
+        {{'common.ratio' | translate}} :
+        <div class="input-group has-float-label" style="width: 70px;display: inline-block;">
+            <input type="text" class="form-control ltr-input" placeholder=" " name="ratioWidth" id="ratioWidth" autofocus ng-disabled="fixRatio"
+                   data-ng-model="config.ratioWidth" numbers-only ng-change="ratioWidthChanged(this)" ng-model-options="{updateOn: 'blur'}"/>
+            <label for="ratioWidth">{{'common.width' | translate}} *</label>
+        </div>
+        &nbsp;X&nbsp;
+        <div class="input-group has-float-label" style="width: 70px;display: inline-block;">
+            <input type="text" class="form-control ltr-input" placeholder=" " name="ratioHeight" id="ratioHeight" autofocus ng-disabled="fixRatio"
+                   ng-model="config.ratioHeight" required numbers-only ng-change="ratioHeightChanged(this)" ng-model-options="{updateOn: 'blur'}"/>
+            <label for="ratioHeight">{{'common.height' | translate}} *</label>
+        </div>
+    </div>
+
+    <input type="file" nv-file-select="" ng-hide="true" id="uploaderImageSingle" uploader="uploaderImageSingle" />
+
+    <div ng-repeat="item in uploaderImageSingle.queue">
+        <div class="col-xs-12">
+            <div class="progress" ng-show="uploaderImageSingle.isHTML5">
+                <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-group has-float-label pull-right" style="width: 170px;display: inline-block;" ng-show="dataUrl">
+        <input
+                minicolors="bgColorSettings"
+                id="color-input"
+                class="form-control ltr-input"
+                style="text-align: left;"
+                type="text"
+                ng-model="bgColor">
+        <label for="color-input">{{'common.bgColor' | translate}}</label>
+    </div>
+
+    <div class="dvnewbutton">
+        <button class="btn btn-warning" ng-click="openSelectFile()">{{'common.selectFile' | translate}}</button>
+        <button class="btn btn-primary" ng-click="uploadImage()" button-type="approve"></button>
+        <button class="btn btn-danger" ng-click="closeModal()" button-type="back"></button>
+    </div>
+</section>

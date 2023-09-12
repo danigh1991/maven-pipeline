@@ -1,0 +1,23 @@
+<div class="{{options.panelClass}} col-xs-12">
+    <leaflet lf-center="options.center" markers="options.markers" event-broadcast="options.broadcastEvents" height="{{options.mapHeight}}" width="{{options.mapWidth}}"></leaflet>
+    <br/>
+    <div class="form-group" ng-hide="true">
+        <button class="btn btn-primary" id="getAddress"
+                ng-click="getAddress()">{{'userProfile.readAddress' | translate}}
+        </button>
+        <button class="btn btn-primary" id="getCurrentLocation"
+                ng-click="getCurrentLocation()">{{'userProfile.currentLocation' | translate}}
+        </button>
+    </div>
+
+    <div class="margin-bottom-md col-md-12 col-xs-12">
+        <div class="input-group has-float-label">
+            <textarea cols="{{options.addressTextAreaColCount}}" rows="options.addressTextAreaRowCount" autocomplete="off"
+                      class="form-control" style="{{options.addressTextAreaStyle}}" name="mapAddress" id="mapAddress"
+                      ng-required="options.addressRequired" autofocus data-ng-model="options.address"/>
+            <label for="mapAddress">{{'common.address' | translate}}</label>
+        </div>
+        <span message-type ng-show="options.addressRequired && options.showError" translate="validate.requiredMessage" translate-values="{element: '{{'common.addressRequired' | translate}}'}"></span>
+    </div>
+
+</div>

@@ -1,0 +1,108 @@
+<style>
+    .fixHorizontal{
+        resize: vertical;
+    }
+    
+    .numBox{
+        max-width: 500px;
+    }
+    .ngfileboxcontainer{
+        padding: 0;
+    }
+    .txtflddesc{
+        font-size: 12px;
+        display: block;
+        margin-bottom: 20px;
+        margin-right: 5px;
+        color: #aaa;
+        font-weight: 600;
+    }
+    .txtflddesc .fa{
+        font-size: 8px;
+    }
+    .cnffldbx:hover .txtflddesc,.cnffldbx:hover .has-float-label label{
+        color: var(--main-color);
+    }
+</style>
+<section class="content-header">
+    <h1>
+        تنظیمات سیستم
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">تنظیمات سیستم</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+    <div class="box box-success" ng-repeat="configCat in result">
+        <div class="box-header with-border">
+            <i class="fa fa-th" style="color: #00a65a;"></i>
+            <h3 class="box-title">{{configCat.name}}</h3>
+            <div class="box-tools pull-left">
+                <button class="btn btn-box-tool" ng-init="configCat.closePanel = ((currentConfigCat && currentConfigCat.eName == configCat.eName) ? false : true)" data-widget="collapse" data-target="#{{configCat.eName}}" ng-click="colapsPanel(configCat)" data-toggle="tooltip" title="{{configCat.closePanel ? 'باز کردن' : 'بستن'}}">
+                    <i class="fa" ng-class="!configCat.closePanel || (currentConfigCat && currentConfigCat.eName == configCat.eName) ? 'fa-minus' : 'fa-plus'"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-footer no-border row" ng-class="!configCat.closePanel || (currentConfigCat && currentConfigCat.eName == configCat.eName) ? 'showpanel' : 'hidpanel'" id="{{configCat.eName}}">
+            <div class="margin-bottom-md col-md-12 col-xs-12 cnffldbx" ng-repeat="config in configCat.configurations">
+                <!--<span>{{config.name}} : </span>
+                {{config.numValue ? config.numValue : config.chrValue}}-->
+                <div class="input-group has-float-label" ng-show="config.tmpNumValue != null"
+                     ng-class="config.numValue != null ? 'numBox' : 'charBox'">
+
+                    <!--انتخاب قالب-->
+                    <select class="form-control col-md-12" ng-if="config.name === 'defaultSiteTheme'"
+                            id="{{config.name}}-num" ng-model="config.numValue" ng-disabled="!config.edit"
+                            ng-init="config.tmpNumValue = config.numValue"
+                            ng-options="item.id as item.name for item in activeSiteThemes"></select>
+                    <label for="{{config.name}}{{config.numValue ? '-num' : '-char'}}"  ng-if="config.name === 'defaultSiteTheme' || config.uiComponent === 'number' || config.uiComponent === null">{{config.name}}</label>
+
+
+                    <label ng-if="config.uiComponent === 'boolean'" style="position:relative;">
+                        <input type="checkbox" ng-init="config.tmpNumValue = config.numValue = !!config.numValue"  ng-model="config.numValue"  ng-disabled="!config.edit"/>
+                        {{config.name}}
+                    </label>
+
+                    <!--مقدار عددی-->
+                    <input type="text" class="form-control ltr-input" ng-if="config.name !== 'defaultSiteTheme' && (config.uiComponent === 'number' || config.uiComponent === null)"
+                           placeholder="{{config.name}}" ng-init="config.tmpNumValue = config.numValue" ng-disabled="!config.edit"
+                           id="{{config.name}}-num" numbers-only ng-model="config.numValue"/>
+
+                    <span class="input-group-addon" ng-show="config.tmpNumValue != config.numValue" style="padding-top: 1px;padding-bottom: 0;border: 0px !important;">
+                        <a ng-click="editConfiguration(config, configCat)" class="btn btn-success btn-sm">اعمال تغییرات</a>
+                    </span>
+                </div>
+                <div class="input-group has-float-label" ng-show="config.tmpChrValue != null">
+
+                    <ng-file-box containerclass="col-xs-12" input-id="{{config.name}}-char" input-name="{{config.name}}Image" disabled="!config.edit"
+                                 input-title="" ng-if="charControlType(config) == 'file'" ng-init="config.tmpChrValue = config.chrValue"
+                                 image-name="{{config.name}}Image" button-title="{{'shop.selectLogo' | translate}}" ng-model="config.chrValue" required="false"></ng-file-box>
+
+                    <!--مقدار کاراکتری-->
+                    <textarea class="form-control fixHorizontal"  ng-if="charControlType(config) == 'textarea'" ng-disabled="!config.edit"
+                              placeholder=" " id="{{config.name}}-char" required
+                           ng-init="config.tmpChrValue = config.chrValue"
+                           data-ng-model="config.chrValue" ng-class="config.chrValue.match(rtlChar) ? '' : 'ltr-input'"/>
+                    <label for="{{config.name}}{{config.numValue ? '-num' : '-char'}}">{{config.name}}</label>
+
+                    <!--اسکریپت-->
+                    <code-mirror id="{{config.name}}-char" ng-content="config.chrValue" ng-if="charControlType(config) == 'mirror'"
+                                 line-numbers="true" syntax="css" readonly="!config.edit"
+                                 ng-init="config.tmpChrValue = config.chrValue"></code-mirror>
+
+                    <span class="input-group-addon" ng-show="config.tmpChrValue != config.chrValue">
+                        <a ng-click="editConfiguration(config, configCat)" class="btn btn-success">اعمال تغییرات</a>
+                    </span>
+                </div>
+                <span class="txtflddesc" ng-show="config.desc && config.desc.length > 0">
+                    <i class="fa fa-circle "></i>  {{config.desc}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="dvnewbutton">
+        <a class="btn btn-primary" ng-if="isThemeConfig" ng-href="{{siteThemeListUrl}}">مدیریت قالب ها</a>
+        <button class="btn btn-primary" backbutton>بازگشت</button>
+    </div>
+</section>

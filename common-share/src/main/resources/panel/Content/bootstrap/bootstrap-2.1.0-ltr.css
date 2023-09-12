@@ -1,0 +1,31 @@
+@media (min-width: 992px) {
+  .mbdltr .col-md-1,
+  .mbdltr .col-md-2,
+  .mbdltr .col-md-3,
+  .mbdltr .col-md-4,
+  .mbdltr .col-md-5,
+  .mbdltr .col-md-6,
+  .mbdltr .col-md-7,
+  .mbdltr .col-md-8,
+  .mbdltr .col-md-9,
+  .mbdltr .col-md-10,
+  .mbdltr .col-md-11,
+  .mbdltr .col-md-12 {
+    float: left;
+  }
+}
+.mbdltr table td[class*="col-"],
+.mbdltr table th[class*="col-"] {
+  float: none !important;
+}
+.mbdltr .dropdown-menu {
+  right: 0;
+  left: unset;
+}
+.mbdltr .text-left {
+  text-align: right;
+}
+.mbdltr .text-right {
+  text-align: left;
+}
+/*# sourceMappingURL=bootstrap-2.1.0-ltr.css.map */

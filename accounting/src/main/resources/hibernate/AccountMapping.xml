@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+        http://java.sun.com/xml/ns/persistence/orm_2_0.xsd ">
+    <entity  class="com.core.accounting.model.dbmodel.Account">
+        <named-native-query name="Account.getFirstAccountWrapperByUsrIdAndTypeId" result-set-mapping="accountWrapperMapping">
+            <query>select distinct  a.acc_id as id, a.acc_name as name,a.acc_usr_id as userId, a.acc_main as main,t.act_id as accountTypeId,t.act_name as accountTypeName, t.act_desc as  accountTypeDesc,
+                        a.acc_status as status,a.acc_balance as balance,
+                        a.acc_block as block,
+                        case when nvl(t.act_max_amount,0)=0  then a.acc_capacity when nvl(t.act_max_amount,0)>=nvl(a.acc_capacity,0) then nvl(a.acc_capacity,t.act_max_amount) else nvl(t.act_max_amount,0) end  as capacity,
+                        a.acc_description as description,
+                        a.acc_color as color, a.acc_ptm_id as theme_id, a.acc_create_date as createDate,
+                        a.acc_modif_date as modifyDate, null as accountCreditId, null as accountCreditTitle,
+                        null as accountCreditDescription, null as creditType, 0 as creditRate,
+                        null as creditAmount, null as creditActive, null as expireDate,uap.uap_apl_id  as accountPolicyProfileId,1 as viewType, null as userCreditId, a.acc_version as version
+                    from sc_account a
+                    inner join sc_account_type t on (a.acc_act_id=t.act_id)
+                    inner join sc_user_account_policy_profile uap on(a.acc_id=uap.uap_acc_id and uap.uap_usr_id=:userId)
+                    where a.acc_status=1 and a.acc_usr_id=:userId  and t.act_id=:accountTypeId
+                    order by a.acc_main desc, a.acc_id asc
+                    OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY  </query>
+        </named-native-query>
+        <named-native-query name="Account.getAccountWrapperById" result-set-mapping="accountWrapperMapping">
+            <query>select distinct  a.acc_id as id, a.acc_name as name,a.acc_usr_id as userId, a.acc_main as main,t.act_id as accountTypeId,t.act_name as accountTypeName, t.act_desc as  accountTypeDesc,
+                        a.acc_status as status,a.acc_balance as balance,
+                        a.acc_block as block,
+                        case when nvl(t.act_max_amount,0)=0  then a.acc_capacity when nvl(t.act_max_amount,0)>=nvl(a.acc_capacity,0) then nvl(a.acc_capacity,t.act_max_amount) else nvl(t.act_max_amount,0) end  as capacity,
+                        a.acc_description as description,
+                        a.acc_color as color, a.acc_ptm_id as theme_id, a.acc_create_date as createDate,
+                        a.acc_modif_date as modifyDate, null as accountCreditId, null as accountCreditTitle,
+                        null as accountCreditDescription, null as creditType, 0 as creditRate,
+                        null as creditAmount, null as creditActive, null as expireDate,uap.uap_apl_id  as accountPolicyProfileId,1 as viewType, null as userCreditId, a.acc_version as version
+                    from sc_account a
+                    inner join sc_account_type t on (a.acc_act_id=t.act_id)
+                    inner join sc_user_account_policy_profile uap on(a.acc_id=uap.uap_acc_id and uap.uap_usr_id=a.acc_usr_id)
+                    where a.acc_id=:accountId</query>
+        </named-native-query>
+        <named-native-query name="Account.getAccountWrapperByIdAndUserId" result-set-mapping="accountWrapperMapping">
+            <query>select distinct a.acc_id as id, a.acc_name as name,a.acc_usr_id as userId, a.acc_main as main,t.act_id as accountTypeId,t.act_name as accountTypeName, t.act_desc as  accountTypeDesc,
+                        a.acc_status as status,a.acc_balance as balance,
+                        a.acc_block as block,
+                        case when nvl(t.act_max_amount,0)=0  then a.acc_capacity when nvl(t.act_max_amount,0)>=nvl(a.acc_capacity,0) then nvl(a.acc_capacity,t.act_max_amount) else nvl(t.act_max_amount,0) end  as capacity,
+                        a.acc_description as description,
+                        a.acc_color as color, a.acc_ptm_id as theme_id, a.acc_create_date as createDate,
+                        a.acc_modif_date as modifyDate, null as accountCreditId, null as accountCreditTitle,
+                        null as accountCreditDescription, null as creditType, 0 as creditRate,
+                        null as creditAmount, null as creditActive, null as expireDate,uap.uap_apl_id  as accountPolicyProfileId,1 as viewType, null as userCreditId, a.acc_version as version
+                    from sc_account a
+                    inner join sc_account_type t on (a.acc_act_id=t.act_id)
+                    inner join sc_user_account_policy_profile uap on(a.acc_id=uap.uap_acc_id and uap.uap_usr_id=a.acc_usr_id)
+                    where a.acc_id=:accountId and a.acc_usr_id=:userId</query>
+        </named-native-query>
+        <named-native-query name="Account.getAccountWrappersOnlyByUserId" result-set-mapping="accountWrapperMapping">
+            <query>select distinct a.acc_id as id, a.acc_name as name,a.acc_usr_id as userId, a.acc_main as main,t.act_id as accountTypeId,t.act_name as accountTypeName, t.act_desc as  accountTypeDesc,
+                       a.acc_status as status,a.acc_balance as balance,
+                       a.acc_block as block,
+                       case when nvl(t.act_max_amount,0)=0  then a.acc_capacity when nvl(t.act_max_amount,0)>=nvl(a.acc_capacity,0) then nvl(a.acc_capacity,t.act_max_amount) else nvl(t.act_max_amount,0) end  as capacity,
+                       a.acc_description as description,
+                       a.acc_color as color, a.acc_ptm_id as theme_id, a.acc_create_date as createDate,
+                       a.acc_modif_date as modifyDate, null as accountCreditId, null as accountCreditTitle,
+                       null as accountCreditDescription, null as creditType, 0 as creditRate,
+                       null as creditAmount, null as creditActive, null as expireDate, uap.uap_apl_id  as accountPolicyProfileId,
+                       null as viewType, null as userCreditId, a.acc_version as version
+                    from sc_account a
+                    inner join sc_account_type t on (a.acc_act_id=t.act_id)
+                    inner join sc_user_account_policy_profile uap on(a.acc_id=uap.uap_acc_id and uap.uap_usr_id=:userId)
+                    where a.acc_status=1 and (a.acc_usr_id=:userId)</query>
+        </named-native-query>
+        <named-native-query name="Account.getAccountWrappersOnlyByUserIdAndTypeId" result-set-mapping="accountWrapperMapping">
+            <query>select distinct a.acc_id as id, a.acc_name as name,a.acc_usr_id as userId, a.acc_main as main,t.act_id as accountTypeId,t.act_name as accountTypeName, t.act_desc as  accountTypeDesc,
+                           a.acc_status as status,a.acc_balance as balance,
+                           a.acc_block as block,
+                           case when nvl(t.act_max_amount,0)=0  then a.acc_capacity when nvl(t.act_max_amount,0)>=nvl(a.acc_capacity,0) then nvl(a.acc_capacity,t.act_max_amount) else nvl(t.act_max_amount,0) end  as capacity,
+                           a.acc_description as description,
+                           a.acc_color as color, a.acc_ptm_id as theme_id, a.acc_create_date as createDate,
+                           a.acc_modif_date as modifyDate, null as accountCreditId, null as accountCreditTitle,
+                           null as accountCreditDescription, null as creditType, 0 as creditRate,
+                           null as creditAmount, null as creditActive, null as expireDate, uap.uap_apl_id  as accountPolicyProfileId,
+                           null as viewType, null as userCreditId, a.acc_version as version
+                     from sc_account a
+                     inner join sc_account_type t on (a.acc_act_id=t.act_id)
+                     inner join sc_user_account_policy_profile uap on(a.acc_id=uap.uap_acc_id and uap.uap_usr_id=:userId)
+                     where a.acc_status=1 and t.act_id=:accountTypeId and a.acc_usr_id=:userId</query>
+        </named-native-query>
+        <named-native-query name="Account.getAccountWrappersByUserId" result-set-mapping="accountWrapperMapping">
+            <query>select distinct  a.acc_id as id, nvl(acd.acd_title,a.acc_name) as name,a.acc_usr_id as userId, a.acc_main as main,t.act_id as accountTypeId,t.act_name as accountTypeName, t.act_desc as  accountTypeDesc,
+                        a.acc_status as status,decode(nvl(acd.acd_credit_amount,-1) ,-1,a.acc_balance,(acd.acd_credit_amount_per_user-uac.uac_used_amount)) as balance,
+                        decode(nvl(acd.acd_credit_amount,-1),-1,a.acc_block,(acd.acd_block+uac.uac_block)) as block,
+                        case when nvl(t.act_max_amount,0)=0  then a.acc_capacity when nvl(t.act_max_amount,0)>=nvl(a.acc_capacity,0) then nvl(a.acc_capacity,t.act_max_amount) else nvl(t.act_max_amount,0) end  as capacity,
+                        a.acc_description as description,
+                       a.acc_color as color, a.acc_ptm_id as theme_id, nvl(acd.acd_create_date,a.acc_create_date) as createDate,
+                        nvl(acd.acd_modify_date,a.acc_modif_date) as modifyDate, acd.acd_id as accountCreditId, acd.acd_title as accountCreditTitle,
+                        acd.acd_description as accountCreditDescription, acd.acd_credit_type as creditType, 0 as creditRate,
+                        acd.acd_credit_amount as creditAmount, acd.acd_active as creditActive, acd.acd_expire_date as expireDate,uap.uap_apl_id  as accountPolicyProfileId,nvl(acd.acd_view_type,1) as viewType, uac.uac_id as userCreditId, a.acc_version as version
+                    from sc_account a
+                    inner join sc_account_type t on (a.acc_act_id=t.act_id)
+                    inner join sc_user_account_policy_profile uap on(a.acc_id=uap.uap_acc_id and uap.uap_usr_id=:userId)
+                    left join sc_user_account_policy_credit_detail uac on(uac.uac_uap_id=uap.uap_id)
+                    left join sc_account_credit_detail acd on(uac.uac_acd_id=acd.acd_id and acd.acd_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP))
+                    where a.acc_status=1 and (t.act_id in (1,3) or (t.act_id in (4,5) and acd.acd_active=1)) and (a.acc_usr_id=:userId or (:forceOwner=0 and uap.uap_usr_id=:userId))</query>
+        </named-native-query>
+        <named-native-query name="Account.getAccountWrappersByUserIdAndTypeId" result-set-mapping="accountWrapperMapping">
+            <query>select distinct  a.acc_id as id, nvl(acd.acd_title,a.acc_name) as name,a.acc_usr_id as userId, a.acc_main as main,t.act_id as accountTypeId,t.act_name as accountTypeName, t.act_desc as  accountTypeDesc,
+                        a.acc_status as status,decode(nvl(acd.acd_credit_amount,-1) ,-1,a.acc_balance,(acd.acd_credit_amount_per_user-uac.uac_used_amount)) as balance,
+                        decode(nvl(acd.acd_credit_amount,-1),-1,a.acc_block,(acd.acd_block+uac.uac_block)) as block,
+                        case when nvl(t.act_max_amount,0)=0  then a.acc_capacity when nvl(t.act_max_amount,0)>=nvl(a.acc_capacity,0) then nvl(a.acc_capacity,t.act_max_amount) else nvl(t.act_max_amount,0) end  as capacity,
+                        a.acc_description as description,
+                       a.acc_color as color, a.acc_ptm_id as theme_id, nvl(acd.acd_create_date,a.acc_create_date) as createDate,
+                        nvl(acd.acd_modify_date,a.acc_modif_date) as modifyDate, acd.acd_id as accountCreditId, acd.acd_title as accountCreditTitle,
+                        acd.acd_description as accountCreditDescription, acd.acd_credit_type as creditType, 0 as creditRate,
+                        acd.acd_credit_amount as creditAmount, acd.acd_active as creditActive, acd.acd_expire_date as expireDate,uap.uap_apl_id  as accountPolicyProfileId,nvl(acd.acd_view_type,1) as viewType, uac.uac_id as userCreditId, a.acc_version as version
+                    from sc_account a
+                    inner join sc_account_type t on (a.acc_act_id=t.act_id)
+                    inner join sc_user_account_policy_profile uap on(a.acc_id=uap.uap_acc_id and uap.uap_usr_id=:userId)
+                    left join sc_user_account_policy_credit_detail uac on(uac.uac_uap_id=uap.uap_id)
+                    left join sc_account_credit_detail acd on(uac.uac_acd_id=acd.acd_id and acd.acd_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP))
+                    where a.acc_status=1 and (t.act_id in (1,3) or (t.act_id in (4,5) and acd.acd_active=1)) and t.act_id=:accountTypeId and (a.acc_usr_id=:userId or (:forceOwner=0 and uap.uap_usr_id=:userId))</query>
+        </named-native-query>
+        <named-native-query name="Account.getAvailableAccountWrappersByOperationTypeCode" result-set-mapping="accountWrapperMapping">
+            <query>select distinct  a.acc_id as id, nvl(cr.acd_title,a.acc_name) as name,a.acc_usr_id as userId, a.acc_main as main,t.act_id as accountTypeId,t.act_name as accountTypeName, t.act_desc as  accountTypeDesc,
+                                     a.acc_status as status,decode(nvl(cr.acd_credit_amount_per_user,-1) ,-1,a.acc_balance,LEAST(cr.acd_credit_amount_per_user,(cr.allUserAmount-cr.uac_used_amount))) as balance,
+                                     decode(nvl(cr.acd_credit_amount_per_user,-1),-1,a.acc_block,(cr.acd_block+cr.uac_block)) as block,
+                                     case when nvl(t.act_max_amount,0)=0  then a.acc_capacity when nvl(t.act_max_amount,0)>=nvl(a.acc_capacity,0) then nvl(a.acc_capacity,t.act_max_amount) else nvl(t.act_max_amount,0) end  as capacity,
+                                     a.acc_description as description, a.acc_color as color, a.acc_ptm_id as theme_id, nvl(cr.acd_create_date,a.acc_create_date) as createDate,
+                                     nvl(cr.acd_modify_date,a.acc_modif_date) as modifyDate, cr.acd_id as accountCreditId, cr.acd_title as accountCreditTitle,
+                                     cr.acd_description as accountCreditDescription, cr.acd_credit_type as creditType, 0 as creditRate,
+                                     cr.acd_credit_amount as creditAmount, cr.acd_active as creditActive, cr.acd_expire_date as expireDate,uap.uap_apl_id  as accountPolicyProfileId,
+                                     nvl(cr.acd_view_type,1) as viewType, cr.uac_id as userCreditId, a.acc_version as version
+                    from sc_account a
+                    inner join sc_account_type t on (a.acc_act_id=t.act_id)
+                    inner join sc_user_account_policy_profile uap on(a.acc_id=uap.uap_acc_id and uap.uap_usr_id=:userId)
+                    inner join sc_account_policy_profile_operation_type  apt on(apt.apt_apl_id=uap.uap_apl_id)
+                    inner join sc_operation_type tt on(tt.opt_id=apt.apt_opt_id)
+                    left join
+                      (SELECT distinct acd.acd_id,acd.acd_acc_id ,acd.acd_title ,uac.uac_id ,uac.uac_uap_id ,acd.acd_credit_amount_per_user as allUserAmount,
+                              decode(acd.acd_spending_restrictions,0,acd.acd_credit_amount_per_user,
+                                     decode(nvl(acd.acd_max_amount_restrictions,0), 0,
+                                            LEAST((acd.acd_rate_restrictions*:amount/100),acd.acd_credit_amount_per_user) ,
+                                            LEAST(LEAST((acd.acd_rate_restrictions*:amount/100),acd.acd_max_amount_restrictions),acd.acd_credit_amount_per_user)))  as acd_credit_amount_per_user ,
+                              acd.acd_credit_type, uac.uac_used_amount, acd.acd_block,uac.uac_block,acd.acd_create_date,acd.acd_modify_date,acd.acd_description,acd.acd_credit_amount ,
+                              acd.acd_active , acd.acd_expire_date ,acd.acd_view_type,cml.cml_usr_id,aml.aml_usr_id FROM sc_account_credit_detail acd
+                        inner join sc_user_account_policy_credit_detail uac on(uac.uac_acd_id=acd.acd_id)
+                        left join (select l.aml_acc_id ,l.aml_target_id as aml_usr_id from sc_account_merchant_limit l
+                                   where l.aml_type=2
+                                   union
+                                   select l.aml_acc_id,g.ugm_usr_id as aml_usr_id from sc_account_merchant_limit l
+                                   inner join sc_user_group_member g on (l.aml_type=1 and l.aml_target_id=g.ugm_usg_id)) aml on(aml.aml_acc_id=acd.acd_acc_id)
+                        left join (select c.cml_acd_id ,c.cml_target_id as cml_usr_id from sc_account_credit_merchant_limit c
+                                   where c.cml_type=2
+                                   union
+                                   select c.cml_acd_id,g.ugm_usr_id as cml_usr_id from sc_account_credit_merchant_limit c
+                                   inner join sc_user_group_member g on (c.cml_type=1 and c.cml_target_id=g.ugm_usg_id)) cml on(cml.cml_acd_id=acd.acd_id)
+                       where acd.acd_active=1 and uac.uac_active=1 and (acd.acd_expire_date is null or (acd.acd_expire_date is not null and acd.acd_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP)))) cr on(a.acc_id=cr.acd_acc_id and cr.uac_uap_id=uap.uap_id)
+                    where uap.uap_usr_id=:userId and tt.opt_code=:operationTypeCode and a.acc_status=1
+                      and nvl(nvl(cr.cml_usr_id,cr.aml_usr_id),-1) in (-1,:targetUserId)
+                      and ((a.acc_act_id not in (4,5)) or (a.acc_act_id in (4,5) and cr.acd_id is not null))
+                      and (decode(nvl(cr.acd_credit_amount_per_user,-1) ,-1,a.acc_balance,LEAST(cr.acd_credit_amount_per_user,(cr.allUserAmount-cr.uac_used_amount)))- decode(nvl(cr.acd_credit_amount_per_user,-1),-1,a.acc_block,(cr.acd_block+cr.uac_block)))>0
+                      order by t.act_id asc,cr.acd_expire_date asc, decode(nvl(cr.acd_credit_amount_per_user,-1) ,-1,a.acc_balance,LEAST(cr.acd_credit_amount_per_user,(cr.allUserAmount-cr.uac_used_amount))) desc</query>
+        </named-native-query>
+        <named-native-query name="Account.getAvailableAccountWrappersByOperationTypeCodeAndIds" result-set-mapping="accountWrapperMapping">
+            <query>select distinct  a.acc_id as id, nvl(cr.acd_title,a.acc_name) as name,a.acc_usr_id as userId, a.acc_main as main,t.act_id as accountTypeId,t.act_name as accountTypeName, t.act_desc as  accountTypeDesc,
+                                     a.acc_status as status,decode(nvl(cr.acd_credit_amount_per_user,-1) ,-1,a.acc_balance,LEAST(cr.acd_credit_amount_per_user,(cr.allUserAmount-cr.uac_used_amount))) as balance,
+                                     decode(nvl(cr.acd_credit_amount_per_user,-1),-1,a.acc_block,(cr.acd_block+cr.uac_block)) as block,
+                                     case when nvl(t.act_max_amount,0)=0  then a.acc_capacity when nvl(t.act_max_amount,0)>=nvl(a.acc_capacity,0) then nvl(a.acc_capacity,t.act_max_amount) else nvl(t.act_max_amount,0) end  as capacity,
+                                     a.acc_description as description, a.acc_color as color, a.acc_ptm_id as theme_id, nvl(cr.acd_create_date,a.acc_create_date) as createDate,
+                                     nvl(cr.acd_modify_date,a.acc_modif_date) as modifyDate, cr.acd_id as accountCreditId, cr.acd_title as accountCreditTitle,
+                                     cr.acd_description as accountCreditDescription, cr.acd_credit_type as creditType, 0 as creditRate,
+                                     cr.acd_credit_amount as creditAmount, cr.acd_active as creditActive, cr.acd_expire_date as expireDate,uap.uap_apl_id  as accountPolicyProfileId,
+                                     nvl(cr.acd_view_type,1) as viewType, cr.uac_id as userCreditId, a.acc_version as version
+                    from sc_account a
+                    inner join sc_account_type t on (a.acc_act_id=t.act_id)
+                    inner join sc_user_account_policy_profile uap on(a.acc_id=uap.uap_acc_id and uap.uap_usr_id=:userId)
+                    inner join sc_account_policy_profile_operation_type  apt on(apt.apt_apl_id=uap.uap_apl_id)
+                    inner join sc_operation_type tt on(tt.opt_id=apt.apt_opt_id)
+                    left join
+                      (SELECT distinct acd.acd_id,acd.acd_acc_id ,acd.acd_title ,uac.uac_id ,uac.uac_uap_id ,acd.acd_credit_amount_per_user as allUserAmount,
+                              decode(acd.acd_spending_restrictions,0,acd.acd_credit_amount_per_user,
+                                     decode(nvl(acd.acd_max_amount_restrictions,0), 0,
+                                            LEAST((acd.acd_rate_restrictions*:amount/100),acd.acd_credit_amount_per_user) ,
+                                            LEAST(LEAST((acd.acd_rate_restrictions*:amount/100),acd.acd_max_amount_restrictions),acd.acd_credit_amount_per_user)))  as acd_credit_amount_per_user ,
+                              acd.acd_credit_type, uac.uac_used_amount, acd.acd_block,uac.uac_block,acd.acd_create_date,acd.acd_modify_date,acd.acd_description,acd.acd_credit_amount ,
+                              acd.acd_active , acd.acd_expire_date ,acd.acd_view_type,cml.cml_usr_id,aml.aml_usr_id FROM sc_account_credit_detail acd
+                        inner join sc_user_account_policy_credit_detail uac on(uac.uac_acd_id=acd.acd_id)
+                        left join (select l.aml_acc_id ,l.aml_target_id as aml_usr_id from sc_account_merchant_limit l
+                                   where l.aml_type=2
+                                   union
+                                   select l.aml_acc_id,g.ugm_usr_id as aml_usr_id from sc_account_merchant_limit l
+                                   inner join sc_user_group_member g on (l.aml_type=1 and l.aml_target_id=g.ugm_usg_id)) aml on(aml.aml_acc_id=acd.acd_acc_id)
+                        left join (select c.cml_acd_id ,c.cml_target_id as cml_usr_id from sc_account_credit_merchant_limit c
+                                   where c.cml_type=2
+                                   union
+                                   select c.cml_acd_id,g.ugm_usr_id as cml_usr_id from sc_account_credit_merchant_limit c
+                                   inner join sc_user_group_member g on (c.cml_type=1 and c.cml_target_id=g.ugm_usg_id)) cml on(cml.cml_acd_id=acd.acd_id)
+                       where acd.acd_active=1 and uac.uac_active=1 and (acd.acd_expire_date is null or (acd.acd_expire_date is not null and acd.acd_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP)))) cr on(a.acc_id=cr.acd_acc_id and cr.uac_uap_id=uap.uap_id)
+                    where uap.uap_usr_id=:userId and tt.opt_code=:operationTypeCode and a.acc_status=1 and a.acc_id in :accountIds
+                      and nvl(nvl(cr.cml_usr_id,cr.aml_usr_id),-1) in (-1,:targetUserId)
+                      and ((a.acc_act_id not in (4,5)) or (a.acc_act_id in (4,5) and cr.acd_id is not null))
+                      and (decode(nvl(cr.acd_credit_amount_per_user,-1) ,-1,a.acc_balance,LEAST(cr.acd_credit_amount_per_user,(cr.allUserAmount-cr.uac_used_amount)))- decode(nvl(cr.acd_credit_amount_per_user,-1),-1,a.acc_block,(cr.acd_block+cr.uac_block)))>0
+                      order by t.act_id asc,cr.acd_expire_date asc,decode(nvl(cr.acd_credit_amount_per_user,-1) ,-1,a.acc_balance,LEAST(cr.acd_credit_amount_per_user,(cr.allUserAmount-cr.uac_used_amount))) desc</query>
+        </named-native-query>
+
+        <named-native-query name="Account.findDashboardWrapperSummery" result-set-mapping="accountingDashboardWrapperMapping">
+            <query>SELECT u.registerUserCount, mr.activeMerchantCount,ac.sumAllBalance,ac.sumCreditBalance,ac.sumAllBlock from
+                   (SELECT count(*)  as registerUserCount FROM sc_user) u,
+                   (SELECT count(*) as allMerchantCount, sum(decode(m.mrc_active,1,1,0)) as activeMerchantCount FROM sc_merchant m ) mr,
+                   (SELECT sum(acc_balance) as sumAllBalance,sum(decode(acc_act_id,5,acc_balance,0)) as sumCreditBalance, sum(acc_block) as sumAllBlock FROM sc_account ) ac
+            </query>
+        </named-native-query>
+        <named-native-query name="Account.findDashboardDetailWrapperSummery" result-set-mapping="accountingDashboardDetailWrapperMapping">
+            <query>select  to_Date(dates.dt,'YYYY-MM-DD') as summeryDate ,nvl(ur.registerUserCount,0) as registerUserCount, nvl(mr.registerMerchantCount,0) as registerMerchantCount,
+                nvl(tr.sumChargeAmount,0) as sumChargeAmount, nvl(tr.sumGetMoneyAmount,0)  as sumGetMoneyAmount from (
+                WITH dates(dt) AS
+                (
+                SELECT sysdate-29 as dt from dual
+                UNION ALL
+                SELECT dt+1 as dt   FROM  dates
+                WHERE  to_char(dt+1,'YYYY-MM-DD')&lt;=to_char(sysdate,'YYYY-MM-DD')
+                )
+                SELECT to_char(dt,'YYYY-MM-DD') as dt
+                FROM  dates  ) dates
+                left join (select distinct to_char(u.usr_create_date,'YYYY-MM-DD') as udate,count(distinct u.usr_id) as registerUserCount
+                from sc_user u group by to_char(u.usr_create_date,'YYYY-MM-DD')) ur on (ur.udate=dates.dt)
+                left join (select distinct to_char(m.mrc_create_date,'YYYY-MM-DD') as mdate,count(distinct m.mrc_id) as registerMerchantCount
+                from sc_merchant m group by to_char(m.mrc_create_date,'YYYY-MM-DD')) mr on (mr.mdate=dates.dt)
+                left join (select distinct to_char(t.trn_create_date,'YYYY-MM-DD') as tdate, sum(decode(t.trn_opt_id,1,t.trn_credit,0)) as sumChargeAmount, sum(decode(t.trn_opt_id,2,t.trn_debit,0)) as sumGetMoneyAmount
+                from sc_transaction  t  where t.trn_opt_id in (1,2)   group by to_char(t.trn_create_date,'YYYY-MM-DD'))  tr  on (tr.tdate=dates.dt)
+                order by dates.dt
+
+            </query>
+        </named-native-query>
+    </entity>
+
+    <entity  class="com.core.accounting.model.dbmodel.OperationType">
+        <named-native-query name="OperationType.findOperationTypeSummery" result-set-mapping="operationTypeSummeryWrapperMapping">
+            <query>select ot.opt_id as id, ot.opt_name as name, ot.opt_description as description , sum(o.opr_amount) as sumAmount
+                   from  sc_operation_request o
+                   inner join sc_operation_type ot  on (o.opr_opt_id=ot.opt_id)
+                   where (to_char(o.opr_create_date,'YYYY-MM-DD')&lt;=to_char(sysdate,'YYYY-MM-DD') )
+                   group by ot.opt_id,ot.opt_name,ot.opt_description
+                   union
+                   select ot.opt_id as id, ot.opt_name as name, ot.opt_description as description , sum(t.trn_debit) as sumAmount
+                   from sc_transaction t
+                   inner join sc_operation_type ot  on (t.trn_opt_id=ot.opt_id)
+                   where ot.opt_id=2 and  to_char(t.trn_create_date,'YYYY-MM-DD')&lt;=to_char(sysdate,'YYYY-MM-DD')
+                   group by ot.opt_id,ot.opt_name,ot.opt_description </query>
+        </named-native-query>
+
+        <!--        <named-native-query name="OperationType.findOperationTypeWrappersBySourceTypeId" result-set-mapping="operationTypeWrapperMapping">
+                    <query>select distinct  trt.trt_id as id,trt.trt_name as name,trt.trt_description as description,trt.trt_active as active,
+                                    trt.trt_code as code,trt.trt_operation_type as operationType,trt.trt_min_amount as  minAmount,
+                                    trt.trt_max_amount as maxAmount,trt.trt_max_amount_duration_type as maxAmountDurationType,
+                                    trt.trt_max_amount_duration as maxAmountDuration,trt.trt_wage_type as wageType,
+                                    trt.trt_wage_rate as wageRate,trt.trt_wage_amount as wageAmount, trt.trt_source_type as sourceType, trt.trt_default_amounts as defaultAmounts, trt.trt_order as ord
+                             from sc_operation_type trt
+                            where trt.trt_source_type=:operationSourceType
+                            order by trt.trt_order asc</query>
+                </named-native-query>-->
+
+        <!--<named-native-query name="OperationType.findActiveOperationTypeWrappersByName" result-set-mapping="operationTypeWrapperMapping">
+            <query>select distinct  trt.trt_id as id,trt.trt_name as name,trt.trt_description as description,trt.trt_active as active,
+                            trt.trt_code as code,trt.trt_operation_type as operationType,trt.trt_min_amount as  minAmount,
+                            trt.trt_max_amount as maxAmount,trt.trt_max_amount_duration_type as maxAmountDurationType,
+                            trt.trt_max_amount_duration as maxAmountDuration,trt.trt_wage_type as wageType,
+                            trt.trt_wage_rate as wageRate,trt.trt_wage_amount as wageAmount, trt.trt_source_type as sourceType, trt.trt_default_amounts as defaultAmounts, trt.trt_order as ord
+                     from sc_operation_type trt
+                    where  trt_active>0 and trt.trt_name=:operationTypeName
+                    order by trt.trt_order asc</query>
+        </named-native-query>-->
+<!--        <named-native-query name="OperationType.findActiveOperationTypeWrappersByCode" result-set-mapping="operationTypeWrapperMapping">
+            <query>select  trt.trt_id as id,trt.trt_name as name,trt.trt_description as description,trt.trt_active as active,
+                            trt.trt_code as code,trt.trt_operation_type as operationType,trt.trt_min_amount as  minAmount,
+                            trt.trt_max_amount as maxAmount,trt.trt_max_amount_duration_type as maxAmountDurationType,
+                            trt.trt_max_amount_duration as maxAmountDuration,trt.trt_wage_type as wageType,
+                            trt.trt_wage_rate as wageRate,trt.trt_wage_amount as wageAmount, trt.trt_source_type as sourceType, trt.trt_default_amounts as defaultAmounts, trt.trt_order as ord
+                     from sc_operation_type trt
+                    where  trt_active>0 and trt.trt_code=:code
+                    order by trt.trt_order asc</query>
+        </named-native-query>-->
+
+        <!--<named-native-query name="OperationType.findOperationTypeWrappersByAccountId" result-set-mapping="operationTypeWrapperMapping">
+            <query>select distinct  trt.trt_id as id,trt.trt_name as name,trt.trt_description as description,trt.trt_active as active,
+                            trt.trt_code as code,trt.trt_operation_type as operationType,nvl(apt.apt_min_amount,trt.trt_min_amount) as  minAmount,
+                            nvl(apt.apt_max_amount,trt.trt_max_amount) as maxAmount,nvl(apt.apt_max_amount_duration_type,trt.trt_max_amount_duration_type) as maxAmountDurationType,
+                            nvl(apt.apt_max_amount_duration,trt.trt_max_amount_duration) as maxAmountDuration, trt.trt_wage_type as wageType,
+                            trt.trt_wage_rate as wageRate, trt.trt_wage_amount as wageAmount, trt.trt_source_type as sourceType, trt.trt_default_amounts as defaultAmounts, trt.trt_order as ord
+                     from sc_operation_type trt
+                    inner join sc_account_policy_profile_operation_type apt on (trt.opt_id=apt.apt_opt_id)
+                    inner join sc_account_policy_profile apl on (apl.apl_id=apt.apt_apl_id)
+                    inner join sc_user_account_policy_profile  uap on (apl.apl_id=uap.uap_apl_id)
+                    where uap.uap_acc_id=:accountId and uap.uap_usr_id=:userId and trt.trt_source_type=:transactionSourceType
+                    order by trt.trt_order asc</query>
+        </named-native-query>-->
+    </entity>
+
+
+    <entity  class="com.core.accounting.model.dbmodel.DepositRequestDetail">
+        <named-native-query name="DepositRequestDetail.findMessageBoxWrappersByDepositRequestDetailId" result-set-mapping="depositRequestDetailMessageWrapperMapping">
+            <query>select d.drd_id as id, r.dpr_usr_id as senderUserId, u.usr_username as senderUserName, d.drd_usr_id as targetUserId,2 as notifyTargetType, r.dpr_title as title, r.dpr_description as description, d.drd_seen_date as seenDate,
+                       d.drd_create_date as createDate, d.drd_create_by as createBy ,d.drd_modify_date as modifyDate,d.drd_modify_by as modifyBy,
+                       'expireDate[-]global.expireDate[-]date[-]show[=]'||TO_CHAR(r.dpr_expire_date,'DD-MM-YYYY HH:mm:ss')||'[,]isExpired[-]common.expired[-]boolean[-]notShow[=]' || case when r.dpr_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP) then '0' else '1' end ||'[,]amount[-]global.amount[-]money[-]show[=]'||d.drd_amount||'[,]accountId[-]accountId[-]long[-]notShow[=]'||r.dpr_acc_id||'[,]doneDate[-]global.doneDate[-]datetime[-]show[=]'||nvl(d.drd_done_date,'')  as additional
+                   from sc_deposit_request r
+                   inner join sc_deposit_request_detail d on (r.dpr_id=d.drd_dpr_id)
+                   inner join sc_user u on (r.dpr_usr_id=u.usr_id)
+                  where r.dpr_active>0 and d.drd_id=:depositRequestDetailId</query>
+        </named-native-query>
+
+        <named-native-query name="DepositRequestDetail.findMessageBoxWrappersByDepositRequestDetailIdAndUserId" result-set-mapping="depositRequestDetailMessageWrapperMapping">
+            <query>select d.drd_id as id, r.dpr_usr_id as senderUserId, u.usr_username as senderUserName, d.drd_usr_id as targetUserId,2 as notifyTargetType, r.dpr_title as title, r.dpr_description as description, d.drd_seen_date as seenDate,
+                       d.drd_create_date as createDate, d.drd_create_by as createBy ,d.drd_modify_date as modifyDate,d.drd_modify_by as modifyBy,
+                       'expireDate[-]global.expireDate[-]date[-]show[=]'||TO_CHAR(r.dpr_expire_date,'DD-MM-YYYY HH:mm:ss')||'[,]isExpired[-]common.expired[-]boolean[-]notShow[=]' || case when r.dpr_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP) then '0' else '1' end ||'[,]amount[-]global.amount[-]money[-]show[=]'||d.drd_amount||'[,]accountId[-]accountId[-]long[-]notShow[=]'||r.dpr_acc_id||'[,]doneDate[-]global.doneDate[-]datetime[-]show[=]'||nvl(d.drd_done_date,'')  as additional
+                   from sc_deposit_request r
+                   inner join sc_deposit_request_detail d on (r.dpr_id=d.drd_dpr_id)
+                   inner join sc_user u on (r.dpr_usr_id=u.usr_id)
+                  where r.dpr_active>0 and d.drd_id=:depositRequestDetailId and d.drd_usr_id=:userId</query>
+        </named-native-query>
+    </entity>
+
+    <entity  class="com.core.accounting.model.dbmodel.CostShareRequestDetail">
+        <named-native-query name="CostShareRequestDetail.findMessageBoxWrappersByCostShareRequestDetailId" result-set-mapping="costShareRequestDetailMessageWrapperMapping">
+            <query>select c.csd_id as id, r.csr_usr_id as senderUserId, u.usr_username as senderUserName, c.csd_usr_id as targetUserId,3 as notifyTargetType, r.csr_title as title, r.csr_description as description, c.csd_seen_date as seenDate,
+                       c.csd_create_date as createDate, c.csd_create_by as createBy ,c.csd_modify_date as modifyDate,c.csd_modify_by as modifyBy,
+                       'expireDate[-]global.expireDate[-]date[-]show[=]'||TO_CHAR(r.csr_expire_date,'DD-MM-YYYY HH:mm:ss')||'[,]isExpired[-]common.expired[-]boolean[-]notShow[=]' || case when r.csr_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP) then '0' else '1' end ||'[,]amount[-]global.amount[-]money[-]show[=]'||c.csd_amount||'[,]accountId[-]accountId[-]long[-]notShow[=]'||r.csr_acc_id||'[,]doneDate[-]global.doneDate[-]datetime[-]show[=]'||nvl(c.csd_done_date,'') || '[,]costShareType[-]global.topic[-]string[-]show[=]'||nvl(t.cst_title,'')  as additional
+                   from sc_cost_share_request r
+                   inner join sc_cost_share_type t on (r.csr_cst_id=t.cst_id)
+                   inner join sc_cost_share_request_detail c on (r.csr_id=c.csd_csr_id)
+                   inner join sc_user u on (r.csr_usr_id=u.usr_id)
+                  where r.csr_active>0 and c.csd_id=:costShareRequestDetailId</query>
+        </named-native-query>
+
+        <named-native-query name="CostShareRequestDetail.findMessageBoxWrappersByCostShareRequestDetailIdAndUserId" result-set-mapping="costShareRequestDetailMessageWrapperMapping">
+            <query>select c.csd_id as id, r.csr_usr_id as senderUserId, u.usr_username as senderUserName, c.csd_usr_id as targetUserId,3 as notifyTargetType, r.csr_title as title, r.csr_description as description, c.csd_seen_date as seenDate,
+                       c.csd_create_date as createDate, c.csd_create_by as createBy ,c.csd_modify_date as modifyDate,c.csd_modify_by as modifyBy,
+                       'expireDate[-]global.expireDate[-]date[-]show[=]'||TO_CHAR(r.csr_expire_date,'DD-MM-YYYY HH:mm:ss')||'[,]isExpired[-]common.expired[-]boolean[-]notShow[=]' || case when r.csr_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP) then '0' else '1' end ||'[,]amount[-]global.amount[-]money[-]show[=]'||c.csd_amount||'[,]accountId[-]accountId[-]long[-]notShow[=]'||r.csr_acc_id||'[,]doneDate[-]global.doneDate[-]datetime[-]show[=]'||nvl(c.csd_done_date,'') || '[,]costShareType[-]global.topic[-]string[-]show[=]'||nvl(t.cst_title,'')  as additional
+                   from sc_cost_share_request r
+                   inner join sc_cost_share_type t on (r.csr_cst_id=t.cst_id)
+                   inner join sc_cost_share_request_detail c on (r.csr_id=c.csd_csr_id)
+                   inner join sc_user u on (r.csr_usr_id=u.usr_id)
+                  where r.csr_active>0 and c.csd_id=:costShareRequestDetailId and c.csd_usr_id=:userId</query>
+        </named-native-query>
+    </entity>
+
+
+    <entity  class="com.core.accounting.model.dbmodel.Merchant">
+        <named-native-query name="Merchant.findMerchantWrapperInfoByUserAccountPolicyCreditDetailId" result-set-mapping="merchantWrapperMapping">
+            <query>select distinct m.mrc_id as id,mg.mrg_id as merchantCategoryId, mg.mrg_name as merchantCategoryName, mg.mrg_code as merchantCategoryCode ,  m.mrc_usr_id as userId, u.usr_username as userName,
+                             m.mrc_name as name, m.mrc_description as description, m.mrc_active as active,   m.mrc_address as address, m.mrc_lat as lat,   m.mrc_lan as lan, m.mrc_postal_code as postalCode,
+                             m.mrc_email as email, m.mrc_mobile_number as mobileNumber, m.mrc_phone_number as phoneNumber,  m.mrc_cty_id as cityId, c.cty_name as cityName, m.mrc_crg_id as regionId,
+                             r.crg_name as regionName, m.mrc_wallet as wallet, m.mrc_card as card, m.mrc_card_number as cardNumber, m.mrc_other_merchant_view_policy as otherMerchantViewPolicy ,
+                             m.mrc_create_by as createBy,  m.mrc_create_date as createDate, m.mrc_modify_by as modifyBy,  m.mrc_modify_date as modifyDate
+                    from    (select distinct cml.cml_usr_id,aml.aml_usr_id,nvl(cml.cml_usr_id,aml.aml_usr_id) as merchantUserId
+                                        from sc_account_credit_detail acd
+                                        inner join sc_account ac on (acd.acd_acc_id=ac.acc_id)
+                                        inner join sc_user_account_policy_credit_detail uac on (uac.uac_acd_id=acd.acd_id)
+                                        inner join sc_user_account_policy_profile uap on(uac.uac_uap_id= uap.uap_id)
+                                        left join  (select l.aml_acc_id ,l.aml_target_id as aml_usr_id from sc_account_merchant_limit l
+                                                    where l.aml_type=2
+                                                    union
+                                                    select l.aml_acc_id,g.ugm_usr_id as aml_usr_id from sc_account_merchant_limit l
+                                                    inner join sc_user_group_member g on (l.aml_type=1 and l.aml_target_id=g.ugm_usg_id)) aml on(aml.aml_acc_id=acd.acd_acc_id)
+                                        left join   (select c.cml_acd_id ,c.cml_target_id as cml_usr_id from sc_account_credit_merchant_limit c
+                                                     where c.cml_type=2
+                                                     union
+                                                     select c.cml_acd_id,g.ugm_usr_id as cml_usr_id from sc_account_credit_merchant_limit c
+                                                     inner join sc_user_group_member g on (c.cml_type=1 and c.cml_target_id=g.ugm_usg_id)) cml on(cml.cml_acd_id=acd.acd_id)
+                                         where acd.acd_active=1 and uac.uac_active=1   and ac.acc_act_id in (4,5) and uac.uac_id=:userAccountPolicyCreditDetailId
+                                          and (acd.acd_expire_date is null or (acd.acd_expire_date is not null and acd.acd_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP)))) k
+                                         inner  join sc_merchant m  on (m.mrc_usr_id=k.merchantuserid)
+                                         inner join sc_merchant_category mg on (m.mrc_mrg_id=mg.mrg_id)
+                                         inner join sc_user u on (m.mrc_usr_id=u.usr_id)
+                                         inner join sc_city c on (m.mrc_cty_id=c.cty_id)
+                                         inner join sc_city_region r on (c.cty_id=r.crg_cty_id and m.mrc_crg_id=r.crg_id)
+                     where  m.mrc_active=1</query>
+        </named-native-query>
+        <named-native-query name="Merchant.findMerchantWrapperInfoByUserAccountPolicyCreditDetailIdAndUserId" result-set-mapping="merchantWrapperMapping">
+            <query>select distinct m.mrc_id as id,mg.mrg_id as merchantCategoryId, mg.mrg_name as merchantCategoryName, mg.mrg_code as merchantCategoryCode ,  m.mrc_usr_id as userId, u.usr_username as userName,
+                             m.mrc_name as name, m.mrc_description as description, m.mrc_active as active,   m.mrc_address as address, m.mrc_lat as lat,   m.mrc_lan as lan, m.mrc_postal_code as postalCode,
+                             m.mrc_email as email, m.mrc_mobile_number as mobileNumber, m.mrc_phone_number as phoneNumber,  m.mrc_cty_id as cityId, c.cty_name as cityName, m.mrc_crg_id as regionId,
+                             r.crg_name as regionName, m.mrc_wallet as wallet, m.mrc_card as card, m.mrc_card_number as cardNumber, m.mrc_other_merchant_view_policy as otherMerchantViewPolicy ,
+                             m.mrc_create_by as createBy,  m.mrc_create_date as createDate, m.mrc_modify_by as modifyBy,  m.mrc_modify_date as modifyDate
+                    from    (select distinct cml.cml_usr_id,aml.aml_usr_id,nvl(cml.cml_usr_id,aml.aml_usr_id) as merchantUserId
+                                        from sc_account_credit_detail acd
+                                        inner join sc_account ac on (acd.acd_acc_id=ac.acc_id)
+                                        inner join sc_user_account_policy_credit_detail uac on (uac.uac_acd_id=acd.acd_id)
+                                        inner join sc_user_account_policy_profile uap on(uac.uac_uap_id= uap.uap_id)
+                                        left join  (select l.aml_acc_id ,l.aml_target_id as aml_usr_id from sc_account_merchant_limit l
+                                                    where l.aml_type=2
+                                                    union
+                                                    select l.aml_acc_id,g.ugm_usr_id as aml_usr_id from sc_account_merchant_limit l
+                                                    inner join sc_user_group_member g on (l.aml_type=1 and l.aml_target_id=g.ugm_usg_id)) aml on(aml.aml_acc_id=acd.acd_acc_id)
+                                        left join   (select c.cml_acd_id ,c.cml_target_id as cml_usr_id from sc_account_credit_merchant_limit c
+                                                     where c.cml_type=2
+                                                     union
+                                                     select c.cml_acd_id,g.ugm_usr_id as cml_usr_id from sc_account_credit_merchant_limit c
+                                                     inner join sc_user_group_member g on (c.cml_type=1 and c.cml_target_id=g.ugm_usg_id)) cml on(cml.cml_acd_id=acd.acd_id)
+                                         where acd.acd_active=1 and uac.uac_active=1   and ac.acc_act_id in (4,5) and uac.uac_id=:userAccountPolicyCreditDetailId
+                                         and uap_usr_id=:userId and (acd.acd_expire_date is null or (acd.acd_expire_date is not null and acd.acd_expire_date>=SYS_EXTRACT_UTC(SYSTIMESTAMP)))) k
+                                         inner  join sc_merchant m  on (m.mrc_usr_id=k.merchantuserid)
+                                         inner join sc_merchant_category mg on (m.mrc_mrg_id=mg.mrg_id)
+                                         inner join sc_user u on (m.mrc_usr_id=u.usr_id)
+                                         inner join sc_city c on (m.mrc_cty_id=c.cty_id)
+                                         inner join sc_city_region r on (c.cty_id=r.crg_cty_id and m.mrc_crg_id=r.crg_id)
+                     where  m.mrc_active=1</query>
+        </named-native-query>
+    </entity>
+
+
+</entity-mappings>
+
+

@@ -1,0 +1,14 @@
+﻿<style>
+    .drpboxgrid .tableClass .trClass{
+        cursor: pointer;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        {{'common.search' | translate}} {{dtOptions.label | translate}}
+    </h1>
+
+</section>
+<section class="content drpboxgrid">
+    <div class="col-xs-12" ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents" dt-cols="dtCols" dt-data="dtData"></div>
+</section>

@@ -1,0 +1,121 @@
+﻿<style>
+    .tdcommand{
+        min-width:155px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        {{"comment.commentList" | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{"comment.commentList" | translate}}</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+
+    <div class="row">
+        <!--<div class="col-md-3">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon">{{'common.city' | translate}}</span>
+                <div custom-select="g.name for g in cities | filter: $searchTerm" custom-select-options="cityOptions"
+                     ng-model="selectedCity"></div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon">{{'common.region' | translate}}</span>
+                <div custom-select="g.name for g in cityRegions | filter: $searchTerm" custom-select-options="regionOptions"
+                     ng-model="selectedRegion"></div>
+            </div>
+        </div>-->
+        <div class="col-md-4">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon">{{'comment.commentsOn' | translate}}</span>
+                <select class="form-control col-md-12" ng-model="selectedTargetType" name="selectedTargetType" ng-options="item as item.name | translate for item in targetTypeList"></select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon">{{'common.state' | translate}}</span>
+                <select class="form-control col-md-12" ng-model="selectedState" name="selectedState" ng-options="item as item.name | translate for item in stateList"></select>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <button class="btn btn-primary btn-def" id="search" ng-click="getAllCommentsForCheck()">{{'common.search' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+                <span class="input-group-addon">{{'common.search' | translate}}</span>
+                <input type="text" class="form-control" name="bzquery" autofocus data-ng-model="bzquery" ng-change="search()" />
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <table class="tableClass table-striped" wt-responsive-table>
+        <thead class="theadClass">
+            <tr class="MyClass">
+                <th class="text-center bg-black thClass col-md-1">{{'common.id' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-1">{{'common.name' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-1">{{'common.type' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-4">{{'common.comment' | translate}}</th>
+                <th class="text-center bg-black thClass col-md-1">تاریخ</th>
+                <th class="text-center bg-black thClass col-md-1"><i class="fa fa-link"></i></th>
+                <th class="text-center bg-black thClass col-md-3"></th>                
+            </tr>
+        </thead>
+
+        <tbody class="MyClass">
+            <tr ng-if="items.length >= 1" ng-repeat="data in items" class="trClass">
+                <td class="text-center thClass">{{data.id}}</td>
+                <td class="text-center thClass">{{data.name}}</td>
+                <td class="text-center thClass">{{data.targetTypeCaption}}</td>
+                <td class="text-center thClass">{{data.comment}}</td>
+                <td class="text-center thClass">{{data.commentDate}}</td>
+                <td class="text-center thClass"><a href="{{data.url}}" target="_blank"><i class="fa fa-link"></i></a></td>
+                <td class="thClass tdcommand">
+                    <button class="btn btn-warning" id="edit" ng-click="editComment(this,data.id, data.comment, data.approved);" button-type="edit"></button>
+                    <button class="btn btn-primary btn-def" id="setInChecking" ng-disabled="data.approved == 0" ng-click="approvedOrRejectComment(data.id, 0)">بررسی مجدد</button>
+                    <button class="btn btn-primary btn-def" id="setVerify" ng-disabled="data.approved == 1" ng-click="approvedOrRejectComment(data.id, 1)">تایید</button>
+                    <button class="btn btn-primary btn-def" id="setNotVerify" ng-disabled="data.approved == 2" ng-click="approvedOrRejectComment(data.id, 2)">عدم تایید</button>
+                    <button class="btn btn-danger" id="delete" deletebutton ng-click="deleteComment(this, data.id);" button-type="delete"></button>
+                </td>
+            </tr>
+            <tr class="trClass" ng-if="items.length === 0">
+                <td colspan="9" class="thClass tdnotfound">
+                    {{'common.noRecordFound' | translate}}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    </div>
+    <!-- pager -->
+    <ul ng-if="pager.pages.length" class="pagination">
+        <li ng-class="{disabled:pager.currentPage === 1}">
+            <a ng-click="setPage(1)">{{'pager.first' | translate}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === 1}">
+            <a ng-click="setPage(pager.currentPage - 1)">{{'pager.previous' | translate}}</a>
+        </li>
+        <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+            <a ng-click="setPage(page)">{{page}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.currentPage + 1)">{{'pager.next' | translate}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.totalPages)">{{'pager.last' | translate}}</a>
+        </li>
+    </ul>
+    <div class="dvnewbutton">
+        <button class="btn btn-primary" backbutton>بازگشت</button>
+    </div>
+</section>

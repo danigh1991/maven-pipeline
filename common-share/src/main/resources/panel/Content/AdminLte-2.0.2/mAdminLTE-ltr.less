@@ -1,0 +1,93 @@
+.mbdltr{
+  .main-header > .navbar{
+    margin-right: unset;
+    margin-left: 230px;
+  }
+  .main-sidebar, .left-side{
+    right: unset;
+    left: 0;
+    padding-left: 0;
+    padding-right: 1px;
+  }
+  .content-wrapper, .right-side, .main-footer{
+    margin-right: unset;
+    margin-left: 230px;
+  }
+  .main-header .sidebar-toggle {
+    float: left;
+  }
+  .main-header .navbar-custom-menu, .main-header .navbar-right{
+    float: left;
+    margin-right: unset;
+    margin-left: 5px;
+  }
+  .navbar-custom-menu > .navbar-nav > li > .dropdown-menu{
+    left: 0;
+    right: auto;
+  }
+
+  .sidebar-menu li > a > .fa-angle-left{
+    transform: scaleX(-1);
+  }
+
+  .small-box > .small-box-footer .fa.fa-arrow-circle-left{
+    transform: scaleX(-1);
+  }
+
+  .main-header .logo{
+    float: left;
+  }
+
+  @media(max-width: 991px) {
+    .navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
+      left: 5%;
+      right: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .content-wrapper,
+    .right-side,
+    .main-footer {
+      margin-right: unset;
+      margin-left: 0;
+    }
+    .main-sidebar,
+    .left-side {
+      -webkit-transform: translate(-235px, 0);
+      -ms-transform: translate(-235px, 0);
+      -o-transform: translate(-235px, 0);
+      transform: translate(-235px, 0);
+    }
+    &.sidebar-open .main-sidebar, &.sidebar-open .left-side {
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      -o-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    .main-header .navbar {
+      margin: 0
+    }
+  }
+
+  @media (min-width: 768px) {
+    &.sidebar-collapse .main-sidebar,
+    &.sidebar-collapse .left-side {
+      -webkit-transform: translate(-230px, 0);
+      -ms-transform: translate(-230px, 0);
+      -o-transform: translate(-230px, 0);
+      transform: translate(-230px, 0);
+    }
+
+    &.sidebar-collapse .content-wrapper,
+    &.sidebar-collapse .right-side,
+    &.sidebar-collapse .main-footer {
+      margin-right: unset;
+      margin-left: 0;
+    }
+    #footer {
+      margin-left: 0 !important;
+    }
+  }
+}
+

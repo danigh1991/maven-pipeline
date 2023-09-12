@@ -1,0 +1,157 @@
+﻿<style>
+    .small-box h3{
+        font-size: 18px;
+        padding-top: 10px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        {{'shop.myDashboard' | translate}}
+    </h1>
+</section>
+<section class="content col-xs-12">
+    <div id="SmalBoxes" class="row col-xs-12">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <div class="columns small-box bg-aqua">
+                <div class="inner">
+                    <h3 class="prcblk item-price txt-xs"> {{result.sumAllBalance | currency: '' : shopFractionSize}} {{shopCurrency}}</h3>
+                    <p>{{'accounting.sumAllBalance' | translate}}</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-social-buffer"></i>
+                </div>
+                <a href="#" class="columns small-box-footer" >&nbsp;<!--{{'common.more' | translate}} <i class="fa fa-arrow-circle-left"></i>--></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <div class="columns small-box bg-green">
+                <div class="inner">
+                    <h3 class="prcblk item-price txt-xs"> {{result.sumCreditBalance | currency: '' : shopFractionSize}} {{shopCurrency}}</h3>
+                    <p>{{'accounting.sumCreditBalance' | translate}}</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-document-text"></i>
+                </div>
+                <a href="#" class="columns small-box-footer" >&nbsp;<!--{{'common.more' | translate}} <i class="fa fa-arrow-circle-left"></i>--></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <div class="columns small-box bg-red">
+                <div class="inner">
+                    <h3 class="prcblk item-price txt-xs"> {{result.sumAllBlock | currency: '' : shopFractionSize}} {{shopCurrency}}</h3>
+                    <p>{{'accounting.sumAllBlock' | translate}}</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="columns small-box-footer">&nbsp;<!--{{'common.more' | translate}} <i class="fa fa-arrow-circle-left"></i>--></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <div class="columns small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{result.activeMerchantCount}}</h3>
+                    <p>{{'accounting.activeMerchantCount' | translate}}</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="#" class="columns small-box-footer">&nbsp;<!--{{'common.more' | translate}} <i class="fa fa-arrow-circle-left"></i>--></a>
+            </div>
+        </div>
+        <!-- ./col -->
+
+    </div>
+
+    <div class="row">
+        <section class="col-md-6 col-xs-12">
+            <!-- Desktop box -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <i class="fa fa-th" style="color: #00c0ef;"></i>
+                    <h3 class="box-title">{{'accounting.moneyInOut' | translate}}</h3>
+                    <div class="box-tools pull-left">
+                        <button class="btn btn-box-tool" data-toggle="collapse" data-target="#moneyInOut-chart" ng-click="collapsClick('#moneyInOut-chart')">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-footer no-border collapse" id="moneyInOut-chart" aria-expanded="true">
+                    <canvas class="chart chart-line" chart-dataset-override="moneyInOutDataset" chart-options="moneyInOutOptions"
+                            chart-data="moneyInOutChartsData" chart-labels="moneyInOutChartsLabels"></canvas>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </section>
+        <section class="col-md-6 col-xs-12">
+            <!-- Desktop box -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <i class="fa fa-th" style="color: #00c0ef;"></i>
+                    <h3 class="box-title">{{'accounting.registerMerchantCount' | translate}}</h3>
+                    <div class="box-tools pull-left">
+                        <button class="btn btn-box-tool" data-toggle="collapse" data-target="#registerMerchantCount-chart" ng-click="collapsClick('#registerMerchantCount-chart')">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-footer no-border collapse" id="registerMerchantCount-chart" aria-expanded="true">
+                    <canvas class="chart chart-line" chart-dataset-override="registerMerchantCountDataset" chart-options="registerMerchantCountOptions"
+                            chart-data="registerMerchantCountChartsData" chart-labels="registerMerchantCountChartsLabels"></canvas>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </section>
+        <section class="col-md-6 col-xs-12">
+            <!-- Desktop box -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <i class="fa fa-th" style="color: #00c0ef;"></i>
+                    <h3 class="box-title">{{'accounting.registerUserCount' | translate}}</h3>
+                    <div class="box-tools pull-left">
+                        <button class="btn btn-box-tool" data-toggle="collapse" data-target="#registerUserCount-chart" ng-click="collapsClick('#registerUserCount-chart')">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-footer no-border collapse" id="registerUserCount-chart" aria-expanded="true">
+                    <canvas class="chart chart-line" chart-dataset-override="registerUserCountDataset" chart-options="registerUserCountOptions"
+                            chart-data="registerUserCountChartsData" chart-labels="registerUserCountChartsLabels"></canvas>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </section>
+        <section class="col-md-6 col-xs-12">
+            <!-- Desktop box -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <i class="fa fa-th" style="color: #00c0ef;"></i>
+                    <h3 class="box-title">{{'accounting.operationTypeSummery' | translate}}</h3>
+                    <div class="box-tools pull-left">
+                        <button class="btn btn-box-tool" data-toggle="collapse" data-target="#operationTypeSummery-chart" ng-click="collapsClick('#operationTypeSummery-chart')">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-footer no-border collapse" id="operationTypeSummery-chart" aria-expanded="true">
+                    <div style="height: 387px">
+                        <canvas class="chart chart-pie chart-xs" chart-options="operationTypeSummeryOptions" chart-colors="chartColors"
+                                chart-data="operationTypeSummeryChartsData" chart-labels="operationTypeSummeryChartsLabels"></canvas>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </section>
+    </div>
+</section>

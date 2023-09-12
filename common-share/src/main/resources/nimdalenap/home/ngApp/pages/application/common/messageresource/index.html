@@ -1,0 +1,33 @@
+﻿<style>
+    .tdcommand {
+        min-width: 200px !important;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        {{'common.messageResourceManagement' | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{'common.messageResourceManagement' | translate}}</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+
+    <div class="row col-xs-12">
+        <div class="margin-bottom-md col-md-4 col-xs-12">
+            <div class="input-group has-float-label">
+                <select class="form-control col-xs-12" id="messageResourceType" ng-save-state="messageResourceType"
+                        ng-model="selecteMessageResourceTypeId" name="messageResourceType"
+                        ng-options="item.id as item.name | translate for item in messageResourceTypeList" ng-change="messageResourceTypeChange()"></select>
+                <label for="messageResourceType">{{'common.type' | translate}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12" ng-data-table options="dtOptions" additional-data="dtAdditionalData" events="dtEvents" dt-cols="dtCols" dt-data="dtData"></div>
+
+    <div class="dvnewbutton col-xs-12">
+        <button class="btn btn-primary" backbutton></button>
+    </div>
+</section>

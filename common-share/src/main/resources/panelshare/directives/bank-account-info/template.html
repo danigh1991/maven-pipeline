@@ -1,0 +1,46 @@
+<div class="col-xs-12" ng-show="showAccountNumber">
+    <div class="input-group margin-bottom-sm col-xs-12">
+        <span class="input-group-addon">{{'accounting.accountNumber' | translate}}</span>
+        <input type="text" class="form-control txtlefttoright" name="acountNumber" numbers-only
+               autofocus data-ng-model="result.acountNumber" ng-maxlength="16"
+               ng-minlength="9"/>
+    </div>
+    <span style="color:red;padding-right: 20px;" ng-show="myForm.acountNumber.$error.maxlength && showError" translate="validate.maxDigits" translate-values="{max: '16'}"></span>
+    <span style="color:red;padding-right: 20px;" ng-show="myForm.acountNumber.$error.minlength && showError" translate="validate.minDigits" translate-values="{min: '9'}"></span>
+</div>
+
+<div class="col-xs-12" ng-show="showCartNumber">
+    <div class="input-group margin-bottom-sm col-xs-12">
+        <span class="input-group-addon">{{'accounting.cardNumber' | translate}}</span>
+        <input type="text" class="form-control txtlefttoright" name="cardNumber"
+               ui-mask="{{cartNumberMask}}"
+               autofocus data-ng-model="result.cardNumber"/>
+    </div>
+</div>
+
+<div class="col-xs-12" ng-show="showIbanNumber">
+    <div class="input-group margin-bottom-sm col-xs-12">
+        <span class="input-group-addon">{{'accounting.ibanNumber' | translate}}</span>
+        <input type="text" class="form-control txtlefttoright" name="ibanNumber"
+               ui-mask="{{ibanNumberMask}}"
+               autofocus data-ng-model="result.ibanNumber"/>
+    </div>
+</div>
+
+<div class="col-xs-12" ng-show="showSwiftNumber">
+    <div class="input-group margin-bottom-sm col-xs-12">
+        <span class="input-group-addon">{{'accounting.swiftNumber' | translate}}</span>
+        <input type="text" class="form-control txtlefttoright" name="swiftNumber"
+               ui-mask="{{swiftNumberMask}}"
+               autofocus data-ng-model="result.swiftNumber"/>
+    </div>
+</div>
+
+<div class="col-xs-12" ng-show="showPaypalAccount">
+    <div class="input-group margin-bottom-sm col-xs-12">
+        <span class="input-group-addon">{{'accounting.paypalAccount' | translate}}</span>
+        <input type="email" class="form-control txtlefttoright" name="paypalAccount"
+               autofocus data-ng-model="result.paypalAccount" placeholder="mail@info.com" />
+    </div>
+    <span message-type ng-show="!myForm.paypalAccount.$valid && showError" translate="validate.validMessage" translate-values="{element: '{{'common.email' | translate}}'}"></span>
+</div>

@@ -1,0 +1,195 @@
+﻿<section class="content-header">
+    <h1>
+        {{editMode ? ('common.edit' | translate) : ('common.new' | translate)}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/accounting/useraccountcreditlist">{{'accounting.userAccountCredits' | translate}}</a></li>
+        <li class="active">{{editMode ? ('common.edit' | translate) : ('common.new' | translate)}}</li>
+    </ol>
+</section>
+<section class="content row">
+    <div class="row" ng-form="myForm">
+        <div class="col-xs-12 margin-bottom-lg" ng-if="editMode">
+            <div class="panel panel-default pdt-5">
+                <div class="panel-body txtlgh txt-sm row">
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.accountCredit' | translate}}: </span>{{resultForDisplay.accountName}}</div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.balance' | translate}}: </span><span class="prcblk">{{resultForDisplay.accountBalance | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 shp-blk"><span class="label">{{'accounting.blocked' | translate}}: </span><span class="prcblk">{{resultForDisplay.accountBlocked | currency:"":shopFractionSize}} <small>{{shopCurrency}}</small></span></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="margin-bottom-md col-md-6 col-sm-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="title" placeholder=" " name="title"
+                       required autofocus data-ng-model="result.title"/>
+                <label for="title">{{'common.title' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.title.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.title' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <select class="form-control col-md-12" ng-model="result.creditTypeId" name="creditTypeId" id="creditTypeId" required
+                        ng-options="item.id as item.name | translate for item in creditTypeList"></select>
+                <label for="creditTypeId">{{'accounting.creditType' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.creditTypeId.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'accounting.creditType' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12" ng-if="false">
+            <div class="input-group has-float-label">
+                <select class="form-control col-md-12" ng-model="result.viewType" name="viewType" id="viewType" required
+                        ng-options="item.id as item.name | translate for item in creditViewTypeList"></select>
+                <label for="viewType">{{'common.viewType' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.viewType.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.viewType' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <select class="form-control col-md-12" ng-model="result.defaultAccountPolicyProfileId" name="defaultAccountPolicyProfileId" id="defaultAccountPolicyProfileId" required
+                        ng-options="item.id as item.name for item in accountPolicyProfileList"></select>
+                <label for="defaultAccountPolicyProfileId">{{'accounting.accountPolicyProfile' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.defaultAccountPolicyProfileId.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'accounting.accountPolicyProfile' | translate}}'}"></span>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control ltr-input" placeholder=" "
+                       name="creditAmount" id="creditAmount" autofocus ng-required="true" min="1"  limit-to-max
+                       data-ng-model="result.creditAmount" money-box/>
+                <label for="creditAmount">{{'accounting.creditAmount' | translate}}</label>
+                <span class="input-group-addon">{{shopCurrency}}</span>
+            </div>
+            <span message-type ng-show="myForm.creditAmount.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'accounting.creditAmount' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control ltr-input" placeholder=" " ng-required="true"
+                       name="creditAmountPerUser" id="creditAmountPerUser" autofocus min="1"  limit-to-max
+                       data-ng-model="result.creditAmountPerUser" money-box/>
+                <label for="creditAmountPerUser">{{'accounting.creditAmountPerUser' | translate}}</label>
+                <span class="input-group-addon">{{shopCurrency}}</span>
+            </div>
+            <span message-type ng-show="myForm.creditAmountPerUser.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'accounting.creditAmountPerUser' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12" ng-show="editMode">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control ltr-input" placeholder=" " ng-disabled="true"
+                       name="remainCreditAmount" id="remainCreditAmount" autofocus
+                       data-ng-model="resultForDisplay.remainCreditAmount" money-box/>
+                <label for="remainCreditAmount">{{'accounting.remainCreditAmount' | translate}}</label>
+                <span class="input-group-addon">{{shopCurrency}}</span>
+            </div>
+        </div>
+
+        <!--<div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control ltr-input" placeholder=" "
+                       name="minCreditAmountAlarm" id="minCreditAmountAlarm" autofocus
+                       data-ng-model="result.minCreditAmount" money-box/>
+                <label for="minCreditAmountAlarm">{{'accounting.minCreditAmountAlarm' | translate}}</label>
+                <span class="input-group-addon">{{shopCurrency}}</span>
+            </div>
+        </div>-->
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="issuer" placeholder=" " name="issuer"
+                       autofocus data-ng-model="result.issuer"/>
+                <label for="issuer">{{'accounting.issuer' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="clearfix"  ng-if="editMode"></div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <adm-dtp ng-model='result.expireDate' placeholder="' '"
+                         full-data="expireDate_detail" ng-required="false"
+                         ng-name="'expireDate'" ng-id="'expireDate'"></adm-dtp>
+                <label for="expireDate">{{'common.expireDate' | translate}}</label>
+            </div>
+            <!--<span message-type ng-show="myForm.expireDate.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.expireDate' | translate}}'}"></span>-->
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12 pdt-5" ng-show="editMode">
+            <div class="input-group has-float-label">
+                <span>{{'common.status' | translate}}: </span>
+                <span class="label label-{{result.active ? 'success' : 'danger'}}">{{result.active ? ('common.active' | translate) : ('common.inactive' | translate)}}</span>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <fieldset class="scheduler-border row col-xs-12">
+            <legend class="scheduler-border">
+                <label>
+                    <input type="checkbox" name="spendingRestrictions" id="spendingRestrictions" autofocus
+                           ng-model="result.spendingRestrictions" />
+                    {{'accounting.spendingRestrictions' | translate}}
+                </label>
+            </legend>
+
+            <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+                <div class="input-group has-float-label">
+                    <input type="text" class="form-control ltr-input" placeholder="" name="rateRestrictions" id="rateRestrictions" autofocus
+                           ng-disabled="!result.spendingRestrictions" ng-required="result.spendingRestrictions"
+                           data-ng-model="result.rateRestrictions" numbers-only min="1" max="99" limit-to-max/>
+                    <label for="rateRestrictions">{{'حداکثر درصد از هر خرید' | translate}}</label>
+                    <span class="input-group-addon">{{'common.precent' | translate}}</span>
+                </div>
+                <span message-type ng-show="myForm.rateRestrictions.$error.required && showError" translate="validate.requiredMessage" translate-values="{element: '{{'common.precent' | translate}}'}"></span>
+            </div>
+
+            <div class="margin-bottom-md col-md-3 col-sm-6 col-xs-12">
+                <div class="input-group has-float-label">
+                    <input type="text" class="form-control ltr-input" placeholder=" "
+                           ng-disabled="!result.spendingRestrictions" min="1"  limit-to-max
+                           name="maxAmountRestrictions" id="maxAmountRestrictions" autofocus
+                           data-ng-model="result.maxAmountRestrictions" money-box/>
+                    <label for="maxAmountRestrictions">{{'حداکثر تا مبلغ' | translate}}</label>
+                    <span class="input-group-addon">{{shopCurrency}}</span>
+                </div>
+                <!--<span message-type ng-show="myForm.maxAmountRestrictions.$error.required && showError" translate="validate.requiredMessage" translate-values="{element: '{{'common.maximum' | translate}}'}"></span>-->
+            </div>
+
+        </fieldset>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <textarea cols="40" rows="3" class="form-control" style="height:100px" placeholder=" "
+                          name="description" id="description" data-ng-model="result.description"></textarea>
+                <label for="description">{{'common.description' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-md-12 dvnewbutton">
+            <button class="btn {{result.active ? 'btn-danger' : 'btn-primary'}}" ng-show="editMode" style="font-weight:100;" id="changeState" ng-click="changeStateAccountCreditDetail(result)">
+                    {{result.active ? ('common.disable' | translate) : ('common.enable' | translate)}}
+            </button>
+            <button class="btn btn-primary" style="font-weight:100;" ng-click="ok()" button-type="ok">
+            </button>
+            <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+        </div>
+    </div>
+
+</section>

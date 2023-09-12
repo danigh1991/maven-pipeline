@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>samat-framwork</artifactId>
+        <groupId>com.core</groupId>
+        <version>3.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>basefile</artifactId>
+    <packaging>jar</packaging>
+    <name>basefile</name>
+    <description>basefile Project</description>
+
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>assets/html-builder/assets/**/*.js</exclude>
+                    <exclude>assets/html-builder/assets/**/*.less</exclude>
+                    <exclude>assets/html-builder/assets/**/*.css</exclude>
+                    <exclude>assets/html-builder/assets/**/*.css.map</exclude>
+                    <!---->
+                    <exclude>assets/html-builder/box/**/*.js</exclude>
+                    <exclude>assets/html-builder/box/**/*.less</exclude>
+                    <exclude>assets/html-builder/box/**/*.css</exclude>
+                    <exclude>assets/html-builder/box/**/*.css.map</exclude>
+                    <!---->
+                    <exclude>assets/html-builder/contentbox/**/*.js</exclude>
+                    <exclude>assets/html-builder/contentbox/**/*.less</exclude>
+                    <exclude>assets/html-builder/contentbox/**/*.css</exclude>
+                    <exclude>assets/html-builder/contentbox/**/*.css.map</exclude>
+                    <!---->
+                    <exclude>assets/html-builder/contentbuilder/icons/**</exclude>
+                    <exclude>assets/html-builder/contentbuilder/contentbuilder.js</exclude>
+                    <!--<exclude>assets/html-builder/contentbuilder/saveimages.js</exclude>
+                    <exclude>assets/html-builder/contentbuilder/jquery-ui.min.js</exclude>
+                    <exclude>assets/html-builder/contentbuilder/load-image.all.min.js</exclude>-->
+                    <exclude>assets/html-builder/contentbuilder/**/*.less</exclude>
+                    <exclude>assets/html-builder/contentbuilder/**/*.css</exclude>
+                    <exclude>assets/html-builder/contentbuilder/**/*.css.map</exclude>
+                    <!---->
+                    <exclude>assets/html-builder/*.less</exclude>
+                    <exclude>assets/html-builder/*.css.map</exclude>
+                    <exclude>assets/html-builder/app.js</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,36 @@
+<div class="col-md-4 col-xs-12" ng-if="false" ng-show="options.allowFilter && !serverSideMode">
+    <div class="input-group margin-bottom-sm col-md-12 col-sm-12">
+        <span class="input-group-addon">{{'common.search' | translate}}</span>
+        <input type="text" class="form-control" name="bzquery" autofocus data-ng-model="bzquery" ng-change="search()"/>
+    </div>
+</div>
+<div class="clearfix" ng-if="false"></div>
+
+<div ng-include class="col-xs-12 row pd-0 mg-0 grid-panel" style="min-height: {{options.panelHeight + 'px'}}" src="dataTemplate"></div>
+
+<div class="clearfix"></div>
+<!-- pager -->
+<div ng-if="pager.pages.length">
+    <span class="pull-left" style="display: flex;align-items: center;margin-top: 20px;">{{'pager.pageSize' | translate}}:&nbsp;
+        <select ng-model="options.pageSize" class="selcntr" ng-options="item as item for item in pageSizeList"
+                ng-change="pageSizeChange()" style="min-width: 60px;">
+        </select>
+    </span>
+    <ul class="pagination">
+        <li ng-class="{disabled:pager.currentPage === 1}" ng-disabled="pager.currentPage === 1">
+            <a ng-click="pager.currentPage !== 1 && setPage(1)">{{'pager.first' | translate}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === 1}">
+            <a ng-click="pager.currentPage !== 1 && setPage(pager.currentPage - 1)">{{'pager.previous' | translate}}</a>
+        </li>
+        <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+            <a ng-click="pager.currentPage !== page && setPage(page)">{{page}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="pager.currentPage !== pager.totalPages && setPage(pager.currentPage + 1)">{{'pager.next' | translate}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="pager.currentPage !== pager.totalPages && setPage(pager.totalPages)">{{'pager.last' | translate}}</a>
+        </li>
+    </ul>
+</div>

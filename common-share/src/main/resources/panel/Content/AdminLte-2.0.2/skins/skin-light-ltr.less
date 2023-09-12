@@ -1,0 +1,71 @@
+/*
+ * Skin: Black Left To Right
+ * -----------
+ */
+
+/* skin-black navbar */
+.mbdltr {
+  .skin-light {
+    //Navbar & Logo
+    .main-header {
+      .navbar-brand {
+        border-right: 1px solid #eee;
+      }
+
+      > .navbar {
+        > .sidebar-toggle {
+          border-right: 1px solid #eee;
+        }
+
+        .navbar-nav {
+          > li > a {
+            border-right: 1px solid #eee;
+          }
+        }
+
+        .navbar-custom-menu .navbar-nav,
+        .navbar-right {
+          > li {
+            > a {
+              border-left: 1px solid #eee;
+              border-right-width: 0;
+            }
+          }
+        }
+      }
+
+      > .logo {
+        .logo-variant(#fff; #333);
+        border-right: 1px solid #eee;
+        @media (max-width: @screen-header-collapse) {
+          .logo-variant(#222; #fff);
+          border-right: none;
+        }
+      }
+
+    }
+
+    // the menu
+    .sidebar > .sidebar-menu > li {
+      > a {
+        margin-right: 1px;
+        border-left: 3px solid transparent;
+      }
+
+      //Hover and active states
+      > a:hover,
+      &.active > a {
+        border-left-color: #fff;
+      }
+    }
+
+    //Sidebar Search Form
+    .sidebar-form {
+      input[type="text"] {
+        &:focus + .input-group-btn .btn {
+          border-left-color: #fff;
+        }
+      }
+    }
+  }
+}

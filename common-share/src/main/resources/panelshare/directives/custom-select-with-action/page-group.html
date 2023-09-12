@@ -1,0 +1,12 @@
+<div ng-class="options.dropDownClass">
+    <span class="input-group-addon">گروه بندی</span>
+    <div custom-select="g.title for g in pageGroups | filter: $searchTerm"
+         custom-select-options="pageGroupsOptions" ng-disabled="options.disabled"
+         ng-model="selectedPageGroup" ng-save-state="pggrp_storeStateName" disable-save-state={{options.saveState}} ></div>
+
+</div>
+<div ng-if="options.showButton" ng-class="options.buttonListClass">
+    <button ng-click="addPageGroup()" title="تعریف گروه بندی" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
+    <button ng-click="editPageGroup()" ng-disabled="!(selectedPageGroup && selectedPageGroup.id > 0)" title="ویرایش گروه بندی" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></button>
+    <button ng-click="deletePageGroup()" deletebutton ng-disabled="!(selectedPageGroup && selectedPageGroup.id > 0)" title="حذف گروه بندی" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
+</div>

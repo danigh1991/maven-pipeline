@@ -1,0 +1,133 @@
+﻿<style>
+    .input-group-addon {
+        min-width: 97px;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        {{editMode ? 'تعریف نقش' : 'ویرایش نقش'}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/accessright/roles">لیست نقش ها</a></li>
+        <li class="active">{{editMode ? 'تعریف نقش' : 'ویرایش نقش'}}</li>
+    </ol>
+</section>
+<section class="content row">
+    <div class="row" ng-form="myForm">
+
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="name" placeholder=" " name="name"
+                       required autofocus data-ng-model="result.name"/>
+                <label for="name">{{'common.name' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.name.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.name' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <select class="form-control col-md-12" ng-model="result.roleType" name="selectedRoleTypeId" id="selectedRoleTypeId"
+                        ng-options="item.id as item.name for item in roleTypeList"></select>
+                <label for="selectedRoleTypeId">نوع</label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-12 col-xs-12">
+            <div class="input-group has-float-label">
+                <textarea cols="40" rows="3" class="form-control" style="height:100px" placeholder=" "
+                          name="description" id="description" data-ng-model="result.description"></textarea>
+                <label for="description">{{'common.description' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <label><input type="checkbox" name="active" ng-checked="result.active" ng-model="result.active"/> فعال</label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <label><input type="checkbox" name="defaultRole" ng-checked="result.defaultRole" ng-model="result.defaultRole"/> نقش پیش
+                فرض</label>
+            <p class="txt-xs bullettinfo xs bg-success text-danger">
+                نقش های پیشفرض، در زمان ثبت نام به کاربر اختصاص داده می شوند.
+            </p>
+        </div>
+
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="panel panel-default box-accordion">
+                <div class="panel-heading">
+                    <!--<div class="input-group margin-bottom-sm">
+                        <span class="input-group-addon" style="min-width:40px"><i class="fa fa-search"
+                                                                          aria-hidden="true"></i></span>
+                        <input type="text" id="query" class="form-control" ng-model="query" placeholder="جستجو"/>
+                    </div>-->
+                    دسترسی ها
+                </div>
+                <div class="panel-body" style="height: 350px;overflow-y: auto;" ng-if="result.activities">
+                    <script type="text/ng-template" id="tree_item_renderer.html">
+                        <span class="lblbzt">
+                            <i ng-click="setExpand(data)" ng-if="data.hasAnyChild && query == ''" class="down"></i>
+                            <label ng-click="selectNode(this, data)" ng-class="{'has-child' : data.hasAnyChild}">
+                                <input type="checkbox" ng-model="data.selected" ng-change="changeAccess(data, data.selected)"/>
+                                {{ data.text }}
+                            </label>
+                        </span>
+
+                        <ul ng-show="data.expand == true || query != ''">
+                            <li ng-repeat="data in data.menuEntries | filter:query" class="bztli" ng-init="initNode(data)"
+                                ng-class="{'active' : data.expand == true || query != ''}"
+                                ng-include="'tree_item_renderer.html'"></li>
+                        </ul>
+                    </script>
+
+                    <ul class="ulbzt">
+                        <li ng-repeat="data in activities | filter:query" class="bztli" ng-init="initNode(data)"
+                            ng-class="{'active' : data.expand == true|| query != ''}"
+                            style="position:relative;" ng-include="'tree_item_renderer.html'"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="panel panel-default brandpanel">
+                <div class="panel-heading">
+                    دسترسی مدیریت فایل
+                </div>
+                <div class="panel-body" style="height: 200px;overflow-y: auto;">
+                    <ul style="padding-right:10px;">
+                        <li ng-repeat="fileManagerAction in fileManagerActions" class="col-md-5">
+                            <label class="lblcheckbox">
+                                <input type="checkbox" class="chkcheckbox" checklist-model="result.fileManagerActions" checklist-value="fileManagerAction.id" >
+                                {{fileManagerAction.name}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-md-12 dvnewbutton">
+            <button class="btn btn-primary" ng-click="ok()">ثبت
+                اطلاعات
+            </button>
+            <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+        </div>
+    </div>
+
+</section>

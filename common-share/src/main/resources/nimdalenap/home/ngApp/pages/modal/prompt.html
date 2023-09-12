@@ -1,0 +1,31 @@
+﻿<div class="content-header">
+    <h1>{{title}}</h1>
+</div>
+<div class="content row" style="min-height: unset;">
+    <div class="form-group">
+        <div class="col-sm-12" id="messageplaceholder" ng-bind-html="message">
+        </div>
+        <br><!--<br>-->
+        <div class="margin-bottom-md col-xs-12" ng-hide="inputType != 'input'">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="inputCaption" name="inputCaption" autofocus
+                       placeholder=" "
+                       data-ng-model="inputText"/>
+                <label for="inputCaption">{{inputCaption}}{{required ? ' *' : ''}}</label>
+            </div>
+        </div>
+        <div class="margin-bottom-md col-xs-12" ng-hide="inputType != 'textarea'">
+            <div class="input-group has-float-label">
+                <textarea type="text" class="form-control" id="textareaCaption" name="textareaCaption" autofocus
+                       placeholder=" "
+                       data-ng-model="textareaText"/>
+                <label for="textareaCaption">{{inputCaption}}{{required ? ' *' : ''}}</label>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer dvnewbutton">
+    <button class="btn btn-primary" type="button" ng-click="confirm()">{{confirmText}}</button>
+    <button class="btn btn-danger" type="button" ng-click="cancel()" button-type="cancel"></button>
+</div>

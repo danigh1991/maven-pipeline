@@ -1,0 +1,182 @@
+﻿<style>
+    .input-group-addon {
+        min-width: 97px;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        {{'accounting.operationType' | translate}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/common/menulist">{{'accounting.operationTypes' | translate}}</a></li>
+        <li class="active">{{'accounting.operationType' | translate}}</li>
+    </ol>
+</section>
+<section class="content row">
+    <div class="row" ng-form="myForm">
+
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="name" placeholder=" " name="name"
+                       required autofocus data-ng-model="result.name"/>
+                <label for="name">{{'common.name' | translate}}</label>
+            </div>
+            <span message-type ng-show="myForm.name.$error.required && showError" translate="validate.requiredMessage"
+                  translate-values="{element: '{{'common.name' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control" id="code" placeholder=" " name="code"
+                       required autofocus data-ng-model="readOnlyResult.code" ng-disabled="true"/>
+                <label for="code">{{'common.code' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="margin-bottom-md col-md-3 col-xs-12">
+            <label><input type="checkbox" name="active" ng-checked="result.active" ng-model="result.active"/>{{'common.active' | translate}}</label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <div class="input-group has-float-label">
+                <textarea cols="40" rows="3" class="form-control" style="height:100px" placeholder=" "
+                          name="description" id="description" data-ng-model="result.description"></textarea>
+                <label for="description">{{'common.description' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="margin-bottom-md col-xs-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">{{'common.limits' | translate}}</legend>
+                <div class="margin-bottom-md col-md-4 col-xs-12">
+                    <div class="input-group has-float-label">
+                        <input type="text" class="form-control ltr-input" placeholder=" "
+                               name="minAmount" id="minAmount" autofocus
+                               data-ng-model="result.minAmount" required money-box/>
+                        <label for="minAmount">{{'common.minAmount' | translate}} *</label>
+                        <span class="input-group-addon">{{shopCurrency}}</span>
+                    </div>
+                    <span message-type
+                          ng-show="myForm.minAmount.$error.required && showError" translate="validate.requiredMessage"
+                          translate-values="{element: '{{'common.minAmount' | translate}}'}"></span>
+                </div>
+
+                <div class="margin-bottom-md col-md-4 col-xs-12">
+                    <div class="input-group has-float-label">
+                        <input type="text" class="form-control ltr-input" placeholder=" "
+                               name="maxAmount" id="maxAmount" autofocus
+                               data-ng-model="result.maxAmount" money-box/>
+                        <label for="maxAmount">{{'common.maxAmount' | translate}}</label>
+                        <span class="input-group-addon">{{shopCurrency}}</span>
+                    </div>
+                </div>
+
+                <div class="margin-bottom-md col-md-4 col-xs-12">
+                    <div class="input-group has-float-label">
+                        <input type="text" class="form-control ltr-input" placeholder=" "
+                               name="globalMaxDailyAmount" id="globalMaxDailyAmount" autofocus
+                               data-ng-model="result.globalMaxDailyAmount" money-box/>
+                        <label for="globalMaxDailyAmount">{{'accounting.globalMaxDailyAmount' | translate}}</label>
+                        <span class="input-group-addon">{{shopCurrency}}</span>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">{{'common.wage' | translate}}</legend>
+                <div class="margin-bottom-md col-md-4 col-xs-12">
+                    <div class="input-group has-float-label">
+                        <select class="form-control col-md-12" ng-model="result.wageType" name="selectedWageTypeId" id="selectedWageTypeId"
+                                ng-options="item.id as item.name | translate for item in wageTypeList"></select>
+                        <label for="selectedWageTypeId">{{'common.wageType' | translate}}</label>
+                    </div>
+                </div>
+                <div class="margin-bottom-md col-md-4 col-xs-12" ng-show="result.wageType == 1">
+                    <div class="input-group has-float-label">
+                        <input type="text" class="form-control ltr-input" placeholder=" "
+                               name="wageRate" id="wageRate" autofocus
+                               data-ng-model="result.wageRate" money-box/>
+                        <label for="wageRate">{{'common.precent' | translate}}</label>
+                        <span class="input-group-addon">{{'common.precent' | translate}}</span>
+                    </div>
+                </div>
+
+                <div class="margin-bottom-md col-md-4 col-xs-12" ng-show="result.wageType == 2">
+                    <div class="input-group has-float-label">
+                        <input type="text" class="form-control ltr-input" placeholder=" "
+                               name="wageAmount" id="wageAmount" autofocus
+                               data-ng-model="result.wageAmount" money-box/>
+                        <label for="wageAmount">{{'common.amount' | translate}}</label>
+                        <span class="input-group-addon">{{shopCurrency}}</span>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+
+        <div class="margin-bottom-md col-xs-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">{{'accountingOperation.validAmounts' | translate}}</legend>
+                <div class="row">
+                    <div class="margin-bottom-md col-md-4 col-xs-10" >
+                        <div class="input-group has-float-label">
+                            <input type="text" class="form-control ltr-input" placeholder=" "
+                                   name="defaultAmount" id="defaultAmount" autofocus enter-event="addDefaultAmount()"
+                                   data-ng-model="defaultAmount" money-box/>
+                            <label for="defaultAmount">{{'common.amount' | translate}}</label>
+                            <span class="input-group-addon">{{shopCurrency}}</span>
+                        </div>
+                        <span message-type ng-show="!defaultAmount && showDefaultAmountError" translate="validate.requiredMessage"
+                              translate-values="{element: '{{'common.amount' | translate}}'}"></span>
+                    </div>
+
+                    <div class="margin-bottom-lg col-xs-2">
+                        <button class="btn btn-primary fa fa-plus"
+                                id="addDefaultAmount"
+                                ng-click="addDefaultAmount()">
+                        </button>
+                    </div>
+                </div>
+                <div class="row margin-bottom-md">
+                <span class="bzttag" ng-repeat="defaultAmount in result.defaultAmounts track by $index">
+                    <span>{{defaultAmount | currency : '' : shopFractionSize}} {{shopCurrency}}</span>
+                    <span ng-click="removeDefaultAmount(defaultAmount)" class="fa fa-remove"></span>
+                </span>
+                </div>
+
+            </fieldset>
+        </div>
+
+        <div class="margin-bottom-md col-md-4 col-xs-12">
+            <div class="input-group has-float-label">
+                <select class="form-control col-md-12" ng-model="readOnlyResult.sourceType" name="sourceType" id="sourceType" ng-disabled="true"
+                        ng-options="item.id as item.name | translate for item in operationSourceTypeList"></select>
+                <label for="sourceType">{{'accountingOperation.sourceType' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="margin-bottom-md col-md-4 col-xs-12">
+            <label><input type="checkbox" name="starter" ng-checked="readOnlyResult.starter" ng-model="readOnlyResult.starter" ng-disabled="true"/>{{'accountingOperation.strater' | translate}}</label>
+        </div>
+
+        <div class="margin-bottom-md col-md-4 col-xs-12">
+            <label><input type="checkbox" name="notify" ng-checked="result.notify" ng-model="result.notify"/>{{'common.notify' | translate}}</label>
+        </div>
+
+        <div class="col-md-12 dvnewbutton">
+            <button class="btn btn-primary" ng-click="ok()" button-type="ok">
+            </button>
+            <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+        </div>
+    </div>
+
+</section>

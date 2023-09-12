@@ -1,0 +1,75 @@
+﻿<section class="content-header">
+    <h1>
+        {{'common.activities' | translate}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li class="active">{{'common.activities' | translate}}</li>
+    </ol>
+</section>
+<section class="content col-xs-12">
+
+    <div class="text-center">
+        <div class="btn-group margin-bottom-md" role="group">
+
+            <input type="radio" class="btn-check" name="panelType" id="panelType0" autocomplete="off"
+                   value="0" ng-model="panelType"/>
+            <label class="btn button-outline" for="panelType0">{{'common.all' | translate}}</label>
+
+            <input type="radio" class="btn-check" name="panelType" id="panelType1" autocomplete="off"
+                   value="1" ng-model="panelType"/>
+            <label class="btn button-outline" for="panelType1">{{'common.userPanel' | translate}}</label>
+
+            <input type="radio" class="btn-check" name="panelType" id="panelType2" autocomplete="off"
+                   value="2" ng-model="panelType"/>
+            <label class="btn button-outline" for="panelType2">{{'common.adminPanel' | translate}}</label>
+
+            <input type="radio" class="btn-check" name="panelType" id="panelType3" autocomplete="off"
+                   value="3" ng-model="panelType"/>
+            <label class="btn button-outline" for="panelType3">{{'common.otherActivities' | translate}}</label>
+
+        </div>
+    </div>
+
+    <div class="margin-bottom-md col-xs-12">
+        <div class="panel panel-default box-accordion">
+            <div class="panel-heading">
+                <!--<div class="input-group margin-bottom-sm">
+                    <span class="input-group-addon" style="min-width:40px"><i class="fa fa-search"
+                                                                      aria-hidden="true"></i></span>
+                    <input type="text" id="query" class="form-control" ng-model="query" placeholder="جستجو"/>
+                </div>-->
+                {{'common.activities' | translate}}
+            </div>
+            <div class="panel-body" style="height: calc(100vh - 400px);min-height: 350px;overflow-y: auto;" ng-if="activities">
+                <script type="text/ng-template" id="tree_item_renderer.html">
+                    <div class="lblbzt">
+                        <i ng-click="setExpand(data)" ng-if="data.hasAnyChild && query == ''" class="down"></i>
+                        <label ng-click="selectNode(this, data)" ng-class="{'has-child' : data.hasAnyChild, 'text-muted' : !data.active}">
+                            {{ data.text }}
+                        </label>
+                        <div class="btn-actions btn-group">
+                            <button class="btn btn-xs btn-success" ng-click="editActivity(data.id)"><i class="fa fa-pencil"></i></button>
+                        </div>
+                    </div>
+
+                    <ul ng-show="data.expand == true || query != ''">
+                        <li ng-repeat="data in data.menuEntries | filter:panelTypeFilter" class="bztli" ng-init="initNode(data)"
+                            ng-class="{'active' : data.expand == true || query != '', 'text-muted' : !data.active}"
+                            ng-include="'tree_item_renderer.html'"></li>
+                    </ul>
+                </script>
+
+                <ul class="ulbzt">
+                    <li ng-repeat="data in activities | filter:panelTypeFilter" class="bztli" ng-init="initNode(data)"
+                        ng-class="{'active' : data.expand == true || query != '', 'text-muted' : !data.active}"
+                        style="position:relative;" ng-include="'tree_item_renderer.html'"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="dvnewbutton col-xs-12">
+        <button class="btn btn-primary" backbutton></button>
+    </div>
+</section>

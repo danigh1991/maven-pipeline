@@ -1,0 +1,161 @@
+﻿<section class="content-header">
+    <h1>
+        {{'accounting.checkRefundRequest' | translate}}
+    </h1>
+    <ol class="breadcrumb" ng-show="showBreadcrump">
+        <li><a href="#!/dashboard"><i class="fa fa-dashboard"></i>{{'common.home' | translate}}</a></li>
+        <li><a href="#!/store/productlist">{{'accounting.refundRequestList' | translate}}</a></li>
+        <li class="active">{{'accounting.checkRefundRequest' | translate}}</li>
+    </ol>
+</section>
+
+<section class="content" ng-form="myForm">
+
+    <div id="SmalBoxes" class="row col-xs-12">
+        <div class="col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-usd"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">{{'accounting.balance' | translate}}</span>
+                    <span class="info-box-number">{{accountInfo.balance | currency:"":shopFractionSize}}<small>{{shopCurrency}}</small></span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="ion ion-ios-locked-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">{{'accounting.blocked' | translate}}</span>
+                    <span class="info-box-number">{{accountInfo.block | currency:"":shopFractionSize}}<small>{{shopCurrency}}</small></span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+    </div>
+
+    <fieldset class="scheduler-border col-xs-12 row">
+        <legend class="scheduler-border">{{'accounting.checkRequestedMoney' | translate}}</legend>
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <label>{{'accounting.applicant' | translate}} : {{result.reqUserName}}</label>
+        </div>
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <label>{{'accounting.requestData' | translate}} : {{result.createDate}}</label>
+        </div>
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <label>{{'accounting.checkRequestedAmount' | translate}} : {{result.reqAmount | currency : "" : shopFractionSize}} {{shopCurrency}}</label>
+        </div>
+        <div class="margin-bottom-md col-md-6 col-xs-12" ng-show="result.status==0">
+            <label>{{'accounting.depositToAccountNumber' | translate}} {{result.financeDestCaption}} : {{result.financeDestValue}}</label>
+        </div>
+        <div class="clearfix"></div>
+        <div class="margin-bottom-md col-md-12 col-xs-12">
+            <div class="input-group has-float-label">
+            <textarea class="form-control" placeholder=" " id="reqDesc" name="reqDesc" ng-disabled="true"
+                      autofocus data-ng-model="result.reqDesc"/>
+                <label for="reqDesc">{{'common.description' | translate}}</label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </fieldset>
+
+    <fieldset class="scheduler-border col-xs-12 row" ng-show="result.status == 1 || result.status == 2">
+        <legend class="scheduler-border">{{'accounting.depositInfo' | translate}}</legend>
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <label>{{'accounting.depositor' | translate}} : {{result.payUserName ? result.payUserName : "--"}}</label>
+        </div>
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <adm-dtp ng-model='result.payDate' placeholder="' '" ng-name="'payDate'" ng-id="'payDate'" ng-required="newStatus == 2"></adm-dtp>
+                <label for="payDate">{{'accounting.depositDate' | translate}} *</label>
+            </div>
+            <span message-type ng-show="payDateShowError && showError" translate="validate.requiredMessage" translate-values="{element: '{{'accounting.depositDate' | translate}}'}"></span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <select class="form-control col-md-12" ng-model="result.payBankId" name="payBank" id="payBank"
+                        ng-options="item.id as item.name for item in result.bankAllowAccountIntro">
+                    <option value="" translate="common.selectElement" translate-values="{element: '{{'common.bank' | translate}}'}"></option>
+                </select>
+                <label for="payBank">{{'accounting.depositFromBank' | translate}}</label>
+            </div>
+            <span message-type ng-show="payBankShowError && showError" translate="validate.requiredMessage" translate-values="{element: '{{'accounting.depositFromBank' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control ltr-input" placeholder=" " name="payBankRef" id="payBankRef" autofocus
+                       data-ng-model="result.payBankRef"/>
+                <label for="payBankRef">{{'accounting.bankTrackingNumber' | translate}}</label>
+            </div>
+            <span message-type ng-show="payBankRefShowError && showError" translate="validate.requiredMessage" translate-values="{element: '{{'accounting.bankTrackingNumber' | translate}}'}"></span>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <select class="form-control col-md-12" ng-model="result.toBankId" name="toBank" id="toBank"
+                        ng-options="item.id as item.name for item in result.bankAllowAccountIntro">
+                    <option value="" translate="common.selectElement" translate-values="{element: '{{'common.bank' | translate}}'}"></option>
+                </select>
+                </select>
+                <label for="toBank">{{'depositToBank' | translate}}</label>
+            </div>
+            <span message-type ng-show="toBankShowError && showError" translate="validate.requiredMessage" translate-values="{element: '{{'accounting.depositToBank' | translate}}'}"></span>
+        </div>
+
+        <div class="margin-bottom-md col-md-6 col-xs-12">
+            <div class="input-group has-float-label">
+                <input type="text" class="form-control txtlefttoright" name="financeDestValue" id="financeDestValue" numbers-only
+                       autofocus data-ng-model="result.financeDestValue" ng-required="true"/>
+                <label for="financeDestValue">{{'accounting.depositToAccountNumber' | translate}} {{result.financeDestCaption}}</label>
+            </div>
+            <span message-type ng-show="toAccountNumberShowError && showError" translate="validate.requiredMessage" translate-values="{element: '{{'accounting.depositToAccountNumber' | translate}}'}"></span>
+            <!--<span style="color:red;padding-right: 20px;" ng-show="toAccountNumberShowError && showError" translate="validate.requiredMessage" translate-values="{{'accounting.depositToAccountNumber' | translate}}"></span>-->
+            <!--<span message-type ng-show="toAccountNumberShowMaxError && showError" translate="common.maxDigits" translate-values="{element: '35'}"></span>-->
+        </div>
+        <div class="clearfix"></div>
+    </fieldset>
+
+    <div class="margin-bottom-md col-md-6 col-xs-12" ng-show="result.statusTo && result.statusTo.length>0">
+        <div class="input-group has-float-label">
+            <select class="form-control col-md-12" ng-model="newStatus" name="statusTo" id="statusTo"
+                    ng-options="item.id as item.caption for item in result.statusTo">
+                <option value="" translate="common.selectElement" translate-values="{element: '{{'common.status' | translate}}'}"></option>
+            </select>
+            <label for="statusTo">{{'accounting.changeStatusTo' | translate}}</label>
+        </div>
+        <span message-type ng-show="statusToShowError && showError" translate="validate.requiredMessage" translate-values="{element: '{{'common.status' | translate}}'}"></span>
+    </div>
+    <div class="margin-bottom-md col-md-6 col-xs-12">
+        {{'accounting.currentState' | translate}}:
+        <span class="label label-danger">{{result.statusDesc}}</span>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="margin-bottom-md col-md-12 col-xs-12" ng-show="result.status == 1 || result.status == 2 || result.status == 3 || newStatus == 3">
+        <div class="input-group has-float-label">
+            <textarea class="form-control" placeholder=" " id="payDesc" name="payDesc"
+                      autofocus data-ng-model="result.payDesc"/>
+            <label for="payDesc">{{'common.description' | translate}}</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+
+    <div class="row dvnewbutton">
+        <button class="btn btn-primary" button-type="ok" id="processRequestRefundMoney" ng-show="result.statusTo && result.statusTo.length > 0" ng-click="processRequestRefundMoney()">
+        </button>
+        <button class="btn btn-primary" ng-click="closeModal()" button-type="back"></button>
+    </div>
+
+</section>

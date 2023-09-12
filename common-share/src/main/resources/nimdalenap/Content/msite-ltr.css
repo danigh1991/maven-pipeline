@@ -1,0 +1,133 @@
+.mbdltr {
+  /*#region Tree*/
+  /*#endregion Tree*/
+}
+.mbdltr #footer {
+  margin-right: unset;
+  margin-left: 230px;
+}
+.mbdltr.sidebar-collapse .main-header > .navbar {
+  margin-right: unset;
+  margin-left: 0px;
+}
+.mbdltr .box-header > .box-tools {
+  left: unset;
+  right: 10px;
+}
+.mbdltr .small-box .icon {
+  left: unset;
+  right: 10px;
+}
+.mbdltr .input-group-addon {
+  border-radius: 4px 0 0 4px !important;
+}
+.mbdltr .has-float-label .input-group-addon:last-child {
+  border-left: 0 !important;
+  border-right: 1px solid #ccc !important;
+  border-radius: 5px !important;
+}
+.mbdltr .form-control:-moz-placeholder {
+  direction: ltr;
+  text-align: left;
+}
+.mbdltr .form-control::-moz-placeholder {
+  direction: ltr;
+  text-align: left;
+}
+.mbdltr .form-control:-ms-input-placeholder {
+  direction: ltr;
+  text-align: left;
+}
+.mbdltr .form-control::-webkit-input-placeholder {
+  direction: ltr;
+  text-align: left;
+}
+.mbdltr .dvnewbutton {
+  text-align: right;
+}
+.mbdltr .pagination > li {
+  float: left;
+}
+.mbdltr .breadcrumb i.fa.fa-dashboard {
+  margin-left: unset;
+  margin-right: 5px;
+}
+.mbdltr legend.scheduler-border {
+  text-align: left !important;
+}
+.mbdltr .box-accordion .down {
+  right: auto;
+  left: -3.5px;
+}
+.mbdltr .ulbzt {
+  padding-right: unset;
+  padding-left: 5px;
+}
+.mbdltr .lblbzt label.has-child {
+  margin-right: unset;
+  margin-left: 20px;
+}
+.mbdltr .ulbzt li ul {
+  /*padding-left: 27px !important;*/
+  border-right: unset;
+  border-left: 1px dotted;
+  padding: 10px 0 0 0;
+  margin: -9px 10px 5px 6px;
+}
+.mbdltr .ulbzt ul li:before {
+  right: unset;
+  left: -5px;
+}
+.mbdltr .ulbzt ul li:last-child:after {
+  border-right: unset;
+  border-left: 1px solid #fff;
+  right: unset;
+  left: -6px;
+}
+.mbdltr .ulbzt > li > ul li ul {
+  margin-left: 29px !important;
+}
+.mbdltr .attrbox {
+  padding: 5px 50px 5px 5px;
+}
+.mbdltr .attrdel {
+  left: unset;
+  right: 20px;
+}
+.mbdltr .attredit {
+  left: unset;
+  right: 40px;
+}
+.mbdltr .adminVerifyButtonList {
+  position: relative;
+  text-align: left;
+}
+.mbdltr .modal-content .content-header > h1 {
+  text-align: left;
+}
+.mbdltr .modal-content .content-header > button.close {
+  left: unset;
+  right: 20px;
+}
+.mbdltr ng-data-table,
+.mbdltr div[ng-data-table] {
+  padding-left: 1px !important;
+  padding-right: 1px !important;
+  margin-left: 2px !important;
+  margin-right: 2px !important;
+}
+.mbdltr .dropboxwrp .btn-group {
+  left: unset;
+  right: 0;
+}
+@media (min-width: 768px) {
+  .mbdltr.sidebar-collapse #footer {
+    margin-left: 0;
+  }
+}
+@media (max-width: 768px) {
+  .mbdltr #footer {
+    margin-left: 0 !important;
+  }
+}
+/*# sourceMappingURL=msite-ltr.css.map */
